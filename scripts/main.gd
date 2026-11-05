@@ -93,6 +93,7 @@ var repeat_elapsed: float = 0.0
 var repeat_tile := Vector2i(-1, -1)
 var repeat_kind: String = ""
 var hud_elapsed: float = 0.0
+var idle_rest_time: float = 0.0
 var shop_page: int = 0
 const SHOP_PAGE_SIZE: int = 5
 var tool_buttons: Array[Button] = []
@@ -100,7 +101,6 @@ var objective_label: Label
 var action_label: Label
 var modal_scroll: ScrollContainer
 var modal_footer: Label
-var settings_back: String = "pause"
 var sleeping: bool = false
 var sleep_transition_time: float = 0.0
 var sleep_day_advanced: bool = false
@@ -120,6 +120,10 @@ var truck_cargo: Array[Dictionary] = []
 const TRUCK_CAPACITY: int = 6
 var walk_phase: float = 0.0
 var tool_charge: float = 0.0
+var charge_armed: bool = false
+var charge_needs_release: bool = false
+var box_trigger_held: bool = false
+var repeat_needs_release: bool = false
 var move_vector := Vector2.ZERO
 var selected_tool: int = 0
 var tool_names: Array[String] = ["Azada", "Regadera", "Semillas", "Hacha", "Pico", "Guadaña"]
@@ -146,9 +150,11 @@ var rain_today: bool = false
 var owned_parcels: int = 1
 var xp: Dictionary = {"Agricultura": 0, "Tala": 0, "Minería": 0, "Recolección": 0, "Comercio": 0}
 var modal: String = ""
+var modal_history: Array[String] = []
 var toast: String = ""
 var toast_time: float = 0.0
 var action_time: float = 0.0
+var sound_cooldown: float = 0.0
 var player_animation: String = "idle"
 var saved_once: bool = false
 var sfx_player: AudioStreamPlayer
@@ -182,6 +188,7 @@ func _ready() -> void:
 	sfx_player = AudioStreamPlayer.new(); sfx_player.volume_db = -8.0; add_child(sfx_player)
 	_make_world()
 	_build_hud()
+	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	_open_modal("title")
 	queue_redraw()
 
@@ -193,6 +200,8 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventKey or event is InputEventMouseButton or (event is InputEventMouseMotion and event.relative.length() > 2.0):
 		last_input_was_gamepad = false
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if last_input_was_gamepad else Input.MOUSE_MODE_VISIBLE
+	if event.is_action_released("move_box"): box_trigger_held = false
+	if event.is_action_released("charge_tool"): charge_needs_release = false
 	if sleeping: return
 	var key_repeat: bool = event is InputEventKey and event.echo
 	if key_repeat: return
@@ -234,10 +243,17 @@ func _input(event: InputEvent) -> void:
 		elif _can_quick_load(): _quick_load_truck()
 		else: _use_selected_tool()
 		repeat_elapsed = 0.0
+	elif event.is_action_pressed("move_box"):
+		if not box_trigger_held: _move_nearby_box()
+		box_trigger_held = true
 	elif event.is_action_pressed("charge_tool"):
-		tool_charge = 0.01
+		if not charge_armed and not charge_needs_release:
+			charge_armed = true
+			tool_charge = 0.01
 	elif event.is_action_released("charge_tool"):
-		if tool_charge > 0.0: _use_selected_tool()
+		if charge_armed and tool_charge > 0.0: _use_selected_tool()
+		charge_armed = false
+		tool_charge = 0.0
 	elif event.is_action_pressed("ui_cancel"):
 		if moving_box_index >= 0: _drop_carried_box()
 		else: _open_modal("pause")
@@ -275,15 +291,39 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.keycode in [KEY_EQUAL, KEY_KP_ADD, KEY_PLUS]: _set_zoom(camera_zoom + 0.1)
 		elif event.keycode in [KEY_MINUS, KEY_KP_SUBTRACT]: _set_zoom(camera_zoom - 0.1)
 
+func _exit_tree() -> void:
+	if is_instance_valid(sfx_player): sfx_player.stop()
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(modal_panel) and not at_title and not sleeping:
 		if modal == "": _open_modal("pause")
 		tool_charge = 0.0
 
+func _on_joy_connection_changed(_device: int, connected: bool) -> void:
+	if not connected and last_input_was_gamepad and not at_title and not sleeping and modal == "":
+		_open_modal("pause")
+		_show_toast("Mando desconectado · partida en pausa.")
+
+func _move_nearby_box() -> void:
+	if location != "farm" or truck_driving: return
+	if moving_box_index >= 0:
+		_drop_carried_box(); return
+	var best: int = -1
+	var distance: float = 81.0
+	for index: int in range(produce_box_tiles.size()):
+		var point := Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16)
+		var score := player_pos.distance_to(point)
+		if score < distance:
+			distance = score
+			best = index
+	if best >= 0: _pick_up_box(best)
+	else: _show_toast("Acércate a una caja para moverla.")
+
 func _back_from_modal() -> void:
 	if modal.begins_with("confirm_") or modal == "river_rest": _cancel_confirmation()
-	elif modal == "workshop": _open_modal("shop")
-	elif modal in ["settings", "controls"]: _open_modal(settings_back)
+	elif not modal_history.is_empty():
+		var parent: String = modal_history.pop_back()
+		_open_modal(parent, false)
 	elif at_title: _open_modal("title")
 	else: _close_modal()
 
@@ -341,6 +381,9 @@ func _primary_action(repeating: bool = false) -> void:
 	action_cooldown = 0.3
 
 func _update_repeated_action(delta: float) -> void:
+	if repeat_needs_release:
+		if not Input.is_action_pressed("interact") and not Input.is_action_pressed("use_tool"): repeat_needs_release = false
+		return
 	if tool_charge > 0.0 or not repeat_actions: return
 	if not Input.is_action_pressed("interact") and not Input.is_action_pressed("use_tool"):
 		repeat_elapsed = 0.0
@@ -572,6 +615,7 @@ func _inside_starting_field(tile: Vector2i) -> bool:
 
 func _process(delta: float) -> void:
 	action_cooldown = maxf(0.0, action_cooldown - delta)
+	sound_cooldown = maxf(0.0, sound_cooldown - delta)
 	road_exit_cooldown = maxf(0.0, road_exit_cooldown - delta)
 	if sleeping:
 		sleep_transition_time += delta
@@ -599,9 +643,11 @@ func _process(delta: float) -> void:
 		_update_movement(delta)
 		_update_clock(delta)
 		# Descansar quieto recupera energía despacio, sin saltarse el avance del día.
-		if move_vector.length() <= 0.12 and action_time <= 0.0:
-			energy = minf(100.0, energy + 0.2 * delta)
-		if Input.is_action_pressed("charge_tool"):
+		if move_vector.length() <= 0.12 and action_time <= 0.0 and not truck_driving:
+			idle_rest_time += delta
+			if idle_rest_time >= 2.0: energy = minf(100.0, energy + 1.5 * delta)
+		else: idle_rest_time = 0.0
+		if charge_armed and Input.is_action_pressed("charge_tool"):
 			tool_charge = minf(1.4, tool_charge + delta)
 		_update_repeated_action(delta)
 	hud_elapsed += delta
@@ -679,6 +725,7 @@ func _update_clock(delta: float) -> void:
 		_advance_day()
 
 func _advance_day() -> void:
+	var rain_yesterday: bool = rain_today
 	for prop: Dictionary in props:
 		Fruit.advance_day(prop, fruit_rng)
 	day += 1
@@ -696,7 +743,8 @@ func _advance_day() -> void:
 		if crop.season != SEASONS[season_index]:
 			plot["wilted"] = true
 		else:
-			plot = Rules.daily_growth(plot, rain_today)
+			plot = Rules.daily_growth(plot, rain_yesterday)
+			if rain_today and not bool(plot.get("wilted", false)): plot["watered"] = true
 		plots[key] = plot
 	energy = 100.0
 	water = mini(max_water, water + 5)
@@ -772,8 +820,8 @@ func _use_tool_at(tile: Vector2i, reach: float = 80.0) -> void:
 		if not _can_use_land(tile): _show_toast("Ese terreno aún no es tuyo."); return
 		if not plot.is_empty() and (not String(plot.get("crop_id", "")).is_empty() or String(plot.get("soil", "")) != "cleared"):
 			_show_toast("Limpia primero la hierba de esa casilla."); return
-		if plot.is_empty(): plot = {"soil":"tilled","crop_id":"","growth":0,"watered":false,"dry_days":0,"wilted":false}
-		else: plot.soil = "tilled"
+		if plot.is_empty(): _show_toast("Despeja primero la hierba con la guadaña."); return
+		plot.soil = "tilled"
 		plots[key] = plot
 		energy = maxf(0.0, energy - 3); xp.Agricultura += 2; _action("dig"); _show_toast("Tierra preparada")
 	elif tool == "Regadera":
@@ -793,9 +841,9 @@ func _use_tool_at(tile: Vector2i, reach: float = 80.0) -> void:
 		var seed_key := choice + "_seed"
 		if int(inventory.get(seed_key, 0)) <= 0: _show_toast("No quedan semillas. Visita la tienda."); return
 		inventory[seed_key] -= 1
-		# Sembrar no cuenta como riego: la semilla debe recibir agua para crecer.
-		plot["crop_id"] = choice; plot["growth"] = 0; plot["watered"] = false; plot["wilted"] = false; plots[key] = plot
-		energy = maxf(0.0, energy - 1.5); xp.Agricultura += 3; _action("plant"); _show_toast("Sembraste %s · riégala cada día para que crezca" % crop.name)
+		# Planting needs water unless natural rain is already watering the field.
+		plot["crop_id"] = choice; plot["growth"] = 0; plot["watered"] = rain_today; plot["wilted"] = false; plots[key] = plot
+		energy = maxf(0.0, energy - 1.5); xp.Agricultura += 3; _action("plant"); _show_toast("Sembraste %s · %s" % [crop.name, "la lluvia ya la riega" if rain_today else "necesita agua"])
 	elif tool == "Hacha":
 		_hit_prop(tile, "tree")
 	elif tool == "Pico":
@@ -814,7 +862,7 @@ func _cycle_seed(direction: int) -> void:
 	for offset: int in range(1, seed_order.size() + 1):
 		var index: int = posmod(start + offset * direction, seed_order.size())
 		var seed_id: String = seed_order[index]
-		if int(inventory.get(seed_id + "_seed", 0)) > 0:
+		if int(inventory.get(seed_id + "_seed", 0)) > 0 and CropDB.by_id(seed_id).season == SEASONS[season_index]:
 			selected_seed_id = seed_id
 			_show_toast("Semillas seleccionadas: %s ×%d" % [CropDB.by_id(seed_id).name, int(inventory[seed_id + "_seed"])])
 			_refresh_hud()
@@ -922,6 +970,7 @@ func _interaction_target() -> Dictionary:
 			return {"action":"sell", "label":"Vender carga"}
 		return {"action":"park", "label":"Aparcar y bajar"}
 	var candidates: Array[Dictionary] = []
+	var loose_crop: String = _available_produce() if location == "farm" else ""
 	if truck_location == location:
 		_add_interaction(candidates, "truck", "Subir a la camioneta", truck_pos, 100.0)
 	if location == "farm":
@@ -931,7 +980,7 @@ func _interaction_target() -> Dictionary:
 		if owned_parcels == 1:
 			_add_interaction(candidates, "land", "Ver ampliación de terreno", Vector2(947,664), 65.0)
 		for index: int in range(produce_box_tiles.size()):
-			var label := "Guardar cosecha" if not _available_produce().is_empty() and int(produce_boxes[index].get("count",0)) < 5 else "Recoger caja"
+			var label := "Guardar cosecha" if not loose_crop.is_empty() and int(produce_boxes[index].get("count",0)) < 5 else "Recoger caja"
 			if _box_can_reach_truck(index) and int(produce_boxes[index].get("count",0)) > 0:
 				label = "Cargar caja en la camioneta"
 			_add_interaction(candidates, "box", label, Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16), 80.0, index)
@@ -1183,6 +1232,8 @@ func _can_quick_load() -> bool:
 
 func _quick_load_truck() -> void:
 	if not _can_quick_load(): return
+	if truck_cargo.size() >= TRUCK_CAPACITY:
+		_show_toast("Camioneta llena · vende la carga en el mercadillo."); return
 	var before: int = truck_cargo.size()
 	if location == "farm":
 		for index: int in range(produce_boxes.size()):
@@ -1264,6 +1315,7 @@ func _action(name: String) -> void:
 	if haptics and last_input_was_gamepad:
 		var pads := Input.get_connected_joypads()
 		if not pads.is_empty(): Input.start_joy_vibration(pads[0], 0.12, 0.22, 0.06)
+	idle_rest_time = 0.0
 	var tint: Color = Color("c99462")
 	match name:
 		"water": tint = Color("9dd9df")
@@ -1282,7 +1334,9 @@ func _action(name: String) -> void:
 		"harvest": sound_id = "harvest"
 		"chop": sound_id = "wood"
 		"mine": sound_id = "stone"
-	if not sound_id.is_empty() and is_instance_valid(sfx_player):
+	if not sound_id.is_empty() and is_instance_valid(sfx_player) and sound_cooldown <= 0.0:
+		sound_cooldown = 0.08
+		sfx_player.stop()
 		sfx_player.stream = SFX[sound_id]
 		sfx_player.play()
 
@@ -1369,6 +1423,7 @@ func _refresh_hud() -> void:
 		if tool_names[selected_tool] in ["Azada", "Regadera"] and int(tool_levels.get(tool_names[selected_tool], 1)) >= 2:
 			tool_label.text += " · %s: cargar 3×3" % ("R2" if last_input_was_gamepad else "Mayús")
 	hint_label.text = "Stick izq: mover · dcho: apuntar · ↑ semillas · ↓ viajar · Menú: pausa" if last_input_was_gamepad else "WASD: mover · ratón: apuntar · Z: semillas · T: viajar · Esc: pausa"
+	if target.get("action", "") == "box": hint_label.text = "L2: mover caja · A: guardar o cargar cosecha · B: pausa" if last_input_was_gamepad else "F: mover caja · E: guardar o cargar cosecha · Esc: pausa"
 	if tool_charge > 0.0: hint_label.text = "Carga %d%% · suelta para usar · 3×3 desde nivel 2" % mini(100, roundi(tool_charge / 0.55 * 100.0))
 	objective_label.text = _next_objective()
 
@@ -1397,17 +1452,27 @@ func _select_tool(index: int) -> void:
 	tool_charge = 0.0
 	selected_tool = index; _refresh_hud()
 
-func _open_modal(which: String) -> void:
+func _open_modal(which: String, remember_parent: bool = true) -> void:
 	if sleeping: return
 	var old_modal: String = modal
+	if which == "title": modal_history.clear()
+	elif remember_parent and old_modal != "" and old_modal != which: modal_history.append(old_modal)
 	var focused: Control = get_viewport().gui_get_focus_owner() if is_inside_tree() else null
-	var focused_path: NodePath = modal_body.get_path_to(focused) if focused != null and modal_body.is_ancestor_of(focused) else NodePath("")
+	var focused_path: Array[int] = []
+	var focus_node: Node = focused
+	if focused != null and modal_body.is_ancestor_of(focused):
+		while focus_node != modal_body:
+			focused_path.push_front(focus_node.get_index())
+			focus_node = focus_node.get_parent()
 	var scroll_position: int = modal_scroll.scroll_vertical
 	tool_charge = 0.0
+	charge_armed = false
+	charge_needs_release = Input.is_action_pressed("charge_tool")
 	repeat_elapsed = 0.0
+	repeat_needs_release = true
 	modal = which; modal_panel.visible = true
 	modal_shade.visible = true
-	modal_close_button.visible = not at_title
+	modal_close_button.visible = which != "title"
 	for child: Node in modal_body.get_children():
 		modal_body.remove_child(child)
 		child.queue_free()
@@ -1426,9 +1491,14 @@ func _open_modal(which: String) -> void:
 		"confirm_new": _populate_confirmation("¿Empezar una nueva partida?", "Se reiniciará la granja y se sustituirá el guardado actual.", _start_new_game)
 		"confirm_load": _populate_confirmation("¿Cargar la partida guardada?", "Se perderán los cambios que no hayas guardado.", _load_saved_game)
 	var first: Control = _first_focusable(modal_body)
+	if first == null and modal_close_button.visible: first = modal_close_button
 	if old_modal == which and not focused_path.is_empty():
-		var same := modal_body.get_node_or_null(focused_path) as Button
-		if same != null and not same.disabled: first = same
+		var same: Node = modal_body
+		for index: int in focused_path:
+			if index >= same.get_child_count():
+				same = null; break
+			same = same.get_child(index)
+		if same is Button and not same.disabled: first = same
 	else: modal_scroll.scroll_vertical = 0
 	if first != null and is_inside_tree(): first.grab_focus()
 	if old_modal == which: modal_scroll.set_deferred("scroll_vertical", scroll_position)
@@ -1445,6 +1515,7 @@ func _first_focusable(node: Node) -> Control:
 func _close_modal() -> void:
 	if at_title:
 		_open_modal("title"); return
+	modal_history.clear()
 	modal = ""; modal_panel.visible = false
 	modal_shade.visible = false
 	if is_inside_tree(): get_viewport().gui_release_focus()
@@ -1497,7 +1568,7 @@ func _populate_shop() -> void:
 		var row := HBoxContainer.new(); row.custom_minimum_size.y = 76; row.add_theme_constant_override("separation", 12); modal_body.add_child(row)
 		_add_crop_icon(row, crop, "product")
 		var text := Label.new(); text.text = "%s · tienes %d semillas\n%s · venta %d/u." % [crop.name, int(inventory.get(String(crop.id) + "_seed", 0)), _crop_schedule(crop), crop.sell]; text.size_flags_horizontal = Control.SIZE_EXPAND_FILL; text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; row.add_child(text)
-		var buy := Button.new(); buy.text = "Comprar %s\n×5 · %d monedas" % [crop.name, crop.seed]; buy.custom_minimum_size = Vector2(250, 64); buy.disabled = coins < int(crop.seed); buy.pressed.connect(_buy_seed.bind(String(crop.id))); row.add_child(buy)
+		var buy := Button.new(); buy.text = "Comprar %s\n×5 · %d monedas" % [crop.name, crop.seed]; buy.custom_minimum_size = Vector2(250, 64); buy.clip_text = true; buy.disabled = coins < int(crop.seed); buy.pressed.connect(_buy_seed.bind(String(crop.id))); row.add_child(buy)
 	_menu_button("Vender toda la cosecha de la mochila", _sell_all_produce, _available_produce().is_empty())
 	_menu_button("Taller · elegir herramienta y mejorar", _open_modal.bind("workshop"))
 
@@ -1543,7 +1614,7 @@ func _open_seed_selector() -> void:
 
 func _populate_seeds() -> void:
 	modal_title.text = "Elige qué sembrar"
-	_add_note("Solo aparecen semillas que tienes en la mochila.")
+	_add_note("Elige semillas para %s. Las de otras estaciones aparecen desactivadas." % SEASONS[season_index])
 	var available: int = 0
 	for crop: Dictionary in _seed_catalog():
 		var crop_id: String = String(crop.id)
@@ -1556,6 +1627,7 @@ func _populate_seeds() -> void:
 		button.icon = _crop_icon(crop, "seed")
 		button.expand_icon = true
 		button.add_theme_constant_override("icon_max_width", 40)
+		button.disabled = String(crop.season) != SEASONS[season_index]
 		button.tooltip_text = _crop_schedule(crop)
 		button.custom_minimum_size = Vector2(0, 48)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1599,13 +1671,15 @@ func _populate_inventory() -> void:
 		var item_name: String = String(item_crop.name) + (" · semillas" if is_seed else "") if not item_crop.is_empty() else item_id.replace("_", " ")
 		var label := Label.new(); label.text = item_name; label.size_flags_horizontal = Control.SIZE_EXPAND_FILL; label.add_theme_font_size_override("font_size", 20); row.add_child(label)
 		var count := Label.new(); count.text = "× %d" % amount; count.custom_minimum_size = Vector2(72, 40); count.add_theme_font_size_override("font_size", 20); count.add_theme_color_override("font_color", Color("f6d277")); row.add_child(count)
+		if is_seed and not item_crop.is_empty() and String(item_crop.season) == SEASONS[season_index]:
+			var choose := Button.new(); choose.text = "Elegir"; choose.custom_minimum_size = Vector2(110, 48); choose.pressed.connect(_select_seed.bind(String(item_crop.id))); row.add_child(choose)
 		if quality_stock.has(String(item)):
-			var quality_label := Label.new(); quality_label.text = _quality_summary(quality_stock[String(item)]); quality_label.custom_minimum_size = Vector2(170, 40); quality_label.add_theme_font_size_override("font_size", 18); quality_label.add_theme_color_override("font_color", Color("d1dda5")); row.add_child(quality_label)
+			var quality_label := Label.new(); quality_label.text = _quality_summary(quality_stock[String(item)]); quality_label.custom_minimum_size = Vector2(260, 40); quality_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; quality_label.add_theme_font_size_override("font_size", 18); quality_label.add_theme_color_override("font_color", Color("d1dda5")); row.add_child(quality_label)
 	for key: Variant in plots.keys():
 		var plot: Dictionary = plots[key]; if String(plot.get("crop_id", "")).is_empty(): continue
 		var crop: Dictionary = CropDB.by_id(String(plot.crop_id)); if crop.is_empty(): continue
 		_add_note("Parcela %s: %s · día %d/%d · %s" % [String(key), crop.name, int(plot.growth), int(crop.days), "marchita" if plot.wilted else ("regada" if plot.watered else "necesita agua")])
-	var stats := Button.new(); stats.text = "Habilidades  ·  Cultivo %d  Tala %d  Minería %d" % [int(xp.Agricultura / 100) + 1, int(xp.Tala / 100) + 1, int(xp.Minería / 100) + 1]; stats.custom_minimum_size = Vector2(0, 46); modal_body.add_child(stats)
+	_add_note("Habilidades · Cultivo %d · Tala %d · Minería %d" % [int(xp.Agricultura / 100) + 1, int(xp.Tala / 100) + 1, int(xp.Minería / 100) + 1])
 
 func _populate_land() -> void:
 	modal_title.text = "La parcela del arroyo"
@@ -1630,11 +1704,9 @@ func _populate_pause() -> void:
 	_menu_button("Salir del juego", _exit_game)
 
 func _show_settings() -> void:
-	settings_back = "title" if at_title else "pause"
 	_open_modal("settings")
 
 func _show_controls() -> void:
-	settings_back = "title" if at_title else "pause"
 	_open_modal("controls")
 
 func _populate_settings() -> void:
@@ -1662,7 +1734,7 @@ func _populate_controls() -> void:
 	_add_note("A / E: acción contextual. Despeja, prepara, siembra, riega y cosecha según la casilla. Junto a objetos: interactúa.")
 	_add_note("X / Espacio: herramienta seleccionada. Junto a la camioneta: carga rápida. Al conducir: aparca y baja.")
 	_add_note("L1/R1 · R/Q: cambiar herramienta. Mantén X para repetir. R2 / Mayús: mantener y soltar para cargar azada o regadera de nivel 2 (3×3).")
-	_add_note("Y / I: mochila. Cruceta ↑ / Z: elegir semillas. ←/→ / V/C: cambiar variedad. Cruceta ↓ / T: viajar.")
+	_add_note("L2 / F: recoger o soltar una caja sin llenarla. Y / I: mochila. Cruceta ↑ / Z: elegir semillas. ←/→ / V/C: cambiar variedad. Cruceta ↓ / T: viajar.")
 	_add_note("B / Esc: volver o pausar. Con una caja: soltar. Menú / Start: pausa. En menús: cruceta o stick para navegar, A / Intro elige, B vuelve.")
 	_add_note("Cosecha sin volver a las cajas: se acumula en la mochila. X junto a la camioneta empaqueta y carga; A en el mercado vende la carga.")
 	_add_note("Ratón: clic para herramienta, rueda para zoom, botón derecho para mover cajas. También puedes ajustar la cámara en Pausa → Ajustes.")
@@ -1694,23 +1766,15 @@ func _buy_seed(crop_id: String) -> void:
 	_show_toast("Semillas de %s ×5" % crop.name); _open_modal("shop"); _refresh_hud()
 
 func _sell_crop(crop_id: String) -> void:
-	var crop: Dictionary = CropDB.by_id(crop_id); var amount: int = int(inventory.get(crop_id, 0))
-	if amount <= 0: _show_toast("No tienes %s para vender." % crop.name); return
-	var transaction: Dictionary = Economy.sell(coins, int(crop.sell), amount, amount)
-	var tiers: Dictionary = quality_stock.get(crop_id, {"normal": amount})
-	var earning: int = 0
-	for tier: Variant in tiers.keys():
-		var multiplier: float = 1.0
-		match String(tier):
-			"buena": multiplier = 1.25
-			"excelente": multiplier = 1.6
-			"excepcional": multiplier = 2.25
-		earning += roundi(float(crop.sell) * multiplier * int(tiers[tier]))
-	coins += earning; inventory[crop_id] = amount - int(transaction.quantity); quality_stock.erase(crop_id); xp.Comercio += amount * 3
-	for index: int in range(produce_boxes.size()):
-		if String(produce_boxes[index].get("crop_id", "")) == crop_id:
-			produce_boxes[index] = {"crop_id":"", "count":0}
-	_show_toast("Vendiste %s ×%d · +%d ◈" % [crop.name, amount, earning]); _open_modal("shop"); _refresh_hud()
+	var crop: Dictionary = CropDB.by_id(crop_id)
+	var amount: int = _loose_produce(crop_id)
+	if crop.is_empty() or amount <= 0: _show_toast("No tienes cosecha suelta de esa variedad."); return
+	var earning: int = _take_box_stock_value(crop_id, amount, int(crop.sell))
+	coins += earning
+	xp.Comercio += amount * 3
+	_show_toast("Vendiste %s ×%d · +%d monedas" % [crop.name, amount, earning])
+	_open_modal("shop")
+	_refresh_hud()
 
 func _upgrade_tool() -> void:
 	var name: String = tool_names[selected_tool]
@@ -1720,7 +1784,7 @@ func _upgrade_tool() -> void:
 	if not transaction.ok: _show_toast("Mejora: 80 monedas, 3 maderas y 2 piedras; herramienta bajo nivel 6."); return
 	coins = int(transaction.balance); inventory.wood = int(transaction.wood); inventory.stone = int(transaction.stone); tool_levels[name] = int(transaction.level)
 	if name == "Regadera": max_water += 4; water = max_water
-	_show_toast("¡%s mejorada al nivel %d!" % [name, tool_levels[name]]); _open_modal("shop"); _refresh_hud()
+	_show_toast("¡%s mejorada al nivel %d!" % [name, tool_levels[name]]); _open_modal("workshop" if modal == "workshop" else "shop"); _refresh_hud()
 
 func _buy_land() -> void:
 	if owned_parcels >= 2: _show_toast("Ya tienes esta parcela."); return
@@ -1819,7 +1883,7 @@ func _pack_state() -> Dictionary:
 	var box_tiles_data: Array = []
 	for tile: Vector2i in produce_box_tiles: box_tiles_data.append([tile.x, tile.y])
 	var saved_truck_pos: Vector2 = player_pos if truck_driving else truck_pos
-	return {"location":location,"truck_location":truck_location,"player":[player_pos.x,player_pos.y],"coins":coins,"energy":energy,"water":water,"max_water":max_water,"day":day,"season":season_index,"minute":minute,"weather":weather,"parcels":owned_parcels,"inventory":inventory,"quality_stock":quality_stock,"plots":plots,"props":prop_data,"levels":tool_levels,"xp":xp,"selected_seed":selected_seed_id,"zoom":camera_zoom,"carried_crop_id":carried_crop_id,"carried_crop_count":carried_crop_count,"carried_quality":carried_quality,"produce_boxes":produce_boxes,"produce_box_tiles":box_tiles_data,"truck_pos":[saved_truck_pos.x,saved_truck_pos.y],"truck_facing":[truck_facing.x,truck_facing.y],"truck_cargo":truck_cargo,"truck_driving":truck_driving,"assisted_actions":assisted_actions,"repeat_actions":repeat_actions,"relaxed_clock":relaxed_clock,"haptics":haptics,"selected_tool":selected_tool}
+	return {"location":location,"truck_location":truck_location,"player":[player_pos.x,player_pos.y],"coins":coins,"energy":energy,"water":water,"max_water":max_water,"day":day,"season":season_index,"minute":minute,"weather":weather,"parcels":owned_parcels,"inventory":inventory,"quality_stock":quality_stock,"plots":plots,"props":prop_data,"levels":tool_levels,"xp":xp,"selected_seed":selected_seed_id,"zoom":camera_zoom,"carried_crop_id":carried_crop_id,"carried_crop_count":carried_crop_count,"carried_quality":carried_quality,"produce_boxes":produce_boxes,"produce_box_tiles":box_tiles_data,"truck_pos":[saved_truck_pos.x,saved_truck_pos.y],"truck_facing":[truck_facing.x,truck_facing.y],"truck_cargo":truck_cargo,"truck_driving":truck_driving,"assisted_actions":assisted_actions,"repeat_actions":repeat_actions,"relaxed_clock":relaxed_clock,"haptics":haptics,"selected_tool":selected_tool}.duplicate(true)
 
 func _load_state(data: Dictionary) -> void:
 	assisted_actions = bool(data.get("assisted_actions", true))
@@ -1827,6 +1891,8 @@ func _load_state(data: Dictionary) -> void:
 	relaxed_clock = bool(data.get("relaxed_clock", true))
 	haptics = bool(data.get("haptics", true))
 	selected_tool = clampi(int(data.get("selected_tool", 0)), 0, 5)
+	charge_armed = false
+	repeat_needs_release = true
 	action_cooldown = 0.0
 	aim_stick = Vector2.ZERO
 	tool_charge = 0.0
@@ -1838,6 +1904,7 @@ func _load_state(data: Dictionary) -> void:
 	var player: Array = data.get("player", [704,560]); if player.size() >= 2: player_pos = Vector2(float(player[0]), float(player[1]))
 	coins = int(data.get("coins", 180)); energy = float(data.get("energy", 100)); water = int(data.get("water", 12)); max_water = int(data.get("max_water", 12))
 	day = int(data.get("day", 1)); season_index = posmod(int(data.get("season", 0)), 4); minute = float(data.get("minute", 360)); weather = String(data.get("weather", "Soleado")); owned_parcels = int(data.get("parcels", 1))
+	rain_today = weather in ["Lluvia", "Tormenta"]
 	inventory = data.get("inventory", inventory); quality_stock = data.get("quality_stock", {}); plots = data.get("plots", {}); tool_levels = data.get("levels", tool_levels); xp = data.get("xp", xp)
 	selected_seed_id = String(data.get("selected_seed", selected_seed_id)); camera_zoom = clampf(float(data.get("zoom", camera_zoom)), 0.85, 2.2)
 	carried_crop_id = String(data.get("carried_crop_id", "")); carried_crop_count = int(data.get("carried_crop_count", 0)); carried_quality = String(data.get("carried_quality", "normal"))
@@ -1862,8 +1929,8 @@ func _load_state(data: Dictionary) -> void:
 	produce_boxes.clear()
 	var saved_boxes: Array = data.get("produce_boxes", [])
 	for saved_box: Dictionary in saved_boxes: produce_boxes.append(saved_box.duplicate(true))
-	while produce_boxes.size() < produce_box_tiles.size(): produce_boxes.append({"crop_id":"", "count":0})
 	while produce_box_tiles.size() < 3: produce_box_tiles.append(Vector2i(25 + produce_box_tiles.size(), 17))
+	while produce_boxes.size() < produce_box_tiles.size(): produce_boxes.append({"crop_id":"", "count":0})
 	props.clear()
 	_repair_box_layout()
 	for source: Dictionary in data.get("props", []):
@@ -2423,7 +2490,10 @@ func _populate_title_confirmation() -> void:
 
 func _cancel_confirmation() -> void:
 	if confirmation_back == "": _close_modal()
-	else: _open_modal(confirmation_back)
+	else:
+		while not modal_history.is_empty():
+			if modal_history.pop_back() == confirmation_back: break
+		_open_modal(confirmation_back, false)
 
 func _populate_travel() -> void:
 	modal_title.text = "Los caminos del valle"

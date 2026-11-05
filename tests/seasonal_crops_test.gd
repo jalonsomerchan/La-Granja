@@ -69,9 +69,11 @@ func run() -> void:
 	game.set("carried_crop_count", 0)
 	game.set("selected_seed_id", "turnip")
 	var visited: Dictionary = {}
-	for index: int in range(120):
-		game.call("_cycle_seed", 1)
-		visited[game.get("selected_seed_id")] = true
+	for season: int in range(4):
+		game.set("season_index", season)
+		for index: int in range(30):
+			game.call("_cycle_seed", 1)
+			visited[game.get("selected_seed_id")] = true
 	check(visited.size() == 120, "Seed cycling reaches every crop")
 	for season: int in range(4):
 		game.call("_choose_shop_season", season)

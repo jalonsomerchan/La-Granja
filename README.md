@@ -1,123 +1,110 @@
 # FARM LIFE
 
-Prototipo jugable de granja en Godot 4, GDScript y renderizado 2D. Todo el contenido funciona sin red ni servicios externos.
+Juego de granja en Godot 4 y GDScript, sin servicios externos. El flujo de trabajo y la interfaz están preparados para jugar con mando a 1280 × 800, la resolución de Steam Deck.
 
 ## Ejecutar
 
-Abre `project.godot` con Godot 4.3 o posterior y pulsa **F6** para la escena abierta o **F5** para iniciar el proyecto. El proyecto usa el renderizador Compatibility y una ventana base de 1280 × 800.
+Abre `project.godot` con Godot 4.3 o posterior y pulsa **F5**. Usa el renderizador Compatibility. La interfaz conserva su proporción al cambiar de resolución.
 
 ## Controles
 
-| Acción | Teclado | Mando |
+| Acción | Steam Deck / mando | Teclado / ratón |
 |---|---|---|
-| Mover | WASD / flechas | Stick izquierdo |
-| Elegir casilla objetivo | Ratón | Stick derecho |
-| Usar herramienta | Espacio | A |
-| Recoger / interactuar | E | X |
-| Inventario | I | Y |
-| Herramienta anterior / siguiente | R / Q | L1 / R1 |
-| Cambiar variedad de semilla | V / C | Cruceta izquierda / derecha |
-| Abrir selector de semillas | Z o botón «Elegir semilla» | Cruceta arriba o botón «Elegir semilla» |
-| Cargar herramienta mejorada | Mayús | Mantener R2 |
-| Confirmar dormir y guardar | N o E junto a la casa | X junto a la casa |
-| Entregar cosecha a una caja | E junto a una caja | X junto a una caja |
-| Recoger / soltar una caja | E junto a una caja | X junto a una caja |
-| Mover una caja con el ratón | Mantener botón derecho y arrastrar | — |
-| Cargar una caja completa en la camioneta | E junto a una caja, cerca de la camioneta | X junto a una caja, cerca de la camioneta |
-| Subir / salir de la camioneta | E junto a la camioneta | X junto a la camioneta |
-| Conducir / vender la carga en el mercadillo | WASD y E | Stick izquierdo y X |
-| Ajustar zoom | Rueda del ratón o + / − | — |
-| Menú de pausa | Esc | Menú / Start |
-| Cerrar ventana | Esc | B |
+| Mover y orientar | Stick izquierdo | WASD / flechas |
+| Apuntar a una casilla | Stick derecho | Ratón |
+| Acción principal contextual | **A** | **E** |
+| Herramienta seleccionada | **X** | Espacio / clic izquierdo |
+| Cambiar herramienta | **L1 / R1** | R / Q o 1–6 |
+| Cargar azada / regadera | Mantener **R2** y soltar | Mantener Mayús y soltar |
+| Mochila | **Y** | I |
+| Selector de semillas | Cruceta **↑** | Z |
+| Variedad anterior / siguiente de esta estación | Cruceta **← / →** | V / C |
+| Viajes | Cruceta **↓** | T |
+| Recoger / soltar una caja manualmente | **L2** | F / arrastrar con botón derecho |
+| Cargar cosecha en la camioneta | **X**, junto al vehículo | Espacio, junto al vehículo |
+| Subir / interactuar / vender carga | **A** | E |
+| Aparcar y bajar | **X** | Espacio |
+| Pausa | **Menú / Start** o B | Esc |
+| Volver en menús / soltar caja | **B** | Esc en menús / E para soltar |
+| Confirmar en menús | **A** | Intro / Espacio |
+| Zoom | Pausa → Ajustes de juego y cámara | Rueda / + / − / Ajustes |
+| Dormir | **A** junto a casa o desde pausa | E junto a casa / N / pausa |
 
-Las interacciones **E/X** seleccionan el objeto cercano según la distancia y la casilla a la que apuntas. Un círculo resalta el objeto elegido y la ayuda indica la acción disponible. Puedes llenar la regadera en el pozo, la fuente o el muelle con **E/X**, o usando la regadera junto a ellos. La compra de terreno se activa junto a su cartel.
+Los índices de mando corresponden a **Godot 4**: L1/R1 son los botones 9/10; Menú es el botón 6. No hace falta usar pantalla táctil ni emular el ratón.
 
-Las herramientas, la cosecha y el arrastre de cajas requieren estar cerca. Una casilla ya regada no vuelve a gastar agua ni energía. Las cajas incompletas se pueden recoger incluso cerca de la camioneta; una caja completa a su alcance se carga con E/X. Si llevas una caja, E/X permite soltarla o cargarla antes de interactuar con otros objetos.
+## Un ciclo de juego más directo
 
-El foco de los menús se puede recorrer con la cruceta, el stick o el teclado. El botón izquierdo del ratón usa la herramienta en la casilla señalada.
+1. Apunta a una casilla dentro de tu terreno y pulsa **A**. La acción principal elige lo que necesita: despejar hierba, preparar tierra, plantar la semilla elegida, regar o cosechar. La ayuda inferior muestra la acción antes de ejecutarla. Las plantas frutales se conservan al recogerlas.
+2. Cada fase requiere una pulsación nueva. Puedes **mantener A mientras avanzas por una fila** para repetir el mismo trabajo; mantenerlo sobre una casilla no encadena despejar, arar, sembrar y regar. Mantener X repite la herramienta seleccionada, con un intervalo entre usos.
+3. La cosecha y la fruta se acumulan en la **mochila**, con sus calidades. Puedes recoger varias plantas y distintas variedades seguidas. Las herramientas manuales no cosechan accidentalmente un cultivo.
+4. Acércate a la camioneta y pulsa **X** para empaquetar y cargar de una vez: primero las cajas cercanas con producto y después la cosecha suelta. Caben **6 cajas**, con **1–5 unidades de una variedad por caja**. Lo que no cabe permanece en la mochila. También puedes vender la cosecha suelta en la tienda.
+5. Pulsa **A** para subir. Conduce al puesto de la granja o a la tienda del pueblo y pulsa **A** para vender la carga. **X** permite aparcar y bajar aunque haya carga vendible cerca.
+6. Duerme en casa para recuperar energía, llenar la regadera, avanzar el día y guardar. Las confirmaciones comienzan con **Cancelar** seleccionado.
 
-El menú de pausa permite continuar, iniciar una nueva partida, guardar, cargar y salir. Nueva partida y cargar piden confirmación para evitar perder progreso sin querer.
+Puedes desactivar la acción contextual desde **Pausa → Ajustes** y trabajar con la herramienta elegida mediante X. La herramienta seleccionada aparece resaltada en la barra. La mochila permite elegir directamente las semillas de la estación; el selector muestra desactivadas las de otras estaciones y la cruceta solo recorre variedades utilizables.
 
-## Primer día
+## Ritmo y accesibilidad
 
-1. Elige **Azada** y prepara tierra dentro de la valla.
-2. Selecciona **Semillas**, abre **Elegir semilla** (Z en teclado o ↑ en mando) y escoge una variedad que tengas en la mochila. Planta nabos, zanahorias o patatas durante primavera.
-3. Cambia a **Regadera** y riega cada cultivo cada día para que crezca; sembrarlo no lo riega. La lluvia riega automáticamente las plantas de exterior. Los cultivos secos se ven caídos y llevan un indicador marrón; los regados están verdes y muestran gotas azules.
-4. Pide dormir con **N** o interactúa con la casa usando **E/X** para ver la transición de noche a mañana, avanzar el día y guardar automáticamente. Al cosechar, lleva la fruta en las manos hasta una caja frente al mercadillo; cada caja admite cinco unidades del mismo cultivo. Cerca de las cajas aparece el botón **Guardar…**; también puedes usar **E/X** junto a ellas o el mostrador. Si ya están ocupadas, se prepara otra caja. La camioneta verde está aparcada al este de la granja: carga allí las cajas completas (hasta seis), súbete y conduce al mercadillo. Al girar, la camioneta muestra su vista frontal, trasera o lateral según la dirección. Al llegar, pulsa **E/X** para vender la carga; el importe respeta la calidad de la cosecha.
-5. Tala, extrae roca y limpia maleza para reunir materiales; llena la regadera en el pozo.
-6. Visita el puesto del mercadillo para comprar semillas, vender cosechas y mejorar la herramienta seleccionada.
-7. La puerta del lado este lleva a la compra de la parcela del arroyo.
+- Textos de interfaz principales de 20–30 px, ayudas de 18 px, botones grandes y foco de alto contraste.
+- Tienda de 120 cultivos dividida en **6 páginas de 5 por estación**. L1/R1 cambian página. Las compras y los cambios de ajustes mantienen el foco en la misma posición.
+- Los menús se recorren con stick o cruceta; el contenido se desplaza para seguir el foco. B vuelve al menú anterior. Abrir mochila, semillas, tienda o pausa detiene el reloj.
+- Cámara ajustable íntegramente con mando. El objetivo de trabajo vuelve a la dirección de marcha cuando te mueves, sin quedarse anclado a una dirección antigua del stick derecho.
+- **Día tranquilo:** 6 minutos reales entre las 06:00 y medianoche. **Día ágil:** 3 minutos. El reloj se detiene en los menús.
+- Tras 2 segundos quieto y sin trabajar, recuperas 1,5 puntos de energía por segundo. El río ofrece descanso de 20 minutos de juego y 15 de energía.
+- Acción contextual, repetición mantenida, ritmo del día, vibración, herramienta elegida y cámara se incluyen en el guardado. La vibración se puede desactivar.
+- Al perder el foco de la aplicación o desconectarse el mando utilizado, el juego se pausa. Abrir un menú cancela la carga de herramientas; los botones mantenidos deben soltarse antes de repetir trabajo al volver.
 
-## Contenido implementado
+## Cultivos, herramientas y economía
 
-- Distribución sin superposiciones: la vegetación reserva su contorno visible y un margen de separación, respetando edificios, vallas, caminos, arroyo, cultivos y cajas. Los árboles se dibujan a 64 × 80 y los objetos de suelo a 48 × 48; las cajas de 30 × 25 caben en su casilla. Al cargar se recolocan los objetos incompatibles conservando su fruta, plazos y daño; la ampliación también aplica estas reglas.
+Hay **120 variedades, 30 por estación**, con semillas, plantas y productos propios. Cada bolsa trae 5 semillas. La tienda muestra el precio de compra, venta por unidad, primera cosecha, rendimiento y rebrote. Catálogo completo en [CULTIVOS.md](CULTIVOS.md).
 
-- Mapa de 54 × 40 casillas con césped con variaciones, camino, arroyo, parcela inicial, valla, casa, tienda, pozo, árboles, maleza y rocas.
-- Personaje original con una hoja de 16 poses generada para caminar en cuatro direcciones. Su archivo fuente está en `assets/generated/farmer_walk.png`; la hoja ajustada a 32 × 48 está en `assets/generated/farmer_walk_32x48.png`.
-- Efectos originales de tierra, agua, cosecha, madera y piedra en `assets/audio/`.
-- Árboles, rocas, arbustos, maleza, flores y 120 variedades de plantas en atlas transparentes de `assets/sprites/`; el renderizador usa esos sprites para los objetos del mundo y los cultivos maduros.
-- Manzanos, perales y arbustos de bayas, arándanos y frambuesas con sprites nuevos con fruta y sin fruta. Pulsa **E/X** cerca de la planta; apunta a su casilla para elegirla si hay varios objetos juntos para recoger 2–3 frutas sin destruirla; se llevan a cajas y se venden en la camioneta como las cosechas. Cada planta elige un plazo aleatorio tras recogerla: manzano 3–5 días, peral 4–7, bayas y frambuesas 2–4, arándanos 3–5. La fruta madura permanece hasta recogerla; los plazos y la fruta disponible se guardan incluso al cambiar de estación. Los robles son decorativos y no producen fruta; el hacha y la guadaña siguen permitiendo retirar árboles y arbustos.
-- Cuatro sprites de terreno para hierba alta, suelo despejado, tierra arada y tierra sembrada; al usar la guadaña se despeja la casilla y la azada puede ararla después.
-- El exterior de la granja aparece cubierto de hierba alta y vegetación, con más árboles, maleza, arbustos y rocas que hay que retirar. El sendero queda limpio y no admite herramientas.
-- Zoom inicial aumentado, ajustable con la rueda o +/− y guardado con la partida. Quedarse quieto recupera energía poco a poco; dormir inicia el nuevo día y guarda la partida.
-- Transición animada de sueño y amanecer; cajas físicas para agrupar y llevar al mercadillo cosechas de cinco unidades del mismo cultivo. La fruta cosechada se muestra en las manos y queda guardada entre partidas.
-- Camioneta pixel art con vistas frontal, trasera y laterales, caja visible en la parte trasera, carga para seis cajas completas, conducción rápida hasta el mercadillo y venta de la carga al llegar. Una carretera asfaltada con marcas discontinuas cruza únicamente la parte inferior del mapa, de izquierda a derecha. Sus extremos conectan automáticamente el río, la granja y el pueblo. Su posición, orientación, carga y estado de conducción se guardan con la partida.
-- Animaciones de cuatro fotogramas para hacha, azada, regadera, guadaña, pico y sembrado; cada acción se reproduce cuando se usa esa herramienta.
-- Herramientas, energía, agua, clima, día/noche, cuatro estaciones, riego por lluvia y deterioro comprensible tras tres días secos.
-- 120 cultivos comprables y funcionales: 30 por estación, con sprites propios de producto, planta y bolsa de semillas. La tienda permite elegir estación y muestra precio por bolsa de 5, venta por unidad, primera cosecha, rendimiento y rebrote. Listado completo: [CULTIVOS.md](CULTIVOS.md).
-- Las mejoras de nivel 2 o superior permiten cargar la azada y la regadera para trabajar una zona de 3 × 3 con vista previa.
-- Cosecha repetida, calidad Normal/Buena/Excelente/Excepcional con bonificación comercial, habilidades, herramientas mejorables e inventario apilable.
-- Ampliación del terreno del arroyo, guardado versionado en `user://farm_life_save.json` y respaldo temporal durante la escritura.
-- Teclado, ratón, mando y navegación de interfaz sin pantalla táctil.
-- Presets de exportación para Windows Desktop y Linux x86-64 en `export_presets.cfg`.
+Los cultivos necesitan agua cada día. Sembrar no cuenta como riego; regar dos veces la misma casilla no gasta agua ni energía. La lluvia contribuye al crecimiento. Tres días secos o un cambio de estación marchitan la planta. La acción principal retira la planta seca y conserva el suelo preparado.
 
-- Mejora visual del entorno: casa con tejado de tejas, chimenea y jardineras; vallas, cajas, barriles, sacos, cartel, pozo, puesto y banco con sprites pixel art. Suelos adicionales de cemento, asfalto, adoquines y grava, con cuatro variantes por material.
+La azada y la regadera de nivel 2 permiten mantener R2 / Mayús y soltar para trabajar **3 × 3**, con vista previa. El taller permite elegir qué herramienta mejorar, sin depender de la herramienta que llevaras seleccionada. Cada mejora cuesta 80 monedas, 3 de madera y 2 de piedra.
 
-## Validaciones
+Hacha, pico y guadaña proporcionan madera, piedra y fibra. Las calidades Normal, Buena, Excelente y Excepcional conservan su valor tanto en la venta directa como al cargar y vender la camioneta. El producto de una caja física se reserva para evitar venderlo también como cosecha suelta.
 
-Hay pruebas de reglas en `tests/rules_test.gd`. Ejecútalas desde la raíz del proyecto con:
+Las cajas siguen siendo objetos movibles: A permite guardar producto o cargarlas junto a la camioneta; **L2 / F** permite recogerlas para recolocarlas independientemente de la cosecha que lleves. Apunta a suelo libre para soltarlas.
+
+## El valle
+
+La granja ocupa 54 × 40 casillas. Incluye casa, mercadillo, pozo, parcela inicial, arroyo y ampliación por 450 monedas. Los árboles y objetos respetan edificios, cultivos, caminos, vallas y cajas. Las posiciones incompatibles de guardados antiguos se reparan al cargar.
+
+La carretera recorre la parte inferior del mapa. Sal por la **izquierda para ir al río** o por la **derecha para ir al pueblo**. El paso entre zonas es automático al avanzar hasta el extremo, a pie o en camioneta. El menú Viajar también permite elegir destino.
+
+- **Andando:** 30 minutos de juego y 5 de energía. La camioneta queda aparcada donde la dejaste.
+- **En camioneta:** 10 minutos de juego; debes estar dentro o cerca del vehículo. La carga viaja contigo.
+- **Río:** puente transitable, muelle para llenar la regadera y banco para descansar.
+- **Pueblo:** tienda de semillas, taller, recepción de carga y fuente.
+
+No se puede viajar con una caja física en las manos. La cosecha de la mochila sí puede viajar y permite subir a la camioneta.
+
+Manzanos, perales y arbustos de bayas, arándanos y frambuesas dan fruta sin destruirse. Cada planta conserva su propio plazo de rebrote: manzano 3–5 días, peral 4–7, bayas y frambuesas 2–4, arándanos 3–5. La fruta madura permanece hasta recogerla. Los robles no dan fruta.
+
+## Guardados
+
+El archivo versionado es `user://farm_life_save.json`, con escritura temporal y respaldo. Conserva cultivos, objetos, calidades, zonas, camioneta, carga, cámara y ajustes. Las cosechas que los guardados anteriores tenían en las manos se incorporan a la mochila al cargar, sin duplicarlas. Dormir guarda al amanecer; también puedes guardar desde pausa. Nueva partida, cargar y volver al inicio piden confirmación.
+
+## Recursos y exportación
+
+- Personaje y animaciones: `assets/generated/` y `assets/sprites/animations/`.
+- Entorno, plantas, vehículos y objetos: `assets/sprites/`.
+- Cultivos estacionales y catálogo visual: `assets/sprites/crops/seasonal/catalog_preview.png`.
+- Audio local: `assets/audio/`. Herramientas de empaquetado: `tools/`.
+- Exportaciones Linux x86-64 y Windows Desktop: `export_presets.cfg`.
+
+La interfaz se ha revisado renderizando el juego a 1280 × 800 y los controles se prueban con eventos de mando simulados. **Queda pendiente validar la exportación en una Steam Deck física**, incluido suspensión/reanudación y vibración del dispositivo.
+
+## Pruebas
+
+Desde la raíz del proyecto, con Godot disponible como `godot`:
 
 ```sh
 godot --headless --path . --script res://tests/rules_test.gd
-```
-
-La escena principal se puede iniciar sin exportaciones ni dependencias externas. La compatibilidad de Steam Deck y Windows/Linux debe probarse con las exportaciones y dispositivos reales; no se ha validado en hardware Steam Deck.
-
-## Inicio, descanso y viajes
-
-Al abrir el juego aparece una pantalla inicial con **Continuar partida**, **Nueva partida** y **Salir**. Continuar se desactiva si no hay un guardado válido y muestra el día, la estación y la zona del guardado. Nueva partida pide confirmación antes de sustituir un guardado existente. Desde pausa puedes volver al inicio con confirmación.
-
-Dormir (N, interacción con la casa o pausa) muestra una confirmación: **Cancelar** conserva el día; **Confirmar** inicia la transición de sueño y guarda al amanecer. Para dormir hay que estar en la granja y fuera de la camioneta.
-
-La carretera está exclusivamente en la parte inferior y cruza todo el mapa de izquierda a derecha. Desde la granja, sigue hasta el extremo **izquierdo para ir al río** o hasta el **derecho para ir al pueblo**. El cambio de zona es automático al avanzar hacia el extremo, sin pulsar E/X ni abrir ningún menú, tanto a pie como en camioneta. Desde el río, sal por la derecha para volver a la granja; desde el pueblo, sal por la izquierda. Apareces en el extremo correspondiente de la carretera de destino y puedes seguir avanzando.
-
-El botón **Viajar…** y el menú de pausa también permiten elegir **La granja**, **El río** y **El pueblo**. Ambos modos de viaje conservan los costes existentes:
-
-- **Andando:** 30 minutos y 5 de energía. La camioneta permanece donde la aparcaste; si estabas conduciendo, queda aparcada allí.
-- **En coche:** 10 minutos. Debes estar cerca de la camioneta o dentro de ella y tener las manos libres. Su carga se conserva durante el viaje.
-- En el **río** hay un puente transitable, un muelle para llenar la regadera con E/X y un banco para descansar 20 minutos y recuperar 15 de energía.
-- En el **pueblo** puedes comprar semillas y mejorar herramientas en la tienda, vender la carga acercando la camioneta a la tienda y llenar la regadera en la fuente.
-
-Las zonas son mapas separados y explorables con WASD/stick. La zona actual y la ubicación del coche se incluyen en el guardado; los guardados anteriores se abren en la granja. No se puede viajar cargando una caja en las manos.
-
-Los nuevos sprites originales están en `assets/sprites/travel/` (tienda, puente, muelle y fuente). El original generado está en `assets/sprites/generated/travel_props_source.png`; el procesado con transparencia y su informe QC están en `assets/sprites/travel/processing/`. `tools/pack_travel_sprites.py` empaqueta los recortes a sus tamaños de juego.
-
-Prueba adicional de inicio, confirmación, viajes automáticos por carretera a pie y en coche, colisiones y persistencia:
-
-```sh
-godot --headless --path . --script res://tests/travel_test.gd
-```
-
-Pruebas de interacciones (pozo, fuente, río, selección de objetos, alcance, cajas, herramientas y salida del vehículo):
-
-```sh
 godot --headless --path . --script res://tests/interaction_test.gd
-```
-
-## Catálogo estacional
-
-Listado completo de los 120 productos, precios y tiempos en [CULTIVOS.md](CULTIVOS.md). Los 360 sprites se pueden revisar en `assets/sprites/crops/seasonal/catalog_preview.png`. Prueba de las 120 variedades:
-
-```sh
+godot --headless --path . --script res://tests/travel_test.gd
 godot --headless --path . --script res://tests/seasonal_crops_test.gd
+godot --headless --path . --script res://tests/deck_test.gd
 ```
+
+Las pruebas de Steam Deck cubren asignación real de botones de Godot 4, trabajo contextual, repetición, apuntado, carga 3×3, pausa, desconexión, migración de guardados, capacidad del vehículo, conservación del valor de las cosechas y navegación de menús.

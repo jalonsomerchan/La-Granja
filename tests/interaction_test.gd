@@ -61,14 +61,14 @@ func _run() -> void:
 	game.plots["18,18"].growth = 99
 	game.plots["18,18"].watered = false
 	game._use_tool_at(Vector2i(18,18))
-	check(game.carried_crop_count == 0 and game.plots["18,18"].watered, "Watering mature plants does not accidentally harvest")
+	check(game.inventory.get("turnip", 0) == 0 and game.plots["18,18"].watered, "Watering mature plants does not accidentally harvest")
 	game.player_pos = Vector2(100,100)
 	game._harvest(Vector2i(18,18))
-	check(game.carried_crop_count == 0, "Distant crops cannot be harvested")
+	check(game.inventory.get("turnip", 0) == 0, "Distant crops cannot be harvested")
 	game.player_pos = Vector2(592,624)
 	game.moving_box_index = 0
 	game._harvest(Vector2i(18,18))
-	check(game.carried_crop_count == 0, "Cannot harvest while carrying a crate")
+	check(game.inventory.get("turnip", 0) == 0, "Cannot harvest while carrying a crate")
 	game.moving_box_index = -1
 	game.plots.clear()
 	game.produce_box_tiles.assign([Vector2i(18,18),Vector2i(20,18)])
