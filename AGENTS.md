@@ -27,3 +27,9 @@ Antes de entregar cambios de catálogo o sprites:
 - Revisar el catálogo visual y una captura del juego a 1280 × 800.
 
 Las ocho fases de campo, tienda y mochila deben consumir estos sprites. Cualquier ampliación debe respetar los controles con mando y la legibilidad de Steam Deck.
+
+## Materiales y objetos fabricados
+
+Los materiales y objetos nuevos se registran en `scripts/item_database.gd`, con nombre, descripción, valor de venta e icono original RGBA de 64 × 64. No usar letras ni sprites de cultivos como sustituto del icono de un material. Conservar fuentes de ImageGen, prompt y QC en `assets/sprites/items/sources/`; las operaciones locales solo limpian y empaquetan las imágenes. Actualizar `assets/sprites/items/atlas.json` y `MATERIALES.md`.
+
+Todo botín y resultado de fabricación debe entrar en la misma mochila mediante `_add_item` o una transacción que sincronice sus huecos. Las recetas deben validar todos los ingredientes antes de consumirlos. La venta de cosechas no vende materiales ni semillas. Los objetos colocables y los efectos persistentes deben sobrevivir al guardado y no consumir unidades en usos inválidos. Verificar `tests/materials_test.gd`, `tests/backpack_test.gd` y `tools/validate_item_sprites.py`, además de la navegación con mando y una captura a 1280 × 800.

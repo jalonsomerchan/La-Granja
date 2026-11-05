@@ -153,9 +153,6 @@ func _test_object_spacing() -> void:
 	var first: Dictionary = main.call("_pack_state")
 	main.call("_load_state", Saves.decode_game(Saves.encode_game(first)))
 	_check(main.call("_pack_state").props == first.props, "loading a repaired layout does not move objects again")
-	var boxes: Array[Vector2i] = main.get("produce_box_tiles")
-	for index: int in range(boxes.size()):
-		_check(main.call("_can_place_box",boxes[index],index), "placed boxes do not overlap scenery or structures")
 	main.call("_close_modal")
 	main.set("coins",1000)
 	main.call("_buy_land")
@@ -169,7 +166,7 @@ func _check_layout(main: Node) -> void:
 	for i: int in range(scenery.size()):
 		var bounds: Rect2 = main.call("_prop_bounds",scenery[i])
 		for obstacle: Rect2 in obstacles:
-			_check(not bounds.intersects(obstacle), "scenery stays clear of paths, buildings, water, fences and boxes")
+			_check(not bounds.intersects(obstacle), "scenery stays clear of paths, buildings, water, fences ")
 		for j: int in range(i):
 			_check(not bounds.intersects(main.call("_prop_bounds",scenery[j])), "neighboring sprites do not overlap")
 
@@ -195,7 +192,7 @@ func _test_wild_fruit() -> void:
 	for sample: Dictionary in [{"kind":"tree","variant":1}, {"kind":"bush","variant":0}, {"kind":"bush","variant":1}, {"kind":"bush","variant":2}]:
 		Fruit.initialize(sample, rng)
 		var config: Dictionary = Fruit.SPECIES[Fruit.species(sample)]
-		_check(not CropDB.by_id(String(config.product)).is_empty(), "all fruit products can be priced and boxed")
+		_check(not CropDB.by_id(String(config.product)).is_empty(), "all fruit products can be priced and stored")
 		Fruit.reset(sample, rng)
 		_check(sample.fruit_days >= config.min_days and sample.fruit_days <= config.max_days, "each species uses its own interval")
 	var oak := {"kind":"tree", "variant":0}
@@ -208,7 +205,6 @@ func _test_wild_fruit() -> void:
 	world_props.clear()
 	world_props.append(apple)
 	main.set("player_pos", Vector2(560,784))
-	main.set("carried_crop_count", 0)
 	main.set("energy", 50.0)
 	_check(main.call("_harvest", Vector2i(17,23)), "ripe trees support the common harvest entry point")
 	_check(main.get("inventory").get("apple", 0) == 3, "tree fruit accumulates in backpack")
@@ -217,8 +213,6 @@ func _test_wild_fruit() -> void:
 	main.call("_harvest", Vector2i(17,23))
 	_check(main.get("inventory").get("apple", 0) == 3 and apple.fruit_days == wait, "repeat interaction cannot duplicate fruit or reroll the timer")
 	main.set("player_pos", Vector2(912,560))
-	main.call("_deliver_to_box", 0)
-	_check(main.get("carried_crop_count") == 0 and main.get("produce_boxes")[0].crop_id == "apple", "tree fruit enters the existing crate flow")
 	var state: Dictionary = Saves.decode_game(Saves.encode_game(main.call("_pack_state")))
 	main.call("_load_state", state)
 	_check(main.get("props")[0].fruit_days == wait and main.get("props")[0].fruit_count == 0, "save/load preserves harvested state and countdown")
@@ -231,26 +225,27 @@ func _test_wild_fruit() -> void:
 	var loaded_tile: Vector2i = loaded_apple.tile
 	main.set("player_pos", Vector2(loaded_tile * 32) + Vector2(16,48))
 	main.call("_harvest", loaded_tile)
-	main.call("_deliver_to_box", 0)
-	_check(main.get("produce_boxes")[0].count == 5, "successive wild harvests can complete a crate")
+	_check(main.get("inventory").get("apple",0) == 5, "successive wild harvests accumulate in the backpack")
 	var coins_before: int = int(main.get("coins"))
-	main.call("_load_box_into_truck", 0)
-	main.call("_sell_truck_cargo")
-	_check(main.get("coins") == coins_before + 190, "five normal apples sell using the existing truck economy")
+	main.set("at_title",false)
+	main.call("_close_modal")
+	main.call("_sell_crop","apple")
+	_check(main.get("coins") == coins_before+190 and main.get("inventory").get("apple",0) == 0, "five normal apples sell directly from the backpack")
+	main.call("_close_modal")
 	var bush := {"tile":Vector2i(17,23), "kind":"bush", "variant":1, "hp":1, "fruit_count":2, "fruit_days":0}
 	world_props = main.get("props")
 	world_props.clear()
 	world_props.append(bush)
 	main.set("player_pos", Vector2(100,100))
 	main.call("_harvest",Vector2i(17,23))
-	_check(bush.fruit_count == 2 and main.get("carried_crop_count") == 0, "distant plants cannot be harvested")
+	_check(bush.fruit_count == 2 and main.get("inventory").get("blueberry",0) == 0, "distant plants cannot be harvested")
 	main.set("player_pos", Vector2(560,784))
 	main.call("_harvest", Vector2i(17,23))
 	_check(main.get("inventory").get("blueberry", 0) == 2 and bush.fruit_count == 0 and main.get("props").size() == 1, "bushes regrow instead of being destroyed by picking")
 	bush.fruit_count = 3
 	bush.fruit_days = 0
 	main.call("_harvest", Vector2i(17,23))
-	_check(bush.fruit_count == 0 and main.get("inventory").get("blueberry", 0) == 5, "successive harvests stack without returning to a crate")
+	_check(bush.fruit_count == 0 and main.get("inventory").get("blueberry", 0) == 5, "successive harvests stack in the backpack")
 	main.call("_hit_prop", Vector2i(17,23), "weed")
 	_check(main.get("props").is_empty(), "scythe can still deliberately clear a bush")
 	if main.get("sfx_player") != null: main.get("sfx_player").stop()

@@ -65,7 +65,7 @@ static func draw_world(game: Node2D, area: String) -> void:
 		game.draw_texture_rect(game.FARMHOUSE_TEXTURE, Rect2(1104, 336, 192, 192), false)
 		game.draw_texture_rect(FOUNTAIN, FOUNTAIN_RECT, false)
 		_caption(game, Vector2(464, 330), "TIENDA DEL PUEBLO")
-		_caption(game, Vector2(444, 584), "E / X · Comprar / vender carga")
+		_caption(game, Vector2(444, 584), "A / E · Comprar / vender")
 		_caption(game, Vector2(814, 698), "E / X · Llenar regadera")
 		game.draw_texture_rect(game.FARM_OBJECTS.bench, Rect2(720, 672, 72, 45), false)
 	else:

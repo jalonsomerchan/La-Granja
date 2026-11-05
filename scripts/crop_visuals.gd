@@ -6,16 +6,23 @@ const CELL_SIZE := 64
 const STATES: Array[String] = ["seed_bag", "planted", "growing_1", "growing_2", "growing_3", "harvest_ready", "inventory", "rotten"]
 const FIELD_STATES: Array[String] = ["planted", "growing_1", "growing_2", "growing_3", "harvest_ready"]
 static var _entries: Dictionary = {}
+static var _aliases: Dictionary = {}
 static var _textures: Dictionary = {}
 
 static func entries() -> Dictionary:
 	if _entries.is_empty():
 		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTRACT_PATH))
-		if data is Dictionary: _entries = data.get("crops", {})
+		if data is Dictionary:
+			_entries = data.get("crops", {})
+			_aliases = data.get("legacy_aliases", {})
 	return _entries
 
+static func visual_id_for(crop_id: String) -> String:
+	entries()
+	return String(_aliases.get(crop_id, crop_id))
+
 static func has_complete_set(crop_id: String) -> bool:
-	var entry: Dictionary = entries().get(crop_id, {})
+	var entry: Dictionary = entries().get(visual_id_for(crop_id), {})
 	if entry.is_empty() or not ResourceLoader.exists(String(entry.get("sheet", ""))): return false
 	var frames: Dictionary = entry.get("frames", {})
 	if frames.size() != STATES.size(): return false
@@ -43,13 +50,16 @@ static func texture(crop: Dictionary, state: String) -> Texture2D:
 	_textures[key] = atlas
 	return atlas
 
-static func field_state(plot: Dictionary, crop: Dictionary) -> String:
+static func field_state(plot: Dictionary, crop: Dictionary, day_progress: float = 0.0) -> String:
 	if bool(plot.get("wilted", false)): return "rotten"
 	var growth: int = int(plot.get("growth", 0))
 	var days: int = maxi(1, int(crop.get("days", 1)))
 	if growth >= days: return "harvest_ready"
 	if growth <= 0: return "planted"
-	var progress: float = float(growth) / float(days)
+	# Intermediate artwork can change during a watered day, including crops
+	# with only three growing days. Harvest readiness still uses integer growth.
+	var fraction: float = clampf(day_progress, 0.0, 0.99) if bool(plot.get("watered", false)) else 0.0
+	var progress: float = (float(growth) + fraction) / float(days)
 	if progress < 0.34: return "growing_1"
 	if progress < 0.7: return "growing_2"
 	return "growing_3"

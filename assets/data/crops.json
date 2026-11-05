@@ -21,10 +21,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 0,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/turnip.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/turnip.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/turnip.png",
+    "yield": 2,
+    "visual_id": "turnip",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/turnip.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "carrot",
@@ -48,10 +60,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 1,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/carrot.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/carrot.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/carrot.png",
+    "yield": 2,
+    "visual_id": "carrot",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/carrot.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "potato",
@@ -75,10 +99,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 2,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/potato.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/potato.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/potato.png",
+    "yield": 2,
+    "visual_id": "potato",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/potato.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lettuce",
@@ -102,10 +138,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 3,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lettuce.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lettuce.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lettuce.png",
+    "yield": 2,
+    "visual_id": "lettuce",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lettuce.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "strawberry",
@@ -129,10 +177,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 4,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/strawberry.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/strawberry.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/strawberry.png",
+    "yield": 2,
+    "visual_id": "strawberry",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/strawberry.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rabano",
@@ -156,10 +216,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 5,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rabano.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rabano.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rabano.png",
+    "yield": 2,
+    "visual_id": "rabano",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rabano.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "guisante",
@@ -183,10 +255,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 6,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/guisante.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/guisante.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/guisante.png",
+    "yield": 2,
+    "visual_id": "guisante",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/guisante.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "haba",
@@ -210,10 +294,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 7,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/haba.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/haba.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/haba.png",
+    "yield": 2,
+    "visual_id": "haba",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/haba.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "esparrago",
@@ -237,10 +333,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 8,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/esparrago.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/esparrago.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/esparrago.png",
+    "yield": 2,
+    "visual_id": "esparrago",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/esparrago.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "alcachofa",
@@ -264,10 +372,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 9,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/alcachofa.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/alcachofa.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/alcachofa.png",
+    "yield": 2,
+    "visual_id": "alcachofa",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/alcachofa.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cebolleta",
@@ -291,10 +411,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 10,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cebolleta.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cebolleta.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cebolleta.png",
+    "yield": 2,
+    "visual_id": "cebolleta",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cebolleta.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "remolacha",
@@ -318,10 +450,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 11,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/remolacha.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/remolacha.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/remolacha.png",
+    "yield": 2,
+    "visual_id": "remolacha",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/remolacha.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "acelga",
@@ -345,10 +489,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 12,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/acelga.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/acelga.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/acelga.png",
+    "yield": 2,
+    "visual_id": "acelga",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/acelga.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rucula",
@@ -372,10 +528,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 13,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rucula.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rucula.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rucula.png",
+    "yield": 2,
+    "visual_id": "rucula",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rucula.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "berro",
@@ -399,10 +567,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 14,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/berro.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/berro.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/berro.png",
+    "yield": 2,
+    "visual_id": "berro",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/berro.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "albahaca",
@@ -426,10 +606,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 15,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/albahaca.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/albahaca.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/albahaca.png",
+    "yield": 2,
+    "visual_id": "albahaca",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/albahaca.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "perejil",
@@ -453,10 +645,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 16,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/perejil.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/perejil.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/perejil.png",
+    "yield": 2,
+    "visual_id": "perejil",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/perejil.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cilantro",
@@ -480,10 +684,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 17,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cilantro.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cilantro.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cilantro.png",
+    "yield": 2,
+    "visual_id": "cilantro",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cilantro.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cebollino",
@@ -507,10 +723,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 18,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cebollino.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cebollino.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cebollino.png",
+    "yield": 2,
+    "visual_id": "cebollino",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cebollino.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "menta",
@@ -534,10 +762,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 19,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/menta.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/menta.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/menta.png",
+    "yield": 2,
+    "visual_id": "menta",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/menta.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "manzanilla",
@@ -561,10 +801,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 20,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/manzanilla.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/manzanilla.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/manzanilla.png",
+    "yield": 2,
+    "visual_id": "manzanilla",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/manzanilla.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lavanda",
@@ -588,10 +840,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 21,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lavanda.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lavanda.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lavanda.png",
+    "yield": 2,
+    "visual_id": "lavanda",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lavanda.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lino",
@@ -615,10 +879,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 22,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lino.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lino.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lino.png",
+    "yield": 2,
+    "visual_id": "lino",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lino.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "coliflor",
@@ -642,10 +918,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 23,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/coliflor.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/coliflor.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/coliflor.png",
+    "yield": 2,
+    "visual_id": "coliflor",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/coliflor.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "brocoli",
@@ -669,10 +957,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 24,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/brocoli.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/brocoli.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/brocoli.png",
+    "yield": 2,
+    "visual_id": "brocoli",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/brocoli.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "repollo",
@@ -696,10 +996,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 25,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/repollo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/repollo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/repollo.png",
+    "yield": 2,
+    "visual_id": "repollo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/repollo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "apio",
@@ -723,10 +1035,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 26,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/apio.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/apio.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/apio.png",
+    "yield": 2,
+    "visual_id": "apio",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/apio.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "hinojo",
@@ -750,10 +1074,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 27,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/hinojo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/hinojo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/hinojo.png",
+    "yield": 2,
+    "visual_id": "hinojo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/hinojo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "mostaza",
@@ -777,10 +1113,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 28,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/mostaza.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/mostaza.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/mostaza.png",
+    "yield": 2,
+    "visual_id": "mostaza",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/mostaza.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "borraja",
@@ -804,10 +1152,22 @@
     "rarity": "común",
     "sprite_season": "spring",
     "sprite_index": 29,
-    "product_sprite": "res://assets/sprites/crops/seasonal/spring_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/spring_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/spring_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/borraja.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/borraja.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/borraja.png",
+    "yield": 2,
+    "visual_id": "borraja",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/borraja.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "tomato",
@@ -831,10 +1191,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 0,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/tomato.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/tomato.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/tomato.png",
+    "yield": 2,
+    "visual_id": "tomato",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/tomato.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "corn",
@@ -858,10 +1230,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 1,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/corn.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/corn.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/corn.png",
+    "yield": 2,
+    "visual_id": "corn",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/corn.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "pepper",
@@ -885,10 +1269,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 2,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/pepper.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/pepper.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/pepper.png",
+    "yield": 2,
+    "visual_id": "pepper",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/pepper.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "melon",
@@ -912,10 +1308,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 3,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/melon.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/melon.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/melon.png",
+    "yield": 2,
+    "visual_id": "melon",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/melon.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "wheat",
@@ -939,10 +1347,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 4,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/wheat.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/wheat.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/wheat.png",
+    "yield": 2,
+    "visual_id": "wheat",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/wheat.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "blueberry",
@@ -966,10 +1386,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 5,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/blueberry.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/blueberry.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/blueberry.png",
+    "yield": 2,
+    "visual_id": "blueberry",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/blueberry.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "tomate_cherry",
@@ -993,10 +1425,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 6,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/tomate_cherry.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/tomate_cherry.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/tomate_cherry.png",
+    "yield": 2,
+    "visual_id": "tomate_cherry",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/tomate_cherry.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "pimiento_rojo",
@@ -1020,10 +1464,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 7,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/pimiento_rojo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/pimiento_rojo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/pimiento_rojo.png",
+    "yield": 2,
+    "visual_id": "pimiento_rojo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/pimiento_rojo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "pimiento_amarillo",
@@ -1047,10 +1503,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 8,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/pimiento_amarillo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/pimiento_amarillo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/pimiento_amarillo.png",
+    "yield": 2,
+    "visual_id": "pimiento_amarillo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/pimiento_amarillo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "calabacin",
@@ -1074,10 +1542,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 9,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/calabacin.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/calabacin.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/calabacin.png",
+    "yield": 2,
+    "visual_id": "calabacin",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/calabacin.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "pepino",
@@ -1101,10 +1581,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 10,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/pepino.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/pepino.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/pepino.png",
+    "yield": 2,
+    "visual_id": "pepino",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/pepino.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "sandia",
@@ -1128,10 +1620,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 11,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/sandia.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/sandia.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/sandia.png",
+    "yield": 2,
+    "visual_id": "sandia",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/sandia.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "judia_verde",
@@ -1155,10 +1659,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 12,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/judia_verde.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/judia_verde.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/judia_verde.png",
+    "yield": 2,
+    "visual_id": "judia_verde",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/judia_verde.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "soja",
@@ -1182,10 +1698,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 13,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/soja.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/soja.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/soja.png",
+    "yield": 2,
+    "visual_id": "soja",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/soja.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cacahuete",
@@ -1209,10 +1737,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 14,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cacahuete.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cacahuete.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cacahuete.png",
+    "yield": 2,
+    "visual_id": "cacahuete",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cacahuete.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "arroz",
@@ -1236,10 +1776,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 15,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/arroz.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/arroz.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/arroz.png",
+    "yield": 2,
+    "visual_id": "arroz",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/arroz.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "mijo",
@@ -1263,10 +1815,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 16,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/mijo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/mijo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/mijo.png",
+    "yield": 2,
+    "visual_id": "mijo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/mijo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "sesamo",
@@ -1290,10 +1854,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 17,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/sesamo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/sesamo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/sesamo.png",
+    "yield": 2,
+    "visual_id": "sesamo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/sesamo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "girasol",
@@ -1317,10 +1893,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 18,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/girasol.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/girasol.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/girasol.png",
+    "yield": 2,
+    "visual_id": "girasol",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/girasol.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "albahaca_morada",
@@ -1344,10 +1932,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 19,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/albahaca_morada.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/albahaca_morada.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/albahaca_morada.png",
+    "yield": 2,
+    "visual_id": "albahaca_morada",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/albahaca_morada.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "oregano",
@@ -1371,10 +1971,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 20,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/oregano.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/oregano.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/oregano.png",
+    "yield": 2,
+    "visual_id": "oregano",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/oregano.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "mejorana",
@@ -1398,10 +2010,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 21,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/mejorana.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/mejorana.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/mejorana.png",
+    "yield": 2,
+    "visual_id": "mejorana",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/mejorana.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "eneldo",
@@ -1425,10 +2049,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 22,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/eneldo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/eneldo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/eneldo.png",
+    "yield": 2,
+    "visual_id": "eneldo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/eneldo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "frambuesa_de_verano",
@@ -1452,10 +2088,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 23,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/frambuesa_de_verano.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/frambuesa_de_verano.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/frambuesa_de_verano.png",
+    "yield": 2,
+    "visual_id": "frambuesa_de_verano",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/frambuesa_de_verano.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "mora",
@@ -1479,10 +2127,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 24,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/mora.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/mora.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/mora.png",
+    "yield": 2,
+    "visual_id": "mora",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/mora.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "physalis",
@@ -1506,10 +2166,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 25,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/physalis.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/physalis.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/physalis.png",
+    "yield": 2,
+    "visual_id": "physalis",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/physalis.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "grosella_roja",
@@ -1533,10 +2205,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 26,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/grosella_roja.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/grosella_roja.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/grosella_roja.png",
+    "yield": 2,
+    "visual_id": "grosella_roja",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/grosella_roja.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "chile",
@@ -1560,10 +2244,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 27,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/chile.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/chile.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/chile.png",
+    "yield": 2,
+    "visual_id": "chile",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/chile.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "okra",
@@ -1587,10 +2283,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 28,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/okra.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/okra.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/okra.png",
+    "yield": 2,
+    "visual_id": "okra",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/okra.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "tomatillo",
@@ -1614,10 +2322,22 @@
     "rarity": "común",
     "sprite_season": "summer",
     "sprite_index": 29,
-    "product_sprite": "res://assets/sprites/crops/seasonal/summer_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/summer_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/summer_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/tomatillo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/tomatillo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/tomatillo.png",
+    "yield": 2,
+    "visual_id": "tomatillo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/tomatillo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "pumpkin",
@@ -1641,10 +2361,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 0,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/pumpkin.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/pumpkin.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/pumpkin.png",
+    "yield": 2,
+    "visual_id": "pumpkin",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/pumpkin.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "eggplant",
@@ -1668,10 +2400,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 1,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/eggplant.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/eggplant.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/eggplant.png",
+    "yield": 2,
+    "visual_id": "eggplant",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/eggplant.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "spinach",
@@ -1695,10 +2439,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 2,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/spinach.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/spinach.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/spinach.png",
+    "yield": 2,
+    "visual_id": "spinach",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/spinach.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "garlic",
@@ -1722,10 +2478,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 3,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/garlic.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/garlic.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/garlic.png",
+    "yield": 2,
+    "visual_id": "garlic",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/garlic.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "boniato",
@@ -1749,10 +2517,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 4,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/boniato.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/boniato.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/boniato.png",
+    "yield": 2,
+    "visual_id": "boniato",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/boniato.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cebolla",
@@ -1776,10 +2556,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 5,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cebolla.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cebolla.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cebolla.png",
+    "yield": 2,
+    "visual_id": "cebolla",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cebolla.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "puerro",
@@ -1803,10 +2595,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 6,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/puerro.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/puerro.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/puerro.png",
+    "yield": 2,
+    "visual_id": "puerro",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/puerro.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lombarda",
@@ -1830,10 +2634,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 7,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lombarda.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lombarda.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lombarda.png",
+    "yield": 2,
+    "visual_id": "lombarda",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lombarda.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "chirivia",
@@ -1857,10 +2673,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 8,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/chirivia.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/chirivia.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/chirivia.png",
+    "yield": 2,
+    "visual_id": "chirivia",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/chirivia.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "nabo_morado",
@@ -1884,10 +2712,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 9,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/nabo_morado.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/nabo_morado.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/nabo_morado.png",
+    "yield": 2,
+    "visual_id": "nabo_morado",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/nabo_morado.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "escarola",
@@ -1911,10 +2751,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 10,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/escarola.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/escarola.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/escarola.png",
+    "yield": 2,
+    "visual_id": "escarola",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/escarola.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "endibia",
@@ -1938,10 +2790,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 11,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/endibia.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/endibia.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/endibia.png",
+    "yield": 2,
+    "visual_id": "endibia",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/endibia.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "col_de_bruselas",
@@ -1965,10 +2829,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 12,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas.png",
+    "yield": 2,
+    "visual_id": "col_de_bruselas",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/col_de_bruselas.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "col_rizada",
@@ -1992,10 +2868,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 13,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/col_rizada.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/col_rizada.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/col_rizada.png",
+    "yield": 2,
+    "visual_id": "col_rizada",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/col_rizada.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "colirrabano",
@@ -2019,10 +2907,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 14,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/colirrabano.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/colirrabano.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/colirrabano.png",
+    "yield": 2,
+    "visual_id": "colirrabano",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/colirrabano.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rabano_negro",
@@ -2046,10 +2946,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 15,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rabano_negro.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rabano_negro.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rabano_negro.png",
+    "yield": 2,
+    "visual_id": "rabano_negro",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rabano_negro.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "zanahoria_morada",
@@ -2073,10 +2985,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 16,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_morada.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_morada.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_morada.png",
+    "yield": 2,
+    "visual_id": "zanahoria_morada",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/zanahoria_morada.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "remolacha_dorada",
@@ -2100,10 +3024,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 17,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/remolacha_dorada.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/remolacha_dorada.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/remolacha_dorada.png",
+    "yield": 2,
+    "visual_id": "remolacha_dorada",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/remolacha_dorada.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "calabaza_cacahuete",
@@ -2127,10 +3063,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 18,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/calabaza_cacahuete.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/calabaza_cacahuete.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/calabaza_cacahuete.png",
+    "yield": 2,
+    "visual_id": "calabaza_cacahuete",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/calabaza_cacahuete.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "calabaza_espagueti",
@@ -2154,10 +3102,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 19,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/calabaza_espagueti.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/calabaza_espagueti.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/calabaza_espagueti.png",
+    "yield": 2,
+    "visual_id": "calabaza_espagueti",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/calabaza_espagueti.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "garbanzo",
@@ -2181,10 +3141,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 20,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/garbanzo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/garbanzo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/garbanzo.png",
+    "yield": 2,
+    "visual_id": "garbanzo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/garbanzo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lenteja",
@@ -2208,10 +3180,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 21,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lenteja.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lenteja.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lenteja.png",
+    "yield": 2,
+    "visual_id": "lenteja",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lenteja.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cebada",
@@ -2235,10 +3219,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 22,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cebada.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cebada.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cebada.png",
+    "yield": 2,
+    "visual_id": "cebada",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cebada.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "avena",
@@ -2262,10 +3258,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 23,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/avena.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/avena.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/avena.png",
+    "yield": 2,
+    "visual_id": "avena",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/avena.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "centeno",
@@ -2289,10 +3297,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 24,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/centeno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/centeno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/centeno.png",
+    "yield": 2,
+    "visual_id": "centeno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/centeno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "alforfon",
@@ -2316,10 +3336,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 25,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/alforfon.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/alforfon.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/alforfon.png",
+    "yield": 2,
+    "visual_id": "alforfon",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/alforfon.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "quinoa",
@@ -2343,10 +3375,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 26,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/quinoa.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/quinoa.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/quinoa.png",
+    "yield": 2,
+    "visual_id": "quinoa",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/quinoa.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "salvia",
@@ -2370,10 +3414,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 27,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/salvia.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/salvia.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/salvia.png",
+    "yield": 2,
+    "visual_id": "salvia",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/salvia.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "romero",
@@ -2397,10 +3453,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 28,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/romero.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/romero.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/romero.png",
+    "yield": 2,
+    "visual_id": "romero",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/romero.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "tomillo",
@@ -2424,10 +3492,22 @@
     "rarity": "común",
     "sprite_season": "autumn",
     "sprite_index": 29,
-    "product_sprite": "res://assets/sprites/crops/seasonal/autumn_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/autumn_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/autumn_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/tomillo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/tomillo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/tomillo.png",
+    "yield": 2,
+    "visual_id": "tomillo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/tomillo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "canonigos",
@@ -2451,10 +3531,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 0,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/canonigos.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/canonigos.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/canonigos.png",
+    "yield": 2,
+    "visual_id": "canonigos",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/canonigos.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "espinaca_de_invierno",
@@ -2478,10 +3570,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 1,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/espinaca_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/espinaca_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/espinaca_de_invierno.png",
+    "yield": 2,
+    "visual_id": "espinaca_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/espinaca_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "acelga_de_invierno",
@@ -2505,10 +3609,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 2,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/acelga_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/acelga_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/acelga_de_invierno.png",
+    "yield": 2,
+    "visual_id": "acelga_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/acelga_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "col_rizada_de_invierno",
@@ -2532,10 +3648,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 3,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/col_rizada_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/col_rizada_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/col_rizada_de_invierno.png",
+    "yield": 2,
+    "visual_id": "col_rizada_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/col_rizada_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "puerro_de_invierno",
@@ -2559,10 +3687,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 4,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/puerro_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/puerro_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/puerro_de_invierno.png",
+    "yield": 2,
+    "visual_id": "puerro_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/puerro_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "brocoli_de_invierno",
@@ -2586,10 +3726,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 5,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/brocoli_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/brocoli_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/brocoli_de_invierno.png",
+    "yield": 2,
+    "visual_id": "brocoli_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/brocoli_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "coliflor_de_invierno",
@@ -2613,10 +3765,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 6,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/coliflor_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/coliflor_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/coliflor_de_invierno.png",
+    "yield": 2,
+    "visual_id": "coliflor_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/coliflor_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "repollo_de_invierno",
@@ -2640,10 +3804,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 7,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/repollo_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/repollo_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/repollo_de_invierno.png",
+    "yield": 2,
+    "visual_id": "repollo_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/repollo_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "lombarda_de_invierno",
@@ -2667,10 +3843,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 8,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/lombarda_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/lombarda_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/lombarda_de_invierno.png",
+    "yield": 2,
+    "visual_id": "lombarda_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/lombarda_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "col_de_milan",
@@ -2694,10 +3882,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 9,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/col_de_milan.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/col_de_milan.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/col_de_milan.png",
+    "yield": 2,
+    "visual_id": "col_de_milan",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/col_de_milan.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "col_de_bruselas_de_invierno",
@@ -2721,10 +3921,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 10,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/col_de_bruselas_de_invierno.png",
+    "yield": 2,
+    "visual_id": "col_de_bruselas_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/col_de_bruselas_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "colirrabano_de_invierno",
@@ -2748,10 +3960,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 11,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/colirrabano_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/colirrabano_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/colirrabano_de_invierno.png",
+    "yield": 2,
+    "visual_id": "colirrabano_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/colirrabano_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "nabo_de_invierno",
@@ -2775,10 +3999,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 12,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/nabo_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/nabo_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/nabo_de_invierno.png",
+    "yield": 2,
+    "visual_id": "nabo_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/nabo_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "colinabo",
@@ -2802,10 +4038,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 13,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/colinabo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/colinabo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/colinabo.png",
+    "yield": 2,
+    "visual_id": "colinabo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/colinabo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rabano_daikon",
@@ -2829,10 +4077,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 14,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rabano_daikon.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rabano_daikon.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rabano_daikon.png",
+    "yield": 2,
+    "visual_id": "rabano_daikon",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rabano_daikon.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rabano_de_invierno",
@@ -2856,10 +4116,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 15,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rabano_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rabano_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rabano_de_invierno.png",
+    "yield": 2,
+    "visual_id": "rabano_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rabano_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "zanahoria_de_invierno",
@@ -2883,10 +4155,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 16,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/zanahoria_de_invierno.png",
+    "yield": 2,
+    "visual_id": "zanahoria_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/zanahoria_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "chirivia_de_invierno",
@@ -2910,10 +4194,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 17,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/chirivia_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/chirivia_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/chirivia_de_invierno.png",
+    "yield": 2,
+    "visual_id": "chirivia_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/chirivia_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "salsifi",
@@ -2937,10 +4233,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 18,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/salsifi.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/salsifi.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/salsifi.png",
+    "yield": 2,
+    "visual_id": "salsifi",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/salsifi.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "escorzonera",
@@ -2964,10 +4272,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 19,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/escorzonera.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/escorzonera.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/escorzonera.png",
+    "yield": 2,
+    "visual_id": "escorzonera",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/escorzonera.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "tupinambo",
@@ -2991,10 +4311,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 20,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/tupinambo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/tupinambo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/tupinambo.png",
+    "yield": 2,
+    "visual_id": "tupinambo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/tupinambo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "ajo_tierno",
@@ -3018,10 +4350,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 21,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/ajo_tierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/ajo_tierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/ajo_tierno.png",
+    "yield": 2,
+    "visual_id": "ajo_tierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/ajo_tierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "cebolla_de_invierno",
@@ -3045,10 +4389,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 22,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/cebolla_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/cebolla_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/cebolla_de_invierno.png",
+    "yield": 2,
+    "visual_id": "cebolla_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/cebolla_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "escarola_de_invierno",
@@ -3072,10 +4428,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 23,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/escarola_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/escarola_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/escarola_de_invierno.png",
+    "yield": 2,
+    "visual_id": "escarola_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/escarola_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "endibia_de_invierno",
@@ -3099,10 +4467,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 24,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/endibia_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/endibia_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/endibia_de_invierno.png",
+    "yield": 2,
+    "visual_id": "endibia_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/endibia_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "achicoria",
@@ -3126,10 +4506,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 25,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/achicoria.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/achicoria.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/achicoria.png",
+    "yield": 2,
+    "visual_id": "achicoria",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/achicoria.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "rucula_silvestre",
@@ -3153,10 +4545,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 26,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/rucula_silvestre.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/rucula_silvestre.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/rucula_silvestre.png",
+    "yield": 2,
+    "visual_id": "rucula_silvestre",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/rucula_silvestre.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "berro_de_invierno",
@@ -3180,10 +4584,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 27,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/berro_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/berro_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/berro_de_invierno.png",
+    "yield": 2,
+    "visual_id": "berro_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/berro_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "perejil_de_invierno",
@@ -3207,10 +4623,22 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 28,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/perejil_de_invierno.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/perejil_de_invierno.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/perejil_de_invierno.png",
+    "yield": 2,
+    "visual_id": "perejil_de_invierno",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/perejil_de_invierno.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   },
   {
     "id": "perifollo",
@@ -3234,9 +4662,21 @@
     "rarity": "común",
     "sprite_season": "winter",
     "sprite_index": 29,
-    "product_sprite": "res://assets/sprites/crops/seasonal/winter_produce.png",
-    "plant_sprite": "res://assets/sprites/crops/seasonal/winter_plants.png",
-    "seed_sprite": "res://assets/sprites/crops/seasonal/winter_seeds.png",
-    "yield": 2
+    "product_sprite": "res://assets/sprites/crops/lifecycle/perifollo.png",
+    "plant_sprite": "res://assets/sprites/crops/lifecycle/perifollo.png",
+    "seed_sprite": "res://assets/sprites/crops/lifecycle/perifollo.png",
+    "yield": 2,
+    "visual_id": "perifollo",
+    "sprite_sheet": "res://assets/sprites/crops/lifecycle/perifollo.png",
+    "sprite_states": {
+      "seed_bag": 0,
+      "planted": 1,
+      "growing_1": 2,
+      "growing_2": 3,
+      "growing_3": 4,
+      "harvest_ready": 5,
+      "inventory": 6,
+      "rotten": 7
+    }
   }
 ]

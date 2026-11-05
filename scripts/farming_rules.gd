@@ -11,10 +11,10 @@ static func daily_growth(plot: Dictionary, rain: bool) -> Dictionary:
 	if bool(result.get("watered", false)) or rain:
 		result["growth"] = int(result.get("growth", 0)) + 1
 		result["dry_days"] = 0
-		result["soil"] = "wet"
+		result["soil"] = "fertile" if bool(result.get("fertilized",false)) else "wet"
 	else:
 		result["dry_days"] = int(result.get("dry_days", 0)) + 1
-		result["soil"] = "tilled"
+		result["soil"] = "fertile" if bool(result.get("fertilized",false)) else "tilled"
 		if int(result["dry_days"]) >= 3:
 			result["wilted"] = true
 	result["watered"] = false
@@ -31,5 +31,7 @@ static func harvest(plot: Dictionary, crop: Dictionary) -> Dictionary:
 		var next_plot: Dictionary = plot.duplicate(true)
 		next_plot["growth"] = int(crop["days"]) - repeats
 		next_plot["watered"] = false
+		next_plot.erase("fertilized")
+		if String(next_plot.get("soil","")) == "fertile": next_plot["soil"] = "tilled"
 		return {"yield": int(crop.get("yield", 2)), "plot": next_plot}
 	return {"yield": int(crop.get("yield", 2)), "plot": {}}

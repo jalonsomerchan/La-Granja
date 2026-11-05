@@ -1,0 +1,677 @@
+[
+  {
+    "source": "pack_01.png",
+    "rows": [
+      {
+        "id": "turnip",
+        "name": "Nabo dulce"
+      },
+      {
+        "id": "carrot",
+        "name": "Zanahoria"
+      },
+      {
+        "id": "potato",
+        "name": "Patata"
+      },
+      {
+        "id": "lettuce",
+        "name": "Lechuga"
+      },
+      {
+        "id": "strawberry",
+        "name": "Fresa"
+      },
+      {
+        "id": "rabano",
+        "name": "Rábano"
+      },
+      {
+        "id": "guisante",
+        "name": "Guisante"
+      },
+      {
+        "id": "haba",
+        "name": "Haba"
+      }
+    ]
+  },
+  {
+    "source": "pack_02.png",
+    "rows": [
+      {
+        "id": "esparrago",
+        "name": "Espárrago"
+      },
+      {
+        "id": "alcachofa",
+        "name": "Alcachofa"
+      },
+      {
+        "id": "cebolleta",
+        "name": "Cebolleta"
+      },
+      {
+        "id": "remolacha",
+        "name": "Remolacha"
+      },
+      {
+        "id": "acelga",
+        "name": "Acelga"
+      },
+      {
+        "id": "rucula",
+        "name": "Rúcula"
+      },
+      {
+        "id": "berro",
+        "name": "Berro"
+      },
+      {
+        "id": "albahaca",
+        "name": "Albahaca"
+      }
+    ]
+  },
+  {
+    "source": "pack_03.png",
+    "rows": [
+      {
+        "id": "perejil",
+        "name": "Perejil"
+      },
+      {
+        "id": "cilantro",
+        "name": "Cilantro"
+      },
+      {
+        "id": "cebollino",
+        "name": "Cebollino"
+      },
+      {
+        "id": "menta",
+        "name": "Menta"
+      },
+      {
+        "id": "manzanilla",
+        "name": "Manzanilla"
+      },
+      {
+        "id": "lavanda",
+        "name": "Lavanda"
+      },
+      {
+        "id": "lino",
+        "name": "Lino"
+      },
+      {
+        "id": "coliflor",
+        "name": "Coliflor"
+      }
+    ]
+  },
+  {
+    "source": "pack_04.png",
+    "rows": [
+      {
+        "id": "brocoli",
+        "name": "Brócoli"
+      },
+      {
+        "id": "repollo",
+        "name": "Repollo"
+      },
+      {
+        "id": "apio",
+        "name": "Apio"
+      },
+      {
+        "id": "hinojo",
+        "name": "Hinojo"
+      },
+      {
+        "id": "mostaza",
+        "name": "Mostaza"
+      },
+      {
+        "id": "borraja",
+        "name": "Borraja"
+      },
+      {
+        "id": "tomato",
+        "name": "Tomate"
+      },
+      {
+        "id": "corn",
+        "name": "Maíz dulce"
+      }
+    ]
+  },
+  {
+    "source": "pack_05.png",
+    "rows": [
+      {
+        "id": "pepper",
+        "name": "Pimiento"
+      },
+      {
+        "id": "melon",
+        "name": "Melón"
+      },
+      {
+        "id": "wheat",
+        "name": "Trigo"
+      },
+      {
+        "id": "blueberry",
+        "name": "Arándano"
+      },
+      {
+        "id": "tomate_cherry",
+        "name": "Tomate cherry"
+      },
+      {
+        "id": "pimiento_rojo",
+        "name": "Pimiento rojo"
+      },
+      {
+        "id": "pimiento_amarillo",
+        "name": "Pimiento amarillo"
+      },
+      {
+        "id": "calabacin",
+        "name": "Calabacín"
+      }
+    ]
+  },
+  {
+    "source": "pack_06.png",
+    "rows": [
+      {
+        "id": "pepino",
+        "name": "Pepino"
+      },
+      {
+        "id": "sandia",
+        "name": "Sandía"
+      },
+      {
+        "id": "judia_verde",
+        "name": "Judía verde"
+      },
+      {
+        "id": "soja",
+        "name": "Soja"
+      },
+      {
+        "id": "cacahuete",
+        "name": "Cacahuete"
+      },
+      {
+        "id": "arroz",
+        "name": "Arroz"
+      },
+      {
+        "id": "mijo",
+        "name": "Mijo"
+      },
+      {
+        "id": "sesamo",
+        "name": "Sésamo"
+      }
+    ]
+  },
+  {
+    "source": "pack_07.png",
+    "rows": [
+      {
+        "id": "girasol",
+        "name": "Girasol"
+      },
+      {
+        "id": "albahaca_morada",
+        "name": "Albahaca morada"
+      },
+      {
+        "id": "oregano",
+        "name": "Orégano"
+      },
+      {
+        "id": "mejorana",
+        "name": "Mejorana"
+      },
+      {
+        "id": "eneldo",
+        "name": "Eneldo"
+      },
+      {
+        "id": "frambuesa_de_verano",
+        "name": "Frambuesa de verano"
+      },
+      {
+        "id": "mora",
+        "name": "Mora"
+      },
+      {
+        "id": "physalis",
+        "name": "Physalis"
+      }
+    ]
+  },
+  {
+    "source": "pack_08.png",
+    "rows": [
+      {
+        "id": "grosella_roja",
+        "name": "Grosella roja"
+      },
+      {
+        "id": "chile",
+        "name": "Chile"
+      },
+      {
+        "id": "okra",
+        "name": "Okra"
+      },
+      {
+        "id": "tomatillo",
+        "name": "Tomatillo"
+      },
+      {
+        "id": "pumpkin",
+        "name": "Calabaza"
+      },
+      {
+        "id": "eggplant",
+        "name": "Berenjena"
+      },
+      {
+        "id": "spinach",
+        "name": "Espinaca"
+      },
+      {
+        "id": "garlic",
+        "name": "Ajo"
+      }
+    ]
+  },
+  {
+    "source": "pack_09.png",
+    "rows": [
+      {
+        "id": "boniato",
+        "name": "Boniato"
+      },
+      {
+        "id": "cebolla",
+        "name": "Cebolla"
+      },
+      {
+        "id": "puerro",
+        "name": "Puerro"
+      },
+      {
+        "id": "lombarda",
+        "name": "Lombarda"
+      },
+      {
+        "id": "chirivia",
+        "name": "Chirivía"
+      },
+      {
+        "id": "nabo_morado",
+        "name": "Nabo morado"
+      },
+      {
+        "id": "escarola",
+        "name": "Escarola"
+      },
+      {
+        "id": "endibia",
+        "name": "Endibia"
+      }
+    ]
+  },
+  {
+    "source": "pack_10.png",
+    "rows": [
+      {
+        "id": "col_de_bruselas",
+        "name": "Col de Bruselas"
+      },
+      {
+        "id": "col_rizada",
+        "name": "Col rizada"
+      },
+      {
+        "id": "colirrabano",
+        "name": "Colirrábano"
+      },
+      {
+        "id": "rabano_negro",
+        "name": "Rábano negro"
+      },
+      {
+        "id": "zanahoria_morada",
+        "name": "Zanahoria morada"
+      },
+      {
+        "id": "remolacha_dorada",
+        "name": "Remolacha dorada"
+      },
+      {
+        "id": "calabaza_cacahuete",
+        "name": "Calabaza cacahuete"
+      },
+      {
+        "id": "calabaza_espagueti",
+        "name": "Calabaza espagueti"
+      }
+    ]
+  },
+  {
+    "source": "pack_11.png",
+    "rows": [
+      {
+        "id": "garbanzo",
+        "name": "Garbanzo"
+      },
+      {
+        "id": "lenteja",
+        "name": "Lenteja"
+      },
+      {
+        "id": "cebada",
+        "name": "Cebada"
+      },
+      {
+        "id": "avena",
+        "name": "Avena"
+      },
+      {
+        "id": "centeno",
+        "name": "Centeno"
+      },
+      {
+        "id": "alforfon",
+        "name": "Alforfón"
+      },
+      {
+        "id": "quinoa",
+        "name": "Quinoa"
+      },
+      {
+        "id": "salvia",
+        "name": "Salvia"
+      }
+    ]
+  },
+  {
+    "source": "pack_12.png",
+    "rows": [
+      {
+        "id": "romero",
+        "name": "Romero"
+      },
+      {
+        "id": "tomillo",
+        "name": "Tomillo"
+      },
+      {
+        "id": "canonigos",
+        "name": "Canónigos"
+      },
+      {
+        "id": "espinaca_de_invierno",
+        "name": "Espinaca de invierno"
+      },
+      {
+        "id": "acelga_de_invierno",
+        "name": "Acelga de invierno"
+      },
+      {
+        "id": "col_rizada_de_invierno",
+        "name": "Col rizada de invierno"
+      },
+      {
+        "id": "puerro_de_invierno",
+        "name": "Puerro de invierno"
+      },
+      {
+        "id": "brocoli_de_invierno",
+        "name": "Brócoli de invierno"
+      }
+    ]
+  },
+  {
+    "source": "pack_13.png",
+    "rows": [
+      {
+        "id": "coliflor_de_invierno",
+        "name": "Coliflor de invierno"
+      },
+      {
+        "id": "repollo_de_invierno",
+        "name": "Repollo de invierno"
+      },
+      {
+        "id": "lombarda_de_invierno",
+        "name": "Lombarda de invierno"
+      },
+      {
+        "id": "col_de_milan",
+        "name": "Col de Milán"
+      },
+      {
+        "id": "col_de_bruselas_de_invierno",
+        "name": "Col de Bruselas de invierno"
+      },
+      {
+        "id": "colirrabano_de_invierno",
+        "name": "Colirrábano de invierno"
+      },
+      {
+        "id": "nabo_de_invierno",
+        "name": "Nabo de invierno"
+      },
+      {
+        "id": "colinabo",
+        "name": "Colinabo"
+      }
+    ]
+  },
+  {
+    "source": "pack_14.png",
+    "rows": [
+      {
+        "id": "rabano_daikon",
+        "name": "Rábano daikon"
+      },
+      {
+        "id": "rabano_de_invierno",
+        "name": "Rábano de invierno"
+      },
+      {
+        "id": "zanahoria_de_invierno",
+        "name": "Zanahoria de invierno"
+      },
+      {
+        "id": "chirivia_de_invierno",
+        "name": "Chirivía de invierno"
+      },
+      {
+        "id": "salsifi",
+        "name": "Salsifí"
+      },
+      {
+        "id": "escorzonera",
+        "name": "Escorzonera"
+      },
+      {
+        "id": "tupinambo",
+        "name": "Tupinambo"
+      },
+      {
+        "id": "ajo_tierno",
+        "name": "Ajo tierno"
+      }
+    ]
+  },
+  {
+    "source": "pack_15.png",
+    "rows": [
+      {
+        "id": "cebolla_de_invierno",
+        "name": "Cebolla de invierno"
+      },
+      {
+        "id": "escarola_de_invierno",
+        "name": "Escarola de invierno"
+      },
+      {
+        "id": "endibia_de_invierno",
+        "name": "Endibia de invierno"
+      },
+      {
+        "id": "achicoria",
+        "name": "Achicoria"
+      },
+      {
+        "id": "rucula_silvestre",
+        "name": "Rúcula silvestre"
+      },
+      {
+        "id": "berro_de_invierno",
+        "name": "Berro de invierno"
+      },
+      {
+        "id": "perejil_de_invierno",
+        "name": "Perejil de invierno"
+      },
+      {
+        "id": "perifollo",
+        "name": "Perifollo"
+      }
+    ]
+  },
+  {
+    "source": "pack_16.png",
+    "rows": [
+      {
+        "id": "apple",
+        "name": "Manzana"
+      },
+      {
+        "id": "pear",
+        "name": "Pera"
+      },
+      {
+        "id": "wild_berries",
+        "name": "Bayas silvestres"
+      },
+      {
+        "id": "raspberry",
+        "name": "Frambuesa"
+      }
+    ]
+  },
+  {
+    "source": "pack_17.png",
+    "rows": [
+      {
+        "id": "cerezo",
+        "name": "Cerezo"
+      },
+      {
+        "id": "melocotonero",
+        "name": "Melocotonero"
+      },
+      {
+        "id": "ciruelo",
+        "name": "Ciruelo"
+      },
+      {
+        "id": "albaricoquero",
+        "name": "Albaricoquero"
+      },
+      {
+        "id": "naranjo",
+        "name": "Naranjo"
+      },
+      {
+        "id": "limonero",
+        "name": "Limonero"
+      },
+      {
+        "id": "mandarino",
+        "name": "Mandarino"
+      },
+      {
+        "id": "olivo",
+        "name": "Olivo"
+      }
+    ]
+  },
+  {
+    "source": "pack_18.png",
+    "rows": [
+      {
+        "id": "higuera",
+        "name": "Higuera"
+      },
+      {
+        "id": "granado",
+        "name": "Granado"
+      },
+      {
+        "id": "nogal",
+        "name": "Nogal"
+      },
+      {
+        "id": "almendro",
+        "name": "Almendro"
+      },
+      {
+        "id": "avellano",
+        "name": "Avellano"
+      },
+      {
+        "id": "aguacatero",
+        "name": "Aguacatero"
+      },
+      {
+        "id": "kiwi",
+        "name": "Kiwi"
+      },
+      {
+        "id": "caqui",
+        "name": "Caqui"
+      }
+    ]
+  },
+  {
+    "source": "pack_19.png",
+    "rows": [
+      {
+        "id": "membrillo",
+        "name": "Membrillo"
+      },
+      {
+        "id": "mango",
+        "name": "Mango"
+      },
+      {
+        "id": "pina",
+        "name": "Piña"
+      },
+      {
+        "id": "trebol",
+        "name": "Trébol"
+      },
+      {
+        "id": "colza",
+        "name": "Colza"
+      }
+    ]
+  }
+]

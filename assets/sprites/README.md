@@ -1,12 +1,48 @@
 # Sprites del mundo
 
-## Frutales y arbustos recolectables
+## Frutas y cultivos: ocho estados obligatorios
 
-`fruiting/` contiene cinco parejas `*_empty.png` / `*_ripe.png`: manzano y peral (80 × 96), bayas, arándanos y frambuesas (64 × 64). El juego cambia de sprite según `fruit_count`. Los robles usan la nueva copa sin fruta; siguen siendo árboles decorativos. La hoja fuente ImageGen está en `fruiting/raw-sheet.png`, el catálogo en `fruiting/atlas.json` y la comparación en `fruiting/preview.png` (izquierda vacía, derecha madura). Los archivos de procesamiento y QC quedan en `fruiting/processing/`, excluidos de la importación con `.gdignore`.
+El contenido activo está en `crops/lifecycle/`: **145 atlas RGBA de 512 × 64**, ocho celdas de 64 × 64 por variedad, **1.160 sprites**. Abarca 120 cultivos estacionales, cuatro frutas silvestres adicionales y 21 variedades exclusivas de guardados antiguos. Los identificadores históricos que ya representan una variedad actual usan un alias hacia su juego completo de sprites.
 
-Prompt: conservar el estilo pixel art de los árboles y arbustos anteriores; cinco filas con dos estados de la misma planta, izquierda sin fruta y derecha con manzanas rojas, peras amarillas, bayas rojas, arándanos azules o frambuesas. Mantener copa, tronco, escala y anclaje; fondo magenta uniforme, sin terreno, texto ni elementos externos. `tools/pack_fruit_sprites.py` normaliza las bandas de la imagen y usa el procesador de `generate2dsprite` para quitar magenta, recortar, escalar y alinear cada pareja con escala común, comprobando que no toque los bordes. Para reproducirlo se necesitan Pillow, NumPy y la habilidad local `generate2dsprite`.
+Orden de izquierda a derecha de cada atlas:
 
-Atlas originales para los elementos que aparecen en la primera granja. Las imágenes fuente generadas se conservan en `generated/`; los recortes transparentes que usa el juego están en `trees/`, `props/` y `crops/`.
+| Celda | Estado | Uso |
+|---:|---|---|
+| 0 | `seed_bag` | Bolsa de semillas con pictograma; tienda, selector y mochila |
+| 1 | `planted` | Semilla recién plantada |
+| 2 | `growing_1` | Primer crecimiento |
+| 3 | `growing_2` | Segundo crecimiento |
+| 4 | `growing_3` | Tercer crecimiento, anterior a la madurez |
+| 5 | `harvest_ready` | Planta madura lista para recoger |
+| 6 | `inventory` | Producto recolectado, separado de la planta |
+| 7 | `rotten` | Planta podrida de esa variedad |
+
+Cada fase tiene un dibujo propio. El renderizador mantiene un lienzo y anclaje constantes; no simula el crecimiento escalando la planta madura ni reutiliza una planta marchita genérica. En cultivos rápidos, las fases intermedias también pueden cambiar durante una jornada regada, sin adelantar su disponibilidad para cosechar. Los frutales silvestres muestran la planta con fruto maduro o todavía en desarrollo según su contador de rebrote; los robles decorativos mantienen su arte anterior.
+
+El registro obligatorio es `../data/crop_sprite_contract.json`. `scripts/crop_visuals.gd` carga los estados y `CropDatabase` rechaza variedades incompletas. `AGENTS.md` establece la condición para futuras incorporaciones. El generador del catálogo también exige los ocho estados y el archivo del atlas.
+
+### Fuentes, prompts y reproducción
+
+Las 19 hojas originales se generaron con la **herramienta integrada ImageGen**. Se conservan en `crops/lifecycle/sources/pack_XX.png`, junto con cada prompt completo en `pack_XX.prompt.txt` y el orden de filas en `plan.json`.
+
+Los prompts solicitan el mismo estilo pixel art del juego, perspectiva frontal elevada, contornos definidos, fondo magenta uniforme y ocho columnas: bolsa, semilla plantada, tres dibujos de crecimiento, planta madura, producto y planta podrida. Las filas identifican explícitamente cada variedad. Las plantas pequeñas conservan su tamaño relativo; las fases de campo comparten el punto de apoyo y ninguna parte debe cruzar el margen de su celda.
+
+Procesamiento determinista mediante la habilidad `generate2dsprite`: retirada del magenta, separación de celdas, escala común, alineación inferior y exportación transparente. `tools/pack_crop_lifecycle.py` encuentra los huecos reales entre sprites, sin recortar hojas, y empaqueta cada variedad. Después limpia posibles restos del color de clave introducidos por el remuestreo. Los intermedios y el QC de origen quedan en `processing/`; el QC final, en `qc.json`.
+
+```sh
+python3 tools/pack_crop_lifecycle.py plan
+# Con Pillow, NumPy y la habilidad generate2dsprite instalada:
+python3 tools/pack_crop_lifecycle.py process 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+python3 tools/pack_crop_lifecycle.py pack
+python3 tools/validate_crop_sprites.py
+godot --headless --path . --script res://tests/crop_sprites_test.gd
+```
+
+La validación comprueba cobertura de catálogo y guardados, ocho índices distintos, ocho imágenes distintas por variedad, tamaño, canal alfa, márgenes, anclaje y ausencia de magenta visible. Fuentes, prompts y procesamiento se excluyen de la importación con `.gdignore`. Las exportaciones incluyen el contrato JSON y excluyen los catálogos de revisión.
+
+Previsualizaciones: `crops/lifecycle/preview_01.png` a `preview_07.png`, y muestra compacta en `preview_sample.png`. Capturas reales a 1280 × 800: `review/gameplay.png`, `review/inventory.png` y `review/seeds.png`.
+
+Los atlas de `crops/seasonal/`, las parejas antiguas de `fruiting/` y sus herramientas de empaquetado se conservan como archivo de las versiones anteriores; el juego consume el contrato de ocho estados.
 
 ## Árboles
 
@@ -20,11 +56,7 @@ Atlas originales para los elementos que aparecen en la primera granja. Las imág
 
 ## Cultivos
 
-`crops/seasonal/` contiene 12 atlas transparentes de 384 × 320: producto (`*_produce.png`), planta (`*_plants.png`) y bolsa de semillas (`*_seeds.png`) para cada una de las cuatro estaciones. Cada atlas tiene 6 columnas y 5 filas de celdas de 64 × 64. El campo `sprite_index` en `assets/data/crops.json` indica la celda de cada variedad; hay 30 por estación y 360 sprites en total.
-
-Las plantas usan el sprite de su variedad a distintas escalas durante el crecimiento y tamaño completo al madurar. La etapa de semilla recién plantada conserva el brote pequeño. La humedad, marchitez y calidad mantienen los indicadores del juego. Los productos aparecen en la mochila y las manos; las bolsas, en tienda y selector de semillas.
-
-Las cuatro fuentes ImageGen (`*_source.png`), prompts y QC se conservan junto a los atlas. El procesador `generate2dsprite` quita el magenta, recorta, escala y alinea; `tools/pack_seasonal_crops.py` empaqueta los tres atlas y rechaza celdas vacías o que toquen bordes. `processing/.gdignore` evita importar intermedios. El atlas anterior `crops/crop_atlas.png` se conserva como referencia.
+El sistema activo se describe en «Frutas y cultivos: ocho estados obligatorios». Los atlas anteriores de `crops/seasonal/` y `crops/crop_atlas.png` son referencias históricas y ya no deciden las fases de crecimiento, mochila ni pudrición.
 
 ## Estados del terreno
 

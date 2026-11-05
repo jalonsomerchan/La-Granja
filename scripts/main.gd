@@ -1,5 +1,9 @@
 extends Node2D
 
+const Items = preload("res://scripts/item_database.gd")
+const Backpack = preload("res://scripts/backpack_layout.gd")
+const BackpackCell = preload("res://scripts/backpack_slot.gd")
+const MenuNavigation = preload("res://scripts/menu_navigation.gd")
 const Play = preload("res://scripts/playability_rules.gd")
 const Places = preload("res://scripts/travel_world.gd")
 const TILE: int = 32
@@ -18,16 +22,10 @@ const FIXED_OBJECT_RECTS: Array[Rect2] = [
 	Rect2(96,1036,40,48), # Road signs.
 	Rect2(1592,1036,40,48),
 ]
+const CropVisual = preload("res://scripts/crop_visuals.gd")
 const CropDB = preload("res://scripts/crop_database.gd")
 const Rules = preload("res://scripts/farming_rules.gd")
 const Fruit = preload("res://scripts/fruit_rules.gd")
-const FRUIT_TEXTURES: Dictionary = {
-	"apple": [preload("res://assets/sprites/fruiting/apple_empty.png"), preload("res://assets/sprites/fruiting/apple_ripe.png")],
-	"pear": [preload("res://assets/sprites/fruiting/pear_empty.png"), preload("res://assets/sprites/fruiting/pear_ripe.png")],
-	"berry": [preload("res://assets/sprites/fruiting/berry_empty.png"), preload("res://assets/sprites/fruiting/berry_ripe.png")],
-	"blueberry": [preload("res://assets/sprites/fruiting/blueberry_empty.png"), preload("res://assets/sprites/fruiting/blueberry_ripe.png")],
-	"raspberry": [preload("res://assets/sprites/fruiting/raspberry_empty.png"), preload("res://assets/sprites/fruiting/raspberry_ripe.png")],
-}
 var fruit_rng := RandomNumberGenerator.new()
 const Economy = preload("res://scripts/economy_rules.gd")
 const Saves = preload("res://scripts/save_manager.gd")
@@ -38,7 +36,6 @@ const GROUND_PROP_TEXTURES: Array[Texture2D] = [
 	preload("res://assets/sprites/props/berry_bush.png"),preload("res://assets/sprites/props/flower_bush.png"),preload("res://assets/sprites/props/fern_bush.png"),
 	preload("res://assets/sprites/props/tall_grass.png"),preload("res://assets/sprites/props/daisies.png"),preload("res://assets/sprites/props/thistle.png")
 ]
-const PRODUCE_CRATE_TEXTURE: Texture2D = preload("res://assets/sprites/props/produce_crate.png")
 const FARMHOUSE_TEXTURE: Texture2D = preload("res://assets/sprites/buildings/farmhouse.png")
 const SURFACE_ATLAS: Texture2D = preload("res://assets/sprites/terrain/surface_variants.png")
 const FARM_OBJECTS: Dictionary = {
@@ -99,30 +96,37 @@ const SHOP_PAGE_SIZE: int = 5
 var tool_buttons: Array[Button] = []
 var objective_label: Label
 var action_label: Label
+var menu_nav := MenuNavigation.new()
+var modal_tabs: HBoxContainer
+var modal_pager: HBoxContainer
+var modal_actions: HBoxContainer
+var modal_feedback: Label
+var modal_position_label: Label
+var modal_breadcrumb: Label
+var inventory_filter: int = 0
+var inventory_item_id: String = ""
+var shop_cursor_slot: int = -1
 var modal_scroll: ScrollContainer
 var modal_footer: Label
 var sleeping: bool = false
 var sleep_transition_time: float = 0.0
 var sleep_day_advanced: bool = false
-var carried_crop_id: String = ""
-var carried_crop_count: int = 0
-var carried_quality: String = "normal"
-var produce_boxes: Array[Dictionary] = [
-	{"crop_id":"", "count":0}, {"crop_id":"", "count":0}, {"crop_id":"", "count":0}
-]
-var produce_box_tiles: Array[Vector2i] = [Vector2i(29,17), Vector2i(29,18), Vector2i(29,19)]
-var moving_box_index: int = -1
-var mouse_dragging_box: bool = false
+var inventory_slots: Array[String] = []
+var inventory_value_adjustments: Dictionary = {}
+var crafting_page: int = 0
+var selected_item_id: String = ""
+var placed_items: Dictionary = {}
+var inventory_page: int = 0
+var inventory_move_from: int = -1
+var inventory_undo_layout: Array[String] = []
+var inventory_preferred_slot: int = -1
 var truck_pos := Vector2(1152, 624)
 var truck_facing := Vector2.LEFT
 var truck_driving: bool = false
-var truck_cargo: Array[Dictionary] = []
-const TRUCK_CAPACITY: int = 6
 var walk_phase: float = 0.0
 var tool_charge: float = 0.0
 var charge_armed: bool = false
 var charge_needs_release: bool = false
-var box_trigger_held: bool = false
 var repeat_needs_release: bool = false
 var move_vector := Vector2.ZERO
 var selected_tool: int = 0
@@ -130,7 +134,6 @@ var tool_names: Array[String] = ["Azada", "Regadera", "Semillas", "Hacha", "Pico
 var selected_seed_id: String = "turnip"
 var seed_order: Array[String] = CropDB.crop_ids()
 var shop_season: int = -1
-var crop_icon_cache: Dictionary = {}
 var tool_levels: Dictionary = {"Azada": 1, "Regadera": 1, "Hacha": 1, "Pico": 1, "Guadaña": 1}
 var inventory: Dictionary = {"turnip_seed": 5, "carrot_seed": 4, "potato_seed": 3, "wood": 0, "stone": 0}
 var quality_stock: Dictionary = {}
@@ -169,7 +172,6 @@ var tool_label: Label
 var hint_label: Label
 var toast_label: Label
 var seed_picker_button: Button
-var deposit_produce_button: Button
 var modal_panel: PanelContainer
 var modal_title: Label
 var modal_body: VBoxContainer
@@ -200,19 +202,25 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventKey or event is InputEventMouseButton or (event is InputEventMouseMotion and event.relative.length() > 2.0):
 		last_input_was_gamepad = false
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if last_input_was_gamepad else Input.MOUSE_MODE_VISIBLE
-	if event.is_action_released("move_box"): box_trigger_held = false
 	if event.is_action_released("charge_tool"): charge_needs_release = false
 	if sleeping: return
 	var key_repeat: bool = event is InputEventKey and event.echo
-	if key_repeat: return
 	if modal != "":
 		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause_game"):
-			_back_from_modal()
+			if not key_repeat:
+				if modal == "inventory" and inventory_move_from >= 0: _cancel_inventory_move()
+				else: _back_from_modal()
 			get_viewport().set_input_as_handled()
-		elif modal == "shop" and (event.is_action_pressed("tool_prev") or event.is_action_pressed("tool_next")):
-			_change_shop_page(-1 if event.is_action_pressed("tool_prev") else 1)
+		elif modal == "inventory" and event.is_action_pressed("backpack_move") and not key_repeat:
+			_begin_inventory_move()
+			get_viewport().set_input_as_handled()
+		elif modal == "inventory" and event.is_action_pressed("backpack_sort") and not key_repeat:
+			_sort_or_undo_inventory()
+			get_viewport().set_input_as_handled()
+		elif menu_nav.handle_event(event):
 			get_viewport().set_input_as_handled()
 		return
+	if key_repeat: return
 	if event.is_action_pressed("pause_game"):
 		_open_modal("pause")
 	elif event.is_action_pressed("inventory"):
@@ -240,12 +248,8 @@ func _input(event: InputEvent) -> void:
 			mouse_aim_active = false
 			aim_stick = Vector2.ZERO
 		if truck_driving: _park_truck()
-		elif _can_quick_load(): _quick_load_truck()
 		else: _use_selected_tool()
 		repeat_elapsed = 0.0
-	elif event.is_action_pressed("move_box"):
-		if not box_trigger_held: _move_nearby_box()
-		box_trigger_held = true
 	elif event.is_action_pressed("charge_tool"):
 		if not charge_armed and not charge_needs_release:
 			charge_armed = true
@@ -255,8 +259,7 @@ func _input(event: InputEvent) -> void:
 		charge_armed = false
 		tool_charge = 0.0
 	elif event.is_action_pressed("ui_cancel"):
-		if moving_box_index >= 0: _drop_carried_box()
-		else: _open_modal("pause")
+		_open_modal("pause")
 	else:
 		return
 	get_viewport().set_input_as_handled()
@@ -266,7 +269,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if modal != "":
 		if event.is_action_pressed("ui_cancel"): _back_from_modal()
 		return
-	if not truck_driving and _handle_box_mouse(event): return
 	if event is InputEventJoypadButton or (event is InputEventJoypadMotion and absf(event.axis_value) > 0.3):
 		mouse_aim_active = false
 		last_input_was_gamepad = true
@@ -295,31 +297,20 @@ func _exit_tree() -> void:
 	if is_instance_valid(sfx_player): sfx_player.stop()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: menu_nav.reset_input()
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(modal_panel) and not at_title and not sleeping:
 		if modal == "": _open_modal("pause")
 		tool_charge = 0.0
 
 func _on_joy_connection_changed(_device: int, connected: bool) -> void:
+	if not connected and last_input_was_gamepad: menu_nav.reset_input()
 	if not connected and last_input_was_gamepad and not at_title and not sleeping and modal == "":
 		_open_modal("pause")
 		_show_toast("Mando desconectado · partida en pausa.")
 
-func _move_nearby_box() -> void:
-	if location != "farm" or truck_driving: return
-	if moving_box_index >= 0:
-		_drop_carried_box(); return
-	var best: int = -1
-	var distance: float = 81.0
-	for index: int in range(produce_box_tiles.size()):
-		var point := Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16)
-		var score := player_pos.distance_to(point)
-		if score < distance:
-			distance = score
-			best = index
-	if best >= 0: _pick_up_box(best)
-	else: _show_toast("Acércate a una caja para moverla.")
-
 func _back_from_modal() -> void:
+	if modal == "inventory" and inventory_move_from >= 0:
+		_cancel_inventory_move(); return
 	if modal.begins_with("confirm_") or modal == "river_rest": _cancel_confirmation()
 	elif not modal_history.is_empty():
 		var parent: String = modal_history.pop_back()
@@ -328,9 +319,8 @@ func _back_from_modal() -> void:
 	else: _close_modal()
 
 func _work_action(tile: Vector2i) -> Dictionary:
-	if not _tile_in_reach(tile) or moving_box_index >= 0 or truck_driving: return {}
-	for box_tile: Vector2i in produce_box_tiles:
-		if box_tile == tile: return {}
+	if placed_items.has(_tile_key(tile)) and _tile_in_reach(tile) and not truck_driving: return {"tool":3,"label":"Recuperar valla"}
+	if not _tile_in_reach(tile) or truck_driving: return {}
 	for bounds: Rect2 in FIXED_OBJECT_RECTS:
 		if bounds.has_point(Vector2(tile * TILE) + Vector2(16, 16)): return {}
 	var prop: Dictionary = {}
@@ -349,8 +339,10 @@ func _work_action(tile: Vector2i) -> Dictionary:
 	return Play.work(plot, prop, _can_use_land(tile), has_seed, not crop.is_empty() and Rules.is_ready(plot, crop))
 
 func _primary_target() -> Dictionary:
+	if not selected_item_id.is_empty() and location == "farm" and not truck_driving:
+		return {"action":"use_item","label":"%s · %s ×%d" % ["Abonar" if selected_item_id == "fertilizer" else "Colocar valla",_inventory_name(selected_item_id),int(inventory.get(selected_item_id,0))]}
 	var context := _interaction_target()
-	if not assisted_actions or moving_box_index >= 0 or truck_driving: return context
+	if not assisted_actions or truck_driving: return context
 	var work := _work_action(_target_tile())
 	if work.is_empty(): return context
 	# Close fixtures take precedence; aiming directly at a work tile chooses it.
@@ -369,7 +361,8 @@ func _primary_action(repeating: bool = false) -> void:
 		return
 	if repeating and target.action not in ["work", "harvest", "stump"]: return
 	if repeating and target.action == "work" and repeat_kind != String(target.label) and repeat_tile == target.tile: return
-	if target.action == "work":
+	if target.action == "use_item": _use_backpack_item(selected_item_id,_target_tile())
+	elif target.action == "work":
 		var tile: Vector2i = target.tile
 		repeat_kind = String(target.label)
 		repeat_tile = tile
@@ -392,11 +385,10 @@ func _update_repeated_action(delta: float) -> void:
 	if repeat_elapsed < 0.38 or action_cooldown > 0.0: return
 	repeat_elapsed = 0.0
 	if Input.is_action_pressed("interact"): _primary_action(true)
-	elif not truck_driving and not _can_quick_load(): _use_selected_tool()
+	elif not truck_driving: _use_selected_tool()
 
 func _make_world() -> void:
 	props.clear()
-	_repair_box_layout()
 	var obstacles := _layout_obstacles()
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 88127
@@ -425,89 +417,25 @@ func _make_world() -> void:
 	for prop: Dictionary in props:
 		Fruit.initialize(prop, fruit_rng)
 
-func _handle_box_mouse(event: InputEvent) -> bool:
-	if location != "farm": return false
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		last_input_was_gamepad = false
-		if event.pressed:
-			var world_mouse: Vector2 = player_pos + (event.position - get_viewport_rect().size * 0.5) / camera_zoom
-			for index: int in range(produce_box_tiles.size()):
-				var center := Vector2(produce_box_tiles[index] * TILE) + Vector2(16, 16)
-				if center.distance_to(world_mouse) <= 34.0 and player_pos.distance_to(center) <= 80.0 and carried_crop_count == 0 and moving_box_index < 0:
-					moving_box_index = index
-					mouse_dragging_box = true
-					_set_box_tile_from_mouse(world_mouse, index)
-					_show_toast("Arrastra la caja; suéltala en una casilla libre.")
-					return true
-		else:
-			if mouse_dragging_box:
-				var dropped_index := moving_box_index
-				mouse_dragging_box = false
-				moving_box_index = -1
-				_show_toast("Caja colocada · E para guardar frutas")
-				queue_redraw()
-				return dropped_index >= 0
-	if event is InputEventMouseMotion and mouse_dragging_box and moving_box_index >= 0:
-		var world_mouse: Vector2 = player_pos + (event.position - get_viewport_rect().size * 0.5) / camera_zoom
-		_set_box_tile_from_mouse(world_mouse, moving_box_index)
-		return true
-	return false
-
-func _set_box_tile_from_mouse(world_pos: Vector2, index: int) -> void:
-	var tile := Vector2i(floori(world_pos.x / TILE), floori(world_pos.y / TILE))
-	if player_pos.distance_to(Vector2(tile * TILE) + Vector2(16,16)) <= 80.0 and _can_place_box(tile, index):
-		produce_box_tiles[index] = tile
-		queue_redraw()
-
-func _can_place_box(tile: Vector2i, index: int) -> bool:
-	if tile.x <= 0 or tile.y <= 0 or tile.x >= MAP_SIZE.x - 1 or tile.y >= MAP_SIZE.y - 1: return false
-	if tile == Vector2i(floori(player_pos.x / TILE), floori(player_pos.y / TILE)): return false
-	if _is_path(tile) or plots.has(_tile_key(tile)): return false
-	var bounds := _box_bounds(tile)
-	for obstacle: Rect2 in _layout_obstacles(index):
-		if bounds.intersects(obstacle): return false
-	for prop: Dictionary in props:
-		if bounds.grow(2).intersects(_prop_bounds(prop)): return false
-	for other_index: int in range(produce_box_tiles.size()):
-		if other_index != index and produce_box_tiles[other_index] == tile: return false
-	return true
-
-func _box_bounds(tile: Vector2i) -> Rect2:
-	return Rect2(Vector2(tile * TILE) + Vector2(1,4), Vector2(30,25))
-
-func _repair_box_layout() -> void:
-	for index: int in range(produce_box_tiles.size()):
-		var origin := produce_box_tiles[index]
-		if _can_place_box(origin, index): continue
-		var placed := false
-		for radius: int in range(1,MAP_SIZE.x):
-			for dy: int in range(-radius,radius+1):
-				for dx: int in range(-radius,radius+1):
-					if maxi(absi(dx),absi(dy)) != radius: continue
-					var tile := origin + Vector2i(dx,dy)
-					if _can_place_box(tile, index):
-						produce_box_tiles[index] = tile
-						placed = true
-						break
-				if placed: break
-			if placed: break
-
 func _prop_bounds(prop: Dictionary) -> Rect2:
 	var p := Vector2(Vector2i(prop.tile) * TILE)
+	if prop.kind == "rock": return Rect2(p+Vector2(-8,-16),Vector2(48,48))
 	if prop.kind == "stump": return Rect2(p + Vector2(-2,4), Vector2(36,28))
 	var key := "%s:%d" % [prop.kind, int(prop.variant)]
 	if not sprite_content_bounds.has(key):
 		var species: String = Fruit.species(prop)
 		var content: Rect2
 		if not species.is_empty():
-			content = Rect2(FRUIT_TEXTURES[species][0].get_image().get_used_rect())
-			content = content.merge(Rect2(FRUIT_TEXTURES[species][1].get_image().get_used_rect()))
+			var crop: Dictionary = CropDB.by_id(String(Fruit.SPECIES[species].product))
+			content = Rect2(CropVisual.texture(crop, "growing_3").get_image().get_used_rect())
+			content = content.merge(Rect2(CropVisual.texture(crop, "harvest_ready").get_image().get_used_rect()))
 		elif prop.kind == "tree":
 			content = Rect2(TREE_TEXTURES["oak"].get_image().get_used_rect())
 		else:
 			var index := posmod(int(prop.variant),3) + (6 if prop.kind == "weed" else 0)
 			content = Rect2(GROUND_PROP_TEXTURES[index].get_image().get_used_rect())
-		var scale := TREE_DRAW_SIZE / Vector2(80,96) if prop.kind == "tree" else GROUND_PROP_DRAW_SIZE / Vector2(64,64)
+		var source_size := Vector2(64,64) if not species.is_empty() or prop.kind != "tree" else Vector2(80,96)
+		var scale := (TREE_DRAW_SIZE if prop.kind == "tree" else GROUND_PROP_DRAW_SIZE) / source_size
 		var draw_size := TREE_DRAW_SIZE if prop.kind == "tree" else GROUND_PROP_DRAW_SIZE
 		content.position = content.position * scale + Vector2(16-draw_size.x*0.5,32-draw_size.y)
 		content.size *= scale
@@ -516,8 +444,11 @@ func _prop_bounds(prop: Dictionary) -> Rect2:
 	result.position += p
 	return result
 
-func _layout_obstacles(ignore_box_index: int = -1) -> Array[Rect2]:
+func _layout_obstacles() -> Array[Rect2]:
 	var result: Array[Rect2] = FIXED_OBJECT_RECTS.duplicate()
+	for key: String in placed_items:
+		var parts: PackedStringArray = key.split(",")
+		if parts.size() == 2: result.append(Rect2(int(parts[0])*TILE,int(parts[1])*TILE,TILE,TILE))
 	result.append(Rect2(39*TILE,4*TILE,9*TILE,9*TILE)) # Stream and banks.
 	if owned_parcels < 2: result.append(Rect2(927,638,40,48)) # Land sign.
 	for x: int in range(17,29):
@@ -536,8 +467,6 @@ func _layout_obstacles(ignore_box_index: int = -1) -> Array[Rect2]:
 	for key: Variant in plots:
 		var parts := String(key).split(",")
 		if parts.size() == 2: result.append(Rect2(int(parts[0])*TILE,int(parts[1])*TILE,TILE,TILE))
-	for index: int in range(produce_box_tiles.size()):
-		if index != ignore_box_index: result.append(_box_bounds(produce_box_tiles[index]))
 	var truck_size := Vector2(116,62) if absf(truck_facing.x) > absf(truck_facing.y) else Vector2(78,98)
 	if truck_location == "farm": result.append(Rect2(truck_pos - truck_size * 0.5, truck_size).grow(8))
 	return result
@@ -627,7 +556,9 @@ func _process(delta: float) -> void:
 			_show_toast("¡Buenos días! Día %d · %s" % [day, SEASONS[season_index]])
 	if toast_time > 0.0:
 		toast_time -= delta
-		if toast_time <= 0.0 and is_instance_valid(toast_label): toast_label.visible = false
+		if toast_time <= 0.0 and is_instance_valid(toast_label):
+			toast_label.visible = false
+			if is_instance_valid(modal_feedback): modal_feedback.visible = false
 	if action_time > 0.0:
 		action_time = maxf(0.0, action_time - delta)
 	else:
@@ -639,6 +570,8 @@ func _process(delta: float) -> void:
 		particle.vel = Vector2(particle.vel) + Vector2(0,24) * delta
 		if float(particle.life) <= 0.0: particles.remove_at(index)
 		else: particles[index] = particle
+	if modal != "" and not sleeping:
+		menu_nav.update(delta)
 	if modal == "" and not sleeping:
 		_update_movement(delta)
 		_update_clock(delta)
@@ -668,15 +601,15 @@ func _update_movement(delta: float) -> void:
 			else: truck_facing = Vector2.DOWN if move.y > 0.0 else Vector2.UP
 		walk_phase += delta * 11.0
 		if action_time <= 0.0: player_animation = "walk"
-		var candidate: Vector2 = player_pos + move * (speed * (1.85 if truck_driving else (0.8 if moving_box_index >= 0 else 1.15))) * delta
-		if not _blocked(candidate, moving_box_index):
+		var candidate: Vector2 = player_pos + move * (speed * (1.85 if truck_driving else 1.15)) * delta
+		if not _blocked(candidate):
 			player_pos = candidate
 		else:
 			# Slide along obstacles instead of sticking on diagonal approaches.
 			var x_step := Vector2(candidate.x, player_pos.y)
-			if not _blocked(x_step, moving_box_index): player_pos = x_step
+			if not _blocked(x_step): player_pos = x_step
 			var y_step := Vector2(player_pos.x, candidate.y)
-			if not _blocked(y_step, moving_box_index): player_pos = y_step
+			if not _blocked(y_step): player_pos = y_step
 		if truck_driving: truck_pos = player_pos
 	if _try_road_exit(move): return
 	# El stick derecho coloca el objetivo de trabajo sobre una casilla, sin cursor de ratón.
@@ -685,16 +618,14 @@ func _update_movement(delta: float) -> void:
 		mouse_aim_active = false
 		aim_stick = aim.normalized()
 		facing = aim_stick
-	if moving_box_index >= 0 and not mouse_dragging_box:
-		var carried_box_tile := _target_tile()
-		if _tile_in_reach(carried_box_tile) and _can_place_box(carried_box_tile, moving_box_index): produce_box_tiles[moving_box_index] = carried_box_tile
 
-func _blocked(pos: Vector2, ignore_box_index: int = -1) -> bool:
+func _blocked(pos: Vector2) -> bool:
 	if location != "farm":
 		if Places.blocked(location, pos): return true
 		return not truck_driving and truck_location == location and Rect2(truck_pos - Vector2(50, 25), Vector2(100, 50)).has_point(pos)
 	var tile := Vector2i(floori(pos.x / TILE), floori(pos.y / TILE))
 	if tile.x < 0 or tile.y < 0 or tile.x >= MAP_SIZE.x or tile.y >= MAP_SIZE.y: return true
+	if placed_items.has(_tile_key(tile)): return true
 	if Rect2(Vector2(640,416),Vector2(128,88)).has_point(pos): return true
 	if Rect2(Vector2(29*TILE,14*TILE+13),Vector2(95,62)).has_point(pos): return true
 	if Rect2(Vector2(31*TILE-6,18*TILE+5),Vector2(44,21)).has_point(pos): return true
@@ -704,8 +635,6 @@ func _blocked(pos: Vector2, ignore_box_index: int = -1) -> bool:
 	for prop: Dictionary in props:
 		if prop.kind in ["tree", "rock", "bush", "stump", "house"] and prop.tile == tile:
 			return true
-	for index: int in range(produce_box_tiles.size()):
-		if index != ignore_box_index and produce_box_tiles[index] == tile: return true
 	return false
 
 func _is_path(tile: Vector2i) -> bool:
@@ -764,8 +693,7 @@ func _target_tile() -> Vector2i:
 
 func _use_selected_tool() -> void:
 	if at_title or sleeping or modal != "" or truck_driving or action_cooldown > 0.0: return
-	if moving_box_index >= 0:
-		_show_toast("Deja la caja antes de usar herramientas."); return
+	selected_item_id = ""
 	if tool_names[selected_tool] == "Regadera":
 		var context := _interaction_target()
 		if not context.is_empty() and context.action == "water":
@@ -796,12 +724,9 @@ func _tile_in_reach(tile: Vector2i, reach: float = 80.0) -> bool:
 func _use_tool_at(tile: Vector2i, reach: float = 80.0) -> void:
 	if not _tile_in_reach(tile, reach):
 		_show_toast("Acércate a la casilla para usar la herramienta."); return
-	if moving_box_index >= 0: _show_toast("Deja la caja antes de trabajar."); return
 	for prop: Dictionary in props:
 		if prop.tile == tile and tool_names[selected_tool] in ["Azada", "Semillas", "Regadera"]:
 			_show_toast("Retira primero el objeto con la herramienta adecuada."); return
-	for box_tile: Vector2i in produce_box_tiles:
-		if box_tile == tile: _show_toast("Mueve primero la caja de esa casilla."); return
 	for bounds: Rect2 in FIXED_OBJECT_RECTS:
 		if bounds.has_point(Vector2(tile * TILE) + Vector2(16,16)):
 			_show_toast("Ese espacio está ocupado por un objeto."); return
@@ -829,7 +754,7 @@ func _use_tool_at(tile: Vector2i, reach: float = 80.0) -> void:
 		if plot.is_empty(): _show_toast("Primero prepara la tierra."); return
 		if bool(plot.get("watered", false)): _show_toast("Esta casilla ya está regada."); return
 		if String(plot.get("soil", "")) == "cleared": _show_toast("Prepara primero la tierra con la azada."); return
-		plot["watered"] = true; plot["soil"] = "wet" if String(plot.get("crop_id", "")) != "" else "tilled"; plots[key] = plot
+		plot["watered"] = true; plot["soil"] = "fertile" if bool(plot.get("fertilized",false)) else ("wet" if String(plot.get("crop_id", "")) != "" else "tilled"); plots[key] = plot
 		water -= 1; energy = maxf(0.0, energy - 1.2); _action("water"); _show_toast("Una gota de vida para tu cultivo")
 	elif tool == "Semillas":
 		if plot.is_empty() or not String(plot.get("crop_id", "")).is_empty(): _show_toast("Prepara una casilla vacía con la azada."); return
@@ -872,29 +797,34 @@ func _cycle_seed(direction: int) -> void:
 func _hit_prop(tile: Vector2i, expected: String) -> void:
 	if not _tile_in_reach(tile): return
 	if energy < 1.0: _show_toast("Estás agotado. Descansa un poco."); return
+	var placed_key: String = _tile_key(tile)
+	if placed_items.has(placed_key):
+		if expected == "tree":
+			_add_item(String(placed_items[placed_key]),1); placed_items.erase(placed_key)
+			energy = maxf(0.0,energy-1.0); _action("chop"); _show_toast("Valla recuperada en la mochila"); queue_redraw()
+		else: _show_toast("Usa el hacha para recuperar la valla.")
+		return
 	for index: int in range(props.size()):
 		var prop: Dictionary = props[index]
 		if prop.tile != tile: continue
 		if expected == "weed" and prop.kind in ["weed", "bush"]:
 			props.remove_at(index)
-			inventory["fiber"] = int(inventory.get("fiber", 0)) + 1; _show_toast("Maleza retirada · fibra +1")
+			_collect_materials(prop)
 			xp.Recolección += 2; energy -= 1; _action("cut"); return
 		if expected == "tree" and prop.kind in ["tree", "stump"]:
 			prop.hp = int(prop.hp) - tool_levels.Hacha
 			energy = maxf(0.0, energy - 4.0 / float(tool_levels.Hacha)); xp.Tala += 4; _action("chop")
 			if prop.hp <= 0:
 				props.remove_at(index)
-				var wood := 2 if prop.kind == "stump" else 5
-				inventory["wood"] = int(inventory.get("wood", 0)) + wood
+				_collect_materials(prop)
 				if prop.kind == "tree": props.append({"tile":tile,"kind":"stump","hp":2,"variant":0})
-				_show_toast("Madera +%d" % wood)
 			else: props[index] = prop; _show_toast("¡Toc! La madera cede.")
 			return
 		if expected == "rock" and prop.kind == "rock":
 			prop.hp = int(prop.hp) - tool_levels.Pico
 			energy = maxf(0.0, energy - 3.0 / float(tool_levels.Pico)); xp.Minería += 4; _action("mine")
 			if prop.hp <= 0:
-				props.remove_at(index); inventory["stone"] = int(inventory.get("stone", 0)) + 3; _show_toast("Piedra +3")
+				props.remove_at(index); _collect_materials(prop)
 			else: props[index] = prop; _show_toast("¡Clink! Queda un poco más.")
 			return
 		_show_toast("Usa el hacha para madera, el pico para roca o la guadaña para maleza."); return
@@ -905,8 +835,6 @@ func _hit_prop(tile: Vector2i, expected: String) -> void:
 
 func _harvest(tile: Vector2i) -> bool:
 	if not _tile_in_reach(tile): return false
-	if moving_box_index >= 0:
-		_show_toast("Deja la caja antes de recoger la cosecha."); return true
 	if energy < 1.0:
 		_show_toast("Estás agotado. Descansa un poco."); return true
 	if _harvest_fruit(tile): return true
@@ -920,7 +848,7 @@ func _harvest(tile: Vector2i) -> bool:
 	if not Rules.is_ready(plot, crop): _show_toast("%s · %d/%d días" % [crop.name, plot.growth, crop.days]); return true
 	var result: Dictionary = Rules.harvest(plot, crop)
 	var quality: String = "Normal"
-	var quality_roll: float = randf() + minf(float(xp.Agricultura) / 500.0, 0.18) + (0.15 if String(plot.soil) == "fertile" else 0.0)
+	var quality_roll: float = randf() + minf(float(xp.Agricultura) / 500.0, 0.18) + (0.15 if bool(plot.get("fertilized",false)) or String(plot.soil) == "fertile" else 0.0)
 	if quality_roll >= 0.94: quality = "Excepcional"
 	elif quality_roll >= 0.78: quality = "Excelente"
 	elif quality_roll >= 0.48: quality = "Buena"
@@ -941,8 +869,6 @@ func _harvest_fruit(tile: Vector2i) -> bool:
 		var crop: Dictionary = CropDB.by_id(String(Fruit.SPECIES[species].product))
 		if int(prop.get("fruit_count", 0)) <= 0:
 			_show_toast("%s · próxima fruta en %d días" % [crop.name, int(prop.fruit_days)]); return true
-		if moving_box_index >= 0:
-			_show_toast("Deja la caja antes de recoger fruta."); return true
 		if energy < 1.0:
 			_show_toast("Estás agotado. Descansa un poco."); return true
 		var amount: int = int(prop.fruit_count)
@@ -960,17 +886,12 @@ func _harvest_fruit(tile: Vector2i) -> bool:
 # One resolver drives both E/X and the contextual hint. Only reachable objects
 # participate; explicit aim breaks ties without letting a distant cursor act remotely.
 func _interaction_target() -> Dictionary:
-	if moving_box_index >= 0:
-		if _box_can_reach_truck(moving_box_index) and int(produce_boxes[moving_box_index].get("count",0)) > 0:
-			return {"action":"load_carried_box", "label":"Cargar caja en la camioneta"}
-		return {"action":"drop_box", "label":"Soltar caja"}
 	if truck_driving:
 		var market := Vector2(960,464) if location == "farm" else Vector2(560,560)
-		if location != "river" and _near_world_point(market, 190.0) and not truck_cargo.is_empty():
-			return {"action":"sell", "label":"Vender carga"}
+		if location != "river" and _near_world_point(market, 190.0) and not _available_produce().is_empty():
+			return {"action":"sell", "label":"Vender cosecha de la mochila"}
 		return {"action":"park", "label":"Aparcar y bajar"}
 	var candidates: Array[Dictionary] = []
-	var loose_crop: String = _available_produce() if location == "farm" else ""
 	if truck_location == location:
 		_add_interaction(candidates, "truck", "Subir a la camioneta", truck_pos, 100.0)
 	if location == "farm":
@@ -979,11 +900,6 @@ func _interaction_target() -> Dictionary:
 		_add_interaction(candidates, "water", "Llenar regadera", Vector2(1008,592), 85.0)
 		if owned_parcels == 1:
 			_add_interaction(candidates, "land", "Ver ampliación de terreno", Vector2(947,664), 65.0)
-		for index: int in range(produce_box_tiles.size()):
-			var label := "Guardar cosecha" if not loose_crop.is_empty() and int(produce_boxes[index].get("count",0)) < 5 else "Recoger caja"
-			if _box_can_reach_truck(index) and int(produce_boxes[index].get("count",0)) > 0:
-				label = "Cargar caja en la camioneta"
-			_add_interaction(candidates, "box", label, Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16), 80.0, index)
 		for key: String in plots:
 			if String(plots[key].get("crop_id", "")).is_empty(): continue
 			var tile := _key_tile(key)
@@ -1012,28 +928,18 @@ func _add_interaction(candidates: Array[Dictionary], action: String, label: Stri
 	var aimed := target_center.distance_to(point) <= 24.0
 	candidates.append({"action":action, "label":label, "index":index, "tile":tile, "point":point, "score":distance - (32.0 if aimed else 0.0)})
 
-func _box_can_reach_truck(index: int) -> bool:
-	return truck_location == location and (Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16)).distance_to(truck_pos) <= 150.0
-
 func _interact() -> void:
 	if at_title or sleeping or modal != "": return
 	var target := _interaction_target()
 	if target.is_empty():
 		_show_toast("Acércate a un objeto o apunta a una casilla cercana."); return
 	match String(target.action):
-		"drop_box": _drop_carried_box()
-		"load_carried_box": _load_box_into_truck(moving_box_index)
-		"sell": _sell_truck_cargo()
+		"sell": _sell_all_produce()
 		"park": _park_truck()
 		"truck":
 			truck_driving = true
 			player_pos = truck_pos
 			_show_toast("Camioneta en marcha · A / E interactúa · X / Espacio aparca.")
-		"box":
-			var index := int(target.index)
-			if _box_can_reach_truck(index) and int(produce_boxes[index].get("count",0)) > 0: _load_box_into_truck(index)
-			elif not _available_produce().is_empty() and int(produce_boxes[index].get("count",0)) < 5: _deliver_to_box(index)
-			else: _pick_up_box(index)
 		"harvest": _harvest(target.tile)
 		"stump": _hit_prop(target.tile, "tree")
 		"sleep": _sleep()
@@ -1042,9 +948,6 @@ func _interact() -> void:
 		"rest":
 			confirmation_back = ""
 			_open_modal("river_rest")
-			_populate_confirmation("¿Descansar junto al río?", "Pasarán 20 minutos y recuperarás 15 de energía.", _rest_at_river)
-			var first: Control = _first_focusable(modal_body)
-			if first != null and is_inside_tree(): first.grab_focus()
 	_refresh_hud()
 	queue_redraw()
 
@@ -1057,7 +960,7 @@ func _refill_water() -> void:
 	_refresh_hud()
 
 func _park_truck() -> void:
-	# Check several exits against scenery, boxes and the parked vehicle itself.
+	# Check several exits against scenery and the parked vehicle itself.
 	truck_driving = false
 	for offset: Vector2 in [Vector2(-90,0), Vector2(90,0), Vector2(0,90), Vector2(0,-90), Vector2(-90,90), Vector2(90,90)]:
 		var exit_pos := truck_pos + offset
@@ -1068,28 +971,10 @@ func _park_truck() -> void:
 	truck_driving = true
 	_show_toast("Aparca donde haya espacio para bajar.")
 
-func _load_box_into_truck(index: int) -> void:
-	if index < 0 or index >= produce_boxes.size(): return
-	var box: Dictionary = produce_boxes[index]
-	var count := int(box.get("count", 0))
-	if count <= 0:
-		_show_toast("La caja está vacía.")
-		return
-	if truck_cargo.size() >= TRUCK_CAPACITY:
-		_show_toast("La camioneta está llena · capacidad %d cajas." % TRUCK_CAPACITY)
-		return
-	var crop_id := String(box.get("crop_id", ""))
-	var crop: Dictionary = CropDB.by_id(crop_id)
-	if crop.is_empty(): return
-	var value := _take_box_stock_value(crop_id, count, int(crop.sell))
-	truck_cargo.append({"crop_id": crop_id, "count": count, "value": value})
-	produce_boxes[index] = {"crop_id":"", "count":0}
-	if moving_box_index == index: moving_box_index = -1
-	_show_toast("Caja cargada · camioneta %d/%d" % [truck_cargo.size(), TRUCK_CAPACITY])
-	_refresh_hud()
-
-func _take_box_stock_value(crop_id: String, amount: int, unit_price: int) -> int:
-	var tiers: Dictionary = quality_stock.get(crop_id, {"normal": amount}).duplicate(true)
+func _take_produce_value(crop_id: String, amount: int, unit_price: int) -> int:
+	var stock: int = maxi(0,int(inventory.get(crop_id,0)))
+	amount = clampi(amount,0,stock)
+	var tiers: Dictionary = quality_stock.get(crop_id, {"normal": stock}).duplicate(true)
 	var remaining := amount
 	var value := 0
 	for tier: String in ["excepcional", "excelente", "buena", "normal"]:
@@ -1105,108 +990,23 @@ func _take_box_stock_value(crop_id: String, amount: int, unit_price: int) -> int
 		remaining -= taken
 		if remaining <= 0: break
 	if remaining > 0: value += unit_price * remaining
-	var stock: int = int(inventory.get(crop_id, 0))
-	inventory[crop_id] = maxi(0, stock - amount)
+	var adjustment: int = int(inventory_value_adjustments.get(crop_id,0))
+	var used_adjustment: int = roundi(float(adjustment)*amount/stock) if stock > 0 else 0
+	value += used_adjustment
+	inventory_value_adjustments[crop_id] = adjustment-used_adjustment
+	inventory[crop_id] = stock-amount
 	quality_stock[crop_id] = tiers
+	_sync_backpack()
 	return value
 
-func _sell_truck_cargo() -> void:
-	if truck_cargo.is_empty():
-		_show_toast("Has llegado al mercadillo, pero la camioneta está vacía.")
-		_open_modal("shop")
-		return
-	var total_value := 0
-	var total_count := 0
-	for box: Dictionary in truck_cargo:
-		total_value += int(box.get("value", 0))
-		total_count += int(box.get("count", 0))
-	coins += total_value
-	xp.Comercio += total_count * 3
-	var sold_boxes := truck_cargo.size()
-	truck_cargo.clear()
-	_show_toast("¡Vendiste %d cajas (%d productos) · +%d ◈!" % [sold_boxes, total_count, total_value])
-	_refresh_hud()
-
-func _pick_up_box(index: int) -> void:
-	moving_box_index = index
-	mouse_dragging_box = false
-	var box_center := Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16)
-	var toward_box := box_center - player_pos
-	if absf(toward_box.x) > absf(toward_box.y): facing = Vector2(signf(toward_box.x), 0)
-	else: facing = Vector2(0, signf(toward_box.y))
-	var target := _target_tile()
-	if _tile_in_reach(target) and _can_place_box(target, index): produce_box_tiles[index] = target
-	_show_toast("Caja recogida · muévete y pulsa A / E para soltarla.")
-
-func _drop_carried_box() -> void:
-	var target := _target_tile()
-	if not _tile_in_reach(target):
-		_show_toast("Suelta la caja en una casilla cercana."); return
-	if not _can_place_box(target, moving_box_index):
-		_show_toast("No cabe ahí. Apunta a una casilla libre y vuelve a pulsar E."); return
-	produce_box_tiles[moving_box_index] = target
-	moving_box_index = -1
-	_show_toast("Caja colocada")
-
-func _find_delivery_box() -> int:
-	var best := -1
-	var best_score := INF
-	for index: int in range(produce_box_tiles.size()):
-		var center := Vector2(produce_box_tiles[index] * TILE) + Vector2(16,16)
-		var distance := player_pos.distance_to(center)
-		if distance > 120.0: continue
-		var box: Dictionary = produce_boxes[index]
-		var count := int(box.get("count",0))
-		var crop_id := String(box.get("crop_id",""))
-		if count >= 5 or (count > 0 and _loose_produce(crop_id) <= 0): continue
-		var score := distance - (40.0 if count > 0 else 0.0)
-		if score < best_score:
-			best = index
-			best_score = score
-	return best
-
-func _near_delivery_area() -> bool:
-	if location != "farm": return false
-	for box_tile: Vector2i in produce_box_tiles:
-		if _near_world_point(Vector2(box_tile * TILE) + Vector2(16,16), 120.0): return true
-	return _near_world_point(Vector2(976,510), 120.0)
-
-func _deposit_nearby_produce() -> void:
-	if at_title or sleeping or modal != "" or _available_produce().is_empty() or not _near_delivery_area(): return
-	var index := _find_delivery_box()
-	if index < 0: index = _create_delivery_box()
-	if index < 0:
-		_show_toast("No encuentro una casilla libre para la caja."); return
-	_deliver_to_box(index)
-
-func _create_delivery_box() -> int:
-	var origin := Vector2i(floori(player_pos.x / TILE), floori(player_pos.y / TILE))
-	for radius: int in range(1,4):
-		for dy: int in range(-radius,radius+1):
-			for dx: int in range(-radius,radius+1):
-				var candidate := origin + Vector2i(dx,dy)
-				var index := produce_box_tiles.size()
-				if _tile_in_reach(candidate, 120.0) and _can_place_box(candidate, index):
-					produce_box_tiles.append(candidate)
-					produce_boxes.append({"crop_id":"", "count":0})
-					return index
-	return -1
-
 func _add_produce(crop_id: String, amount: int, quality: String) -> void:
-	inventory[crop_id] = int(inventory.get(crop_id, 0)) + amount
+	_add_item(crop_id,amount)
 	var tiers: Dictionary = quality_stock.get(crop_id, {})
 	tiers[quality] = int(tiers.get(quality, 0)) + amount
 	quality_stock[crop_id] = tiers
 
-func _migrate_hand_produce() -> void:
-	if carried_crop_count > 0 and not CropDB.by_id(carried_crop_id).is_empty():
-		_add_produce(carried_crop_id, carried_crop_count, carried_quality)
-	carried_crop_id = ""
-	carried_crop_count = 0
-	carried_quality = "normal"
-
-func _loose_produce(crop_id: String) -> int:
-	return Play.loose_count(crop_id, inventory, produce_boxes)
+func _produce_count(crop_id: String) -> int:
+	return maxi(0,int(inventory.get(crop_id,0)))
 
 func _produce_ids() -> Array[String]:
 	var ids: Array[String] = []
@@ -1218,51 +1018,9 @@ func _produce_ids() -> Array[String]:
 func _available_produce() -> String:
 	var best: String = ""
 	for crop_id: String in _produce_ids():
-		if _loose_produce(crop_id) > 0 and (best.is_empty() or _loose_produce(crop_id) > _loose_produce(best)):
+		if _produce_count(crop_id) > 0 and (best.is_empty() or _produce_count(crop_id) > _produce_count(best)):
 			best = crop_id
 	return best
-
-func _can_quick_load() -> bool:
-	if truck_driving or moving_box_index >= 0 or truck_location != location or not _near_world_point(truck_pos, 120.0): return false
-	if not _available_produce().is_empty(): return true
-	if location == "farm":
-		for index: int in range(produce_boxes.size()):
-			if _box_can_reach_truck(index) and int(produce_boxes[index].get("count", 0)) > 0: return true
-	return false
-
-func _quick_load_truck() -> void:
-	if not _can_quick_load(): return
-	if truck_cargo.size() >= TRUCK_CAPACITY:
-		_show_toast("Camioneta llena · vende la carga en el mercadillo."); return
-	var before: int = truck_cargo.size()
-	if location == "farm":
-		for index: int in range(produce_boxes.size()):
-			if truck_cargo.size() >= TRUCK_CAPACITY: break
-			if _box_can_reach_truck(index) and int(produce_boxes[index].get("count", 0)) > 0: _load_box_into_truck(index)
-	for crop_id: String in _produce_ids():
-		var crop: Dictionary = CropDB.by_id(crop_id)
-		while _loose_produce(crop_id) > 0 and truck_cargo.size() < TRUCK_CAPACITY:
-			var count: int = mini(5, _loose_produce(crop_id))
-			var value: int = _take_box_stock_value(crop_id, count, int(crop.sell))
-			truck_cargo.append({"crop_id": crop_id, "count": count, "value": value})
-	_show_toast("%d cajas cargadas · camioneta %d/%d" % [truck_cargo.size() - before, truck_cargo.size(), TRUCK_CAPACITY])
-	_refresh_hud()
-
-func _deliver_to_box(index: int) -> void:
-	if index < 0 or index >= produce_boxes.size(): return
-	_migrate_hand_produce()
-	var box: Dictionary = produce_boxes[index]
-	var box_count: int = int(box.get("count", 0))
-	var crop_id: String = String(box.get("crop_id", ""))
-	if box_count >= 5: _show_toast("Caja llena · llévala a la camioneta."); return
-	if crop_id.is_empty(): crop_id = _available_produce()
-	var amount: int = mini(5 - box_count, _loose_produce(crop_id))
-	if amount <= 0: _show_toast("No tienes cosecha disponible para esta caja."); return
-	box["crop_id"] = crop_id
-	box["count"] = box_count + amount
-	produce_boxes[index] = box
-	_show_toast("%s · caja %d/5" % [CropDB.by_id(crop_id).name, int(box.count)])
-	_refresh_hud()
 
 func _near_world_point(point: Vector2, distance: float) -> bool:
 	return player_pos.distance_to(point) < distance
@@ -1308,7 +1066,10 @@ func _tile_key(tile: Vector2i) -> String:
 
 func _show_toast(message: String) -> void:
 	toast = message; toast_time = 2.8
-	if is_instance_valid(toast_label): toast_label.text = message; toast_label.visible = true
+	if is_instance_valid(toast_label): toast_label.text = message; toast_label.visible = modal == ""
+	if is_instance_valid(modal_feedback):
+		modal_feedback.text = message
+		modal_feedback.visible = modal != ""
 
 func _action(name: String) -> void:
 	player_animation = name; action_time = 0.36
@@ -1347,9 +1108,14 @@ func _build_hud() -> void:
 	var theme := Theme.new()
 	theme.default_font_size = 20
 	var focus := StyleBoxFlat.new()
-	focus.bg_color = Color(0.95, 0.83, 0.48, 0.12)
+	focus.bg_color = Color(0.95, 0.83, 0.48, 0.22)
 	focus.border_color = Color("ffe59a"); focus.set_border_width_all(3); focus.set_corner_radius_all(10)
 	theme.set_stylebox("focus", "Button", focus)
+	theme.set_color("font_focus_color", "Button", Color("fff1b9"))
+	theme.set_stylebox("normal", "Button", _panel_style(Color("1d3027"), 1.0, 10))
+	theme.set_stylebox("hover", "Button", _panel_style(Color("3d5340"), 1.0, 10))
+	theme.set_stylebox("pressed", "Button", _panel_style(Color("596040"), 1.0, 10))
+	menu_nav.shortcut.connect(_menu_shortcut)
 	hud.theme = theme
 	var top := PanelContainer.new(); top.position = Vector2(20, 16); top.size = Vector2(520, 88); hud.add_child(top); top.add_theme_stylebox_override("panel", _panel_style(Color("293c32"), 0.97, 14))
 	var info := VBoxContainer.new(); top.add_child(info)
@@ -1370,18 +1136,26 @@ func _build_hud() -> void:
 	for i: int in range(6):
 		var button := Button.new(); button.custom_minimum_size = Vector2(126, 52); button.size_flags_horizontal = Control.SIZE_EXPAND_FILL; button.text = tool_names[i]; button.focus_mode = Control.FOCUS_NONE; button.toggle_mode = true; button.add_theme_font_size_override("font_size", 20); button.pressed.connect(_select_tool.bind(i)); slots.add_child(button); tool_buttons.append(button)
 	seed_picker_button = Button.new(); seed_picker_button.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT); seed_picker_button.offset_left = -376; seed_picker_button.offset_right = -20; seed_picker_button.offset_top = -88; seed_picker_button.offset_bottom = -16; seed_picker_button.focus_mode = Control.FOCUS_NONE; seed_picker_button.pressed.connect(_open_seed_selector); hud.add_child(seed_picker_button)
-	deposit_produce_button = Button.new(); deposit_produce_button.visible = false; deposit_produce_button.focus_mode = Control.FOCUS_NONE; hud.add_child(deposit_produce_button)
 	toast_label = Label.new(); toast_label.set_anchors_preset(Control.PRESET_CENTER_TOP); toast_label.offset_left = -480; toast_label.offset_right = 480; toast_label.offset_top = 202; toast_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; toast_label.add_theme_font_size_override("font_size", 22); toast_label.add_theme_color_override("font_color", Color("fff1ce")); toast_label.add_theme_stylebox_override("normal", _panel_style(Color("21332a"), 0.97, 10)); toast_label.mouse_filter = Control.MOUSE_FILTER_IGNORE; hud.add_child(toast_label); toast_label.visible = false
 	travel_button = Button.new(); travel_button.position = Vector2(560, 16); travel_button.custom_minimum_size = Vector2(410, 60); travel_button.focus_mode = Control.FOCUS_NONE; travel_button.pressed.connect(_open_modal.bind("travel")); hud.add_child(travel_button)
 	modal_shade = ColorRect.new(); modal_shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); modal_shade.color = Color(0.04, 0.09, 0.07, 0.8); modal_shade.visible = false; hud.add_child(modal_shade)
 	modal_panel = PanelContainer.new(); modal_panel.set_anchors_preset(Control.PRESET_CENTER); modal_panel.position = Vector2(-520, -352); modal_panel.size = Vector2(1040, 704); modal_panel.visible = false; hud.add_child(modal_panel); modal_panel.add_theme_stylebox_override("panel", _panel_style(Color("293c32"), 0.99, 18))
-	var modal_col := VBoxContainer.new(); modal_col.add_theme_constant_override("separation", 12); modal_panel.add_child(modal_col)
+	var modal_col := VBoxContainer.new(); modal_col.add_theme_constant_override("separation", 8); modal_panel.add_child(modal_col)
+	modal_breadcrumb = Label.new(); modal_breadcrumb.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; modal_breadcrumb.add_theme_font_size_override("font_size", 17); modal_breadcrumb.add_theme_color_override("font_color", Color("b8cbb1")); modal_col.add_child(modal_breadcrumb)
 	var title_row := HBoxContainer.new(); modal_col.add_child(title_row)
-	modal_title = Label.new(); modal_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; modal_title.add_theme_font_size_override("font_size", 30); modal_title.add_theme_color_override("font_color", Color("f6e3b7")); title_row.add_child(modal_title)
+	modal_title = Label.new(); modal_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL; modal_title.clip_text = true; modal_title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS; modal_title.add_theme_font_size_override("font_size", 30); modal_title.add_theme_color_override("font_color", Color("f6e3b7")); title_row.add_child(modal_title)
 	var close := Button.new(); close.text = "Volver"; close.custom_minimum_size = Vector2(150, 52); close.pressed.connect(_back_from_modal); title_row.add_child(close); modal_close_button = close
-	modal_scroll = ScrollContainer.new(); modal_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; modal_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; modal_scroll.follow_focus = true; modal_col.add_child(modal_scroll)
+	modal_tabs = HBoxContainer.new(); modal_tabs.add_theme_constant_override("separation", 8); modal_col.add_child(modal_tabs)
+	modal_pager = HBoxContainer.new(); modal_pager.add_theme_constant_override("separation", 8); modal_col.add_child(modal_pager)
+	modal_feedback = Label.new(); modal_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; modal_feedback.add_theme_font_size_override("font_size", 19); modal_feedback.add_theme_color_override("font_color", Color("ffe59a")); modal_feedback.visible = false; modal_col.add_child(modal_feedback)
+	modal_scroll = ScrollContainer.new(); modal_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; modal_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; modal_scroll.follow_focus = false; modal_col.add_child(modal_scroll)
 	modal_body = VBoxContainer.new(); modal_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL; modal_body.add_theme_constant_override("separation", 10); modal_scroll.add_child(modal_body)
-	modal_footer = Label.new(); modal_footer.add_theme_font_size_override("font_size", 18); modal_footer.add_theme_color_override("font_color", Color("c1d4bd")); modal_col.add_child(modal_footer)
+	modal_scroll.get_v_scroll_bar().focus_mode = Control.FOCUS_NONE
+	modal_scroll.get_h_scroll_bar().focus_mode = Control.FOCUS_NONE
+	modal_actions = HBoxContainer.new(); modal_actions.add_theme_constant_override("separation", 12); modal_col.add_child(modal_actions)
+	var footer_row := HBoxContainer.new(); footer_row.add_theme_constant_override("separation", 16); modal_col.add_child(footer_row)
+	modal_footer = Label.new(); modal_footer.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; modal_footer.size_flags_horizontal = Control.SIZE_EXPAND_FILL; modal_footer.add_theme_font_size_override("font_size", 18); modal_footer.add_theme_color_override("font_color", Color("c1d4bd")); footer_row.add_child(modal_footer)
+	modal_position_label = Label.new(); modal_position_label.custom_minimum_size.x = 130; modal_position_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT; modal_position_label.add_theme_font_size_override("font_size", 18); modal_position_label.add_theme_color_override("font_color", Color("ffe59a")); footer_row.add_child(modal_position_label)
 	_refresh_hud()
 
 func _panel_style(color: Color, alpha: float, radius: int) -> StyleBoxFlat:
@@ -1392,9 +1166,15 @@ func _refresh_hud() -> void:
 	for child: Node in hud.get_children():
 		if child is CanvasItem and child not in [modal_panel, modal_shade, toast_label]: child.visible = not at_title
 	modal_close_button.text = "B  Volver" if last_input_was_gamepad else "Esc  Volver"
-	modal_footer.text = "Cruceta / stick: navegar    A: elegir    B: volver" if last_input_was_gamepad else "Flechas: navegar    Intro: elegir    Esc: volver"
-	if modal == "shop": modal_footer.text += "    ·    L1/R1: página" if last_input_was_gamepad else "    ·    R/Q: página"
-	deposit_produce_button.visible = false
+	modal_footer.text = "Cruceta / stick: navegar · A: elegir · B: volver" if last_input_was_gamepad else "Flechas / WASD: navegar · Intro: elegir · Esc: volver"
+	if modal == "shop": modal_footer.text += "\nL1/R1: página · L2/R2: estación · Stick dcho: desplazar" if last_input_was_gamepad else "\nR/Q: página · RePág/AvPág o rueda: desplazar"
+	elif modal == "crafting":
+		modal_footer.text += "\nL1/R1 o R/Q: recetas · Fabricar ×1 o ×5 usa tu mochila"
+	elif modal == "inventory":
+		modal_footer.text = ("A: colocar / intercambiar · B: cancelar movimiento" if inventory_move_from >= 0 else "A: detalles · X: mover · Y: ordenar / deshacer · B: volver") if last_input_was_gamepad else ("Intro: colocar / intercambiar · Esc: cancelar" if inventory_move_from >= 0 else "Intro: detalles · F: mover · O: ordenar / deshacer · Esc: volver")
+		modal_footer.text += "\nL1/R1: categoría · L2/R2: página · También puedes arrastrar" if last_input_was_gamepad else "\nR/Q: categoría · RePág/AvPág: página · Arrastra para recolocar"
+	else: modal_footer.text += "\nL2/R2: desplazar rápido · Stick dcho: leer listas" if last_input_was_gamepad else "\nRePág/AvPág o rueda: desplazar · Tab: siguiente opción"
+	modal_position_label.text = menu_nav.position_text()
 	if at_title:
 		toast_label.visible = false
 		return
@@ -1415,29 +1195,22 @@ func _refresh_hud() -> void:
 	action_label.text = "%s  %s" % [primary, target.get("label", "Apunta a una casilla o acércate a un objeto")]
 	if truck_driving:
 		action_label.text += "    ·    %s  Aparcar y bajar" % secondary
-		tool_label.text = "Camioneta · %d/%d cajas · %d monedas en carga" % [truck_cargo.size(), TRUCK_CAPACITY, _cargo_value()]
-	elif moving_box_index >= 0:
-		tool_label.text = "Llevas una caja · orienta con el stick derecho · B para soltar" if last_input_was_gamepad else "Llevas una caja · orienta con WASD · E para soltar"
+		tool_label.text = "Camioneta · toda tu cosecha viaja en la mochila"
 	else:
-		tool_label.text = "%s  %s · %s · %s" % [secondary, "Cargar cosecha" if _can_quick_load() else tool_names[selected_tool], "L1/R1 herramientas" if last_input_was_gamepad else "R/Q herramientas", "Y mochila" if last_input_was_gamepad else "I mochila"]
+		tool_label.text = "%s  %s · %s · %s" % [secondary, tool_names[selected_tool], "L1/R1 herramientas" if last_input_was_gamepad else "R/Q herramientas", "Y mochila" if last_input_was_gamepad else "I mochila"]
 		if tool_names[selected_tool] in ["Azada", "Regadera"] and int(tool_levels.get(tool_names[selected_tool], 1)) >= 2:
 			tool_label.text += " · %s: cargar 3×3" % ("R2" if last_input_was_gamepad else "Mayús")
 	hint_label.text = "Stick izq: mover · dcho: apuntar · ↑ semillas · ↓ viajar · Menú: pausa" if last_input_was_gamepad else "WASD: mover · ratón: apuntar · Z: semillas · T: viajar · Esc: pausa"
-	if target.get("action", "") == "box": hint_label.text = "L2: mover caja · A: guardar o cargar cosecha · B: pausa" if last_input_was_gamepad else "F: mover caja · E: guardar o cargar cosecha · Esc: pausa"
+	if not selected_item_id.is_empty() and not truck_driving: tool_label.text = "%s ×%d · A / E: usar · L1/R1 o X: volver a herramientas" % [_inventory_name(selected_item_id),int(inventory.get(selected_item_id,0))]
 	if tool_charge > 0.0: hint_label.text = "Carga %d%% · suelta para usar · 3×3 desde nivel 2" % mini(100, roundi(tool_charge / 0.55 * 100.0))
 	objective_label.text = _next_objective()
 
-func _cargo_value() -> int:
-	var value: int = 0
-	for box: Dictionary in truck_cargo: value += int(box.get("value", 0))
-	return value
-
 func _next_objective() -> String:
-	if truck_driving: return "Lleva la carga al puesto y pulsa %s para vender." % ("A" if last_input_was_gamepad else "E")
+	if truck_driving: return "Acércate al puesto y pulsa %s para vender lo que llevas en la mochila." % ("A" if last_input_was_gamepad else "E")
 	if location != "farm": return "Explora %s · ↓ / T abre los viajes." % Places.NAMES[location]
 	if energy < 15.0: return "Energía baja · descansa quieto o duerme en casa."
 	if water == 0: return "Regadera vacía · llénala en el pozo."
-	if not _available_produce().is_empty(): return "Cosecha en la mochila · acércate a la camioneta y pulsa %s para cargar." % ("X" if last_input_was_gamepad else "Espacio")
+	if not _available_produce().is_empty(): return "Cosecha guardada · abre la mochila con %s o véndela en el mercadillo." % ("Y" if last_input_was_gamepad else "I")
 	for plot: Dictionary in plots.values():
 		if not String(plot.get("crop_id", "")).is_empty() and not bool(plot.get("watered", false)) and not bool(plot.get("wilted", false)):
 			return "Cuida tus cultivos · apunta y usa la acción principal para regar."
@@ -1450,32 +1223,54 @@ func _clock_text() -> String:
 
 func _select_tool(index: int) -> void:
 	tool_charge = 0.0
+	selected_item_id = ""
 	selected_tool = index; _refresh_hud()
 
-func _open_modal(which: String, remember_parent: bool = true) -> void:
+func _menu_view_key() -> String:
+	if modal == "shop": return "shop:%d:%d" % [season_index if shop_season < 0 else shop_season,shop_page]
+	if modal == "inventory": return "inventory:%d:%d" % [inventory_filter,inventory_page]
+	if modal == "crafting": return "crafting:%d" % crafting_page
+	if modal == "item": return "item:" + inventory_item_id
+	return modal
+
+func _menu_shortcut(action: String) -> void:
+	var direction: int = -1 if action.ends_with("prev") else 1
+	if modal == "shop":
+		if action.begins_with("trigger_"):
+			var active: int = season_index if shop_season < 0 else shop_season
+			_choose_shop_season(posmod(active + direction, 4))
+		else: _change_shop_page(direction)
+	elif modal == "crafting":
+		crafting_page = posmod(crafting_page+direction,2)
+		_open_modal("crafting")
+	elif modal == "inventory":
+		if action.begins_with("page_"): _choose_inventory_filter(posmod(inventory_filter+direction,4))
+		else: _change_inventory_page(direction)
+	else: menu_nav.page(direction)
+
+func _open_modal(which: String, remember_parent: bool = true, restore_focus: bool = true) -> void:
 	if sleeping: return
 	var old_modal: String = modal
+	if old_modal == "inventory" and which != "inventory": inventory_move_from = -1
+	menu_nav.remember()
 	if which == "title": modal_history.clear()
 	elif remember_parent and old_modal != "" and old_modal != which: modal_history.append(old_modal)
-	var focused: Control = get_viewport().gui_get_focus_owner() if is_inside_tree() else null
-	var focused_path: Array[int] = []
-	var focus_node: Node = focused
-	if focused != null and modal_body.is_ancestor_of(focused):
-		while focus_node != modal_body:
-			focused_path.push_front(focus_node.get_index())
-			focus_node = focus_node.get_parent()
-	var scroll_position: int = modal_scroll.scroll_vertical
+	var feedback: String = modal_feedback.text if old_modal == which and modal_feedback.visible and toast_time > 0.0 else ""
 	tool_charge = 0.0
 	charge_armed = false
 	charge_needs_release = Input.is_action_pressed("charge_tool")
 	repeat_elapsed = 0.0
 	repeat_needs_release = true
+	var panel_height: float = 736.0 if which == "inventory" else 704.0
 	modal = which; modal_panel.visible = true
 	modal_shade.visible = true
 	modal_close_button.visible = which != "title"
-	for child: Node in modal_body.get_children():
-		modal_body.remove_child(child)
-		child.queue_free()
+	for container: Node in [modal_body, modal_tabs, modal_pager, modal_actions]:
+		for child: Node in container.get_children():
+			container.remove_child(child)
+			child.queue_free()
+	modal_feedback.text = feedback
+	modal_feedback.visible = not feedback.is_empty()
 	match which:
 		"title": _populate_title()
 		"settings": _populate_settings()
@@ -1484,53 +1279,49 @@ func _open_modal(which: String, remember_parent: bool = true) -> void:
 		"confirm_sleep": _populate_confirmation("¿Irte a dormir?", "Terminarás el día. Recuperarás energía y se guardará la partida al amanecer.", _begin_sleep)
 		"shop": _populate_shop()
 		"workshop": _populate_workshop()
+		"crafting": _populate_crafting()
 		"inventory": _populate_inventory()
+		"item": _populate_inventory_item()
+		"field_status": _populate_field_status()
+		"skills": _populate_skills()
 		"seeds": _populate_seeds()
 		"land": _populate_land()
 		"pause": _populate_pause()
+		"session": _populate_session()
+		"confirm_title": _populate_confirmation("¿Volver al inicio?", "Los cambios sin guardar se perderán al cargar otra partida. Puedes cancelar y guardar desde Partida.", _confirm_return_to_title)
+		"river_rest": _populate_confirmation("¿Descansar junto al río?", "Pasarán 20 minutos y recuperarás 15 de energía.", _rest_at_river)
 		"confirm_new": _populate_confirmation("¿Empezar una nueva partida?", "Se reiniciará la granja y se sustituirá el guardado actual.", _start_new_game)
 		"confirm_load": _populate_confirmation("¿Cargar la partida guardada?", "Se perderán los cambios que no hayas guardado.", _load_saved_game)
-	var first: Control = _first_focusable(modal_body)
-	if first == null and modal_close_button.visible: first = modal_close_button
-	if old_modal == which and not focused_path.is_empty():
-		var same: Node = modal_body
-		for index: int in focused_path:
-			if index >= same.get_child_count():
-				same = null; break
-			same = same.get_child(index)
-		if same is Button and not same.disabled: first = same
-	else: modal_scroll.scroll_vertical = 0
-	if first != null and is_inside_tree(): first.grab_focus()
-	if old_modal == which: modal_scroll.set_deferred("scroll_vertical", scroll_position)
+	modal_panel.position = (hud.size-Vector2(1040,panel_height))*0.5
+	modal_panel.size = Vector2(1040,panel_height)
+	modal_tabs.visible = modal_tabs.get_child_count() > 0
+	modal_pager.visible = modal_pager.get_child_count() > 0
+	modal_actions.visible = modal_actions.get_child_count() > 0
+	var route: Array[String] = []
+	for parent: String in modal_history: route.append(_menu_name(parent))
+	route.append(_menu_name(modal))
+	modal_breadcrumb.text = "  ›  ".join(route)
+	var fresh_confirmation: bool = modal.begins_with("confirm_") or modal == "river_rest"
+	menu_nav.configure(_menu_view_key(), [modal_tabs,modal_pager,modal_body,modal_actions], modal_body,modal_scroll,modal_close_button, not fresh_confirmation and restore_focus)
 	_refresh_hud()
 
-func _first_focusable(node: Node) -> Control:
-	if node is Control and (node as Control).focus_mode != Control.FOCUS_NONE and not (node is BaseButton and node.disabled):
-		return node as Control
-	for child: Node in node.get_children():
-		var found: Control = _first_focusable(child)
-		if found != null: return found
-	return null
+func _menu_name(which: String) -> String:
+	return {"title":"Inicio","pause":"Pausa","session":"Partida","settings":"Ajustes","controls":"Controles","inventory":"Mochila","crafting":"Fabricar","item":"Detalle","field_status":"Cultivos","skills":"Habilidades","shop":"Tienda","workshop":"Taller","travel":"Viajes","seeds":"Semillas","land":"Terreno"}.get(which, "Confirmación")
 
 func _close_modal() -> void:
 	if at_title:
 		_open_modal("title"); return
+	inventory_move_from = -1
+	menu_nav.remember()
+	menu_nav.reset_input()
 	modal_history.clear()
 	modal = ""; modal_panel.visible = false
 	modal_shade.visible = false
 	if is_inside_tree(): get_viewport().gui_release_focus()
 
 func _crop_icon(crop: Dictionary, kind: String = "product") -> Texture2D:
-	var path: String = String(crop.get(kind + "_sprite", ""))
-	if path.is_empty(): return null
-	var key: String = path + ":" + str(crop.sprite_index)
-	if not crop_icon_cache.has(key):
-		var atlas := AtlasTexture.new()
-		atlas.atlas = load(path) as Texture2D
-		var index: int = int(crop.sprite_index)
-		atlas.region = Rect2((index % 6) * 64, (index / 6) * 64, 64, 64)
-		crop_icon_cache[key] = atlas
-	return crop_icon_cache[key]
+	var state: String = {"seed":"seed_bag", "plant":"harvest_ready", "product":"inventory"}.get(kind, kind)
+	return CropVisual.texture(crop, state)
 
 func _add_crop_icon(row: HBoxContainer, crop: Dictionary, kind: String) -> void:
 	var icon := TextureRect.new()
@@ -1544,40 +1335,49 @@ func _crop_schedule(crop: Dictionary) -> String:
 	return "%d días · %d/cosecha · %s" % [crop.days, int(crop.get("yield", 2)), "rebrota en %d días" % crop.repeat if int(crop.repeat) > 0 else "cosecha única"]
 
 func _choose_shop_season(index: int) -> void:
+	shop_cursor_slot = -1
 	shop_page = 0
 	shop_season = index
 	_open_modal("shop")
 
 func _change_shop_page(direction: int) -> void:
-	shop_page = posmod(shop_page + direction, 6)
+	var focused: Control = get_viewport().gui_get_focus_owner()
+	shop_cursor_slot = int(focused.get_meta("page_slot", -1)) if focused != null else -1
+	var active: int = season_index if shop_season < 0 else shop_season
+	var pages: int = maxi(1, ceili(CropDB.crops_for_season(SEASONS[active]).size() / float(SHOP_PAGE_SIZE)))
+	shop_page = posmod(shop_page + direction, pages)
 	_open_modal("shop")
-	modal_scroll.scroll_vertical = 0
 
 func _populate_shop() -> void:
 	modal_title.text = "Tienda · %d monedas" % coins
-	var tabs := HBoxContainer.new(); modal_body.add_child(tabs)
+	var tabs := modal_tabs
 	var active: int = season_index if shop_season < 0 else shop_season
 	for index: int in range(4):
-		var tab := Button.new(); tab.text = ("✓ " if active == index else "") + SEASONS[index]; tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL; tab.custom_minimum_size.y = 52; tab.pressed.connect(_choose_shop_season.bind(index)); tabs.add_child(tab)
-	var navigation := HBoxContainer.new(); modal_body.add_child(navigation)
-	var prev := Button.new(); prev.text = "‹ Anterior"; prev.custom_minimum_size = Vector2(180, 48); prev.pressed.connect(_change_shop_page.bind(-1)); navigation.add_child(prev)
-	var page := Label.new(); page.text = "Página %d/6 · bolsas de 5 semillas" % (shop_page + 1); page.size_flags_horizontal = Control.SIZE_EXPAND_FILL; page.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; navigation.add_child(page)
-	var next := Button.new(); next.text = "Siguiente ›"; next.custom_minimum_size = Vector2(180, 48); next.pressed.connect(_change_shop_page.bind(1)); navigation.add_child(next)
+		var tab := Button.new(); tab.text = ("✓ " if active == index else "") + SEASONS[index]; tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL; tab.custom_minimum_size.y = 52; tab.set_meta("menu_id", "season:%d" % index); tab.set_meta("menu_active", index == active); tab.pressed.connect(_choose_shop_season.bind(index)); tabs.add_child(tab)
+	var navigation := modal_pager
+	var prev := Button.new(); prev.text = "‹ Anterior"; prev.custom_minimum_size = Vector2(180, 48); prev.set_meta("menu_id", "previous_page"); prev.pressed.connect(_change_shop_page.bind(-1)); navigation.add_child(prev)
+	var page := Label.new(); page.text = "Página %d/%d · bolsas de 5 semillas" % [shop_page+1, maxi(1,ceili(CropDB.crops_for_season(SEASONS[active]).size()/float(SHOP_PAGE_SIZE)))]; page.size_flags_horizontal = Control.SIZE_EXPAND_FILL; page.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; navigation.add_child(page)
+	var next := Button.new(); next.text = "Siguiente ›"; next.custom_minimum_size = Vector2(180, 48); next.set_meta("menu_id", "next_page"); next.pressed.connect(_change_shop_page.bind(1)); navigation.add_child(next)
 	var crops: Array[Dictionary] = CropDB.crops_for_season(SEASONS[active])
+	var slot: int = 0
 	for crop: Dictionary in crops.slice(shop_page * SHOP_PAGE_SIZE, (shop_page + 1) * SHOP_PAGE_SIZE):
 		var row := HBoxContainer.new(); row.custom_minimum_size.y = 76; row.add_theme_constant_override("separation", 12); modal_body.add_child(row)
 		_add_crop_icon(row, crop, "product")
 		var text := Label.new(); text.text = "%s · tienes %d semillas\n%s · venta %d/u." % [crop.name, int(inventory.get(String(crop.id) + "_seed", 0)), _crop_schedule(crop), crop.sell]; text.size_flags_horizontal = Control.SIZE_EXPAND_FILL; text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; row.add_child(text)
-		var buy := Button.new(); buy.text = "Comprar %s\n×5 · %d monedas" % [crop.name, crop.seed]; buy.custom_minimum_size = Vector2(250, 64); buy.clip_text = true; buy.disabled = coins < int(crop.seed); buy.pressed.connect(_buy_seed.bind(String(crop.id))); row.add_child(buy)
-	_menu_button("Vender toda la cosecha de la mochila", _sell_all_produce, _available_produce().is_empty())
-	_menu_button("Taller · elegir herramienta y mejorar", _open_modal.bind("workshop"))
+		var buy := Button.new(); buy.text = "Comprar %s\n×5 · %d monedas" % [crop.name, crop.seed]; buy.custom_minimum_size = Vector2(250, 64); buy.clip_text = true; buy.disabled = coins < int(crop.seed); buy.set_meta("menu_id", "buy:" + String(crop.id)); buy.set_meta("page_slot", slot); buy.set_meta("menu_default", slot == maxi(0,shop_cursor_slot)); slot += 1; buy.pressed.connect(_buy_seed.bind(String(crop.id))); row.add_child(buy)
+	_menu_action("Vender cosecha", _sell_all_produce, _available_produce().is_empty(), "sell_all")
+	_menu_action("Vender materiales",_choose_inventory_filter.bind(3),false,"sell_materials")
+	_menu_action("Taller · herramientas", _open_modal.bind("workshop"), false, "workshop")
 
 func _populate_workshop() -> void:
 	modal_title.text = "Taller · %d monedas" % coins
+	_menu_action("Fabricar con materiales",_open_modal.bind("crafting"),false,"crafting")
+	_add_note("Desde nivel 3, cada mejora necesita además: 2 tablones, 1 cuerda y 1 lingote de hierro.")
+	_add_note("Materiales disponibles: %d de madera y %d de piedra." % [int(inventory.get("wood",0)),int(inventory.get("stone",0))])
 	_add_note("Cada mejora cuesta 80 monedas, 3 de madera y 2 de piedra. Azada y regadera de nivel 2: mantén R2 / Mayús para trabajar 3×3.")
 	for index: int in [0, 1, 3, 4, 5]:
 		var name: String = tool_names[index]
-		var eligible: bool = int(tool_levels[name]) < 6 and coins >= 80 and int(inventory.get("wood", 0)) >= 3 and int(inventory.get("stone", 0)) >= 2
+		var eligible: bool = int(tool_levels[name]) < 6 and coins >= 80 and int(inventory.get("wood", 0)) >= 3 and int(inventory.get("stone", 0)) >= 2 and _has_advanced_upgrade_materials(index)
 		_menu_button("%s · nivel %d · mejorar" % [name, int(tool_levels[name])], _upgrade_chosen_tool.bind(index), not eligible)
 
 func _upgrade_chosen_tool(index: int) -> void:
@@ -1587,18 +1387,21 @@ func _upgrade_chosen_tool(index: int) -> void:
 
 func _sell_all_produce() -> void:
 	var total: int = 0
+	var units: int = 0
 	for crop_id: String in _produce_ids():
 		var crop: Dictionary = CropDB.by_id(crop_id)
-		var amount: int = _loose_produce(crop_id)
+		var amount: int = _produce_count(crop_id)
 		if amount > 0:
-			total += _take_box_stock_value(String(crop.id), amount, int(crop.sell))
-			xp.Comercio += amount * 3
+			total += _take_produce_value(crop_id,amount,int(crop.sell))
+			units += amount
+			xp.Comercio += amount*3
 	coins += total
-	_show_toast("Cosecha vendida · +%d monedas" % total)
-	_open_modal("shop")
+	_show_toast("Vendiste %d productos de la mochila · +%d monedas" % [units,total] if units > 0 else "No tienes cosecha para vender.")
+	if modal == "shop": _open_modal("shop")
+	_refresh_hud()
 
 func _seed_catalog() -> Array[Dictionary]:
-	var crops: Array[Dictionary] = CropDB.all_crops()
+	var crops: Array[Dictionary] = CropDB.all_crops().duplicate()
 	for item: Variant in inventory.keys():
 		var key: String = String(item)
 		if key.begins_with("catalog_") and key.ends_with("_seed"):
@@ -1624,6 +1427,8 @@ func _populate_seeds() -> void:
 		var button := Button.new()
 		var marker: String = "✓  " if crop_id == selected_seed_id else "    "
 		button.text = "%s%s   ·   ×%d   ·   %s" % [marker, String(crop.name), amount, String(crop.season)]
+		button.set_meta("menu_id", "seed:" + crop_id)
+		button.set_meta("menu_default", crop_id == selected_seed_id)
 		button.icon = _crop_icon(crop, "seed")
 		button.expand_icon = true
 		button.add_theme_constant_override("icon_max_width", 40)
@@ -1652,34 +1457,337 @@ func _select_seed(crop_id: String) -> void:
 		_open_modal("seeds")
 		return
 	selected_seed_id = crop_id
+	selected_item_id = ""
 	selected_tool = tool_names.find("Semillas")
 	_close_modal()
 	_show_toast("Semilla seleccionada: %s ×%d" % [String(crop.name), amount])
 	_refresh_hud()
 
+func _collect_materials(prop: Dictionary) -> void:
+	var pieces: PackedStringArray = []
+	var drops: Dictionary = Items.drops(prop)
+	for item: String in drops:
+		_add_item(item,int(drops[item]))
+		pieces.append("%s +%d" % [_inventory_name(item),int(drops[item])])
+	_show_toast("%s · en la mochila" % ", ".join(pieces))
+
+func _has_advanced_upgrade_materials(index: int) -> bool:
+	if int(tool_levels.get(tool_names[index],1)) < 2: return true
+	return int(inventory.get("plank",0)) >= 2 and int(inventory.get("rope",0)) >= 1 and int(inventory.get("iron_bar",0)) >= 1
+
+func _populate_material_detail(item_id: String, amount: int) -> void:
+	var entry: Dictionary = Items.by_id(item_id)
+	var row := HBoxContainer.new(); modal_body.add_child(row)
+	var icon := TextureRect.new(); icon.texture = Items.ICONS[item_id]; icon.custom_minimum_size = Vector2(72,72); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; row.add_child(icon)
+	var description := Label.new(); description.text = String(entry.description); description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; description.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(description)
+	_add_note("Venta: %d monedas/unidad · pila completa: %d monedas." % [int(entry.sell),int(entry.sell)*amount])
+	if entry.has("use"):
+		_menu_button("Equipar para usar en la granja",_equip_backpack_item.bind(item_id),amount <= 0,"equip_item")
+	_menu_button("Fabricar con materiales",_open_modal.bind("crafting"),false,"crafting")
+	if not _at_market(): _add_note("Acércate al mercadillo para vender materiales.")
+	var sales := HBoxContainer.new(); sales.add_theme_constant_override("separation",10); modal_body.add_child(sales)
+	for quantity: int in [1,5,-1]:
+		var count: int = amount if quantity < 0 else quantity
+		var sell := Button.new(); sell.text = "Vender %s · %d ◈" % ["pila" if quantity < 0 else "×%d" % quantity,count*int(entry.sell)]
+		sell.custom_minimum_size.y = 52; sell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		sell.disabled = not _at_market() or count <= 0 or amount < count
+		sell.set_meta("menu_id","sell_material:%d" % quantity)
+		sell.pressed.connect(_sell_material.bind(item_id,quantity)); sales.add_child(sell)
+
+func _sell_material(item_id: String, requested: int) -> void:
+	var entry: Dictionary = Items.by_id(item_id)
+	if entry.is_empty() or not _at_market(): return
+	var stock: int = maxi(0,int(inventory.get(item_id,0)))
+	var transaction: Dictionary = Economy.sell(coins,int(entry.sell),stock if requested < 0 else requested,stock)
+	if not transaction.ok: return
+	inventory[item_id] = stock-int(transaction.quantity)
+	coins = int(transaction.balance)
+	xp.Comercio += int(transaction.quantity)
+	if selected_item_id == item_id and int(inventory[item_id]) <= 0: selected_item_id = ""
+	_sync_backpack()
+	_show_toast("Vendiste %s ×%d · +%d monedas" % [entry.name,int(transaction.quantity),int(transaction.quantity)*int(entry.sell)])
+	_open_modal("item")
+
+func _populate_crafting() -> void:
+	modal_title.text = "Fabricar con la mochila"
+	_add_note("Materiales y resultados se guardan en tu mochila. ×5 fabrica cinco tandas de la receta.")
+	for direction: int in [-1,0,1]:
+		if direction == 0:
+			var label := Label.new(); label.text = "Recetas · página %d / 2" % (crafting_page+1); label.size_flags_horizontal = Control.SIZE_EXPAND_FILL; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; modal_pager.add_child(label)
+		else:
+			var page := Button.new(); page.text = "‹ Anterior" if direction < 0 else "Siguiente ›"; page.custom_minimum_size = Vector2(180,48); page.set_meta("menu_id","craft_page:%d" % direction); page.pressed.connect(_change_crafting_page.bind(direction)); modal_pager.add_child(page)
+	for entry: Dictionary in Items.RECIPES.slice(crafting_page*3,crafting_page*3+3):
+		var row := HBoxContainer.new(); row.custom_minimum_size.y = 100; row.add_theme_constant_override("separation",12); modal_body.add_child(row)
+		var icon := TextureRect.new(); icon.texture = Items.ICONS[entry.id]; icon.custom_minimum_size = Vector2(64,64); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; row.add_child(icon)
+		var column := VBoxContainer.new(); column.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(column)
+		var name := Label.new(); name.text = "%s ×%d · tienes %d" % [_inventory_name(String(entry.id)),int(entry.amount),int(inventory.get(entry.id,0))]; name.add_theme_font_size_override("font_size",22); column.add_child(name)
+		var requirements: PackedStringArray = []
+		for ingredient: String in entry.cost: requirements.append("%s %d/%d" % [_inventory_name(ingredient),int(inventory.get(ingredient,0)),int(entry.cost[ingredient])])
+		var text := Label.new(); text.text = "Necesita: " + " · ".join(requirements); text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; text.add_theme_font_size_override("font_size",18); column.add_child(text)
+		for batches: int in [1,5]:
+			var button := Button.new(); button.text = "Fabricar ×%d\n→ %d uds." % [batches,batches*int(entry.amount)]; button.custom_minimum_size = Vector2(150,64); button.disabled = Items.max_batches(String(entry.id),inventory) < batches; button.set_meta("menu_id","craft:%s:%d" % [entry.id,batches]); button.set_meta("menu_default",true); button.pressed.connect(_craft_item.bind(String(entry.id),batches)); row.add_child(button)
+	_menu_action("Volver",_back_from_modal,false,"back_crafting")
+
+func _change_crafting_page(direction: int) -> void:
+	crafting_page = posmod(crafting_page+direction,2)
+	_open_modal("crafting")
+
+func _craft_item(item_id: String, batches: int) -> void:
+	var result: Dictionary = Items.craft(item_id,batches,inventory)
+	if not result.ok: _show_toast("No tienes materiales suficientes para esa receta."); return
+	inventory = result.inventory
+	_sync_backpack()
+	_show_toast("Fabricaste %s ×%d · en la mochila" % [_inventory_name(item_id),int(result.amount)])
+	_open_modal("crafting")
+
+func _equip_backpack_item(item_id: String) -> void:
+	if not Items.by_id(item_id).has("use") or int(inventory.get(item_id,0)) <= 0: return
+	selected_item_id = item_id
+	_close_modal()
+	_show_toast("%s equipado · A / E para usar · X vuelve a herramientas" % _inventory_name(item_id))
+	_refresh_hud()
+
+func _can_place_backpack_item(tile: Vector2i) -> bool:
+	if not _tile_in_reach(tile) or not _can_use_land(tile) or truck_driving: return false
+	if plots.has(_tile_key(tile)) or _is_path(tile): return false
+	var bounds := Rect2(Vector2(tile*TILE),Vector2(TILE,TILE)).grow(1)
+	if bounds.grow(10).has_point(player_pos): return false
+	for obstacle: Rect2 in _layout_obstacles():
+		if bounds.intersects(obstacle): return false
+	for prop: Dictionary in props:
+		if bounds.intersects(_prop_bounds(prop).grow(3)): return false
+	return true
+
+func _use_backpack_item(item_id: String, tile: Vector2i) -> bool:
+	if int(inventory.get(item_id,0)) <= 0 or not _tile_in_reach(tile) or truck_driving or energy < 1.0: return false
+	var key: String = _tile_key(tile)
+	if item_id == "fertilizer":
+		var plot: Dictionary = plots.get(key,{})
+		if not _can_use_land(tile) or plot.is_empty() or String(plot.get("soil","")) not in ["tilled","wet","fertile"] or bool(plot.get("wilted",false)) or bool(plot.get("fertilized",false)):
+			_show_toast("El abono necesita tierra preparada sin abonar y una planta sana."); return false
+		plot.fertilized = true; plot.soil = "fertile"
+		_show_toast("Tierra abonada · mejor calidad en la próxima cosecha")
+	elif item_id == "fence":
+		if not _can_place_backpack_item(tile): _show_toast("Coloca la valla en suelo libre de tu parcela, lejos de caminos y objetos."); return false
+		placed_items[key] = "fence"
+		_show_toast("Valla colocada · usa el hacha para recuperarla")
+	else: return false
+	inventory[item_id] = int(inventory[item_id])-1
+	energy = maxf(0.0,energy-1.0)
+	if int(inventory[item_id]) <= 0: selected_item_id = ""
+	_sync_backpack(); _refresh_hud(); queue_redraw()
+	return true
+
+func _sync_backpack() -> void:
+	inventory_slots = Backpack.synchronize(inventory_slots,inventory)
+
+func _add_item(item_id: String, amount: int) -> void:
+	if item_id.is_empty() or amount <= 0: return
+	inventory[item_id] = int(inventory.get(item_id,0))+amount
+	_sync_backpack()
+
+func _crop_unit_price(item_id: String) -> int:
+	return int(CropDB.by_id(item_id).get("sell",0))
+
+func _produce_sale_value(item_id: String) -> int:
+	var remaining: int = _produce_count(item_id)
+	var price: int = _crop_unit_price(item_id)
+	var value: int = 0
+	var tiers: Dictionary = quality_stock.get(item_id,{"normal":remaining})
+	for tier: String in ["excepcional","excelente","buena","normal"]:
+		var count: int = mini(remaining,maxi(0,int(tiers.get(tier,0))))
+		var multiplier: float = {"excepcional":2.25,"excelente":1.6,"buena":1.25,"normal":1.0}[tier]
+		value += roundi(price*multiplier*count)
+		remaining -= count
+	return value + remaining*price + int(inventory_value_adjustments.get(item_id,0))
+
+func _at_market() -> bool:
+	return (location == "farm" and _near_world_point(Vector2(976,510),190.0)) or (location == "town" and _near_world_point(Vector2(560,544),190.0))
+
+func _inventory_name(item_id: String) -> String:
+	var is_seed: bool = item_id.ends_with("_seed")
+	var crop: Dictionary = CropDB.by_id(item_id.trim_suffix("_seed") if is_seed else item_id)
+	if not crop.is_empty(): return String(crop.name) + (" · semillas" if is_seed else "")
+	return String(Items.by_id(item_id).get("name",item_id.replace("_", " ").capitalize()))
+
+func _inventory_matches(item_id: String) -> bool:
+	if item_id.is_empty() or inventory_filter == 0: return true
+	var is_seed: bool = item_id.ends_with("_seed")
+	var is_crop: bool = not CropDB.by_id(item_id).is_empty()
+	return (inventory_filter == 1 and is_seed) or (inventory_filter == 2 and is_crop and not is_seed) or (inventory_filter == 3 and not is_seed and not is_crop)
+
+func _inventory_indices() -> Array[int]:
+	var indices: Array[int] = []
+	for index: int in range(inventory_slots.size()):
+		if _inventory_matches(inventory_slots[index]): indices.append(index)
+	return indices
+
+func _inventory_page_count() -> int:
+	return maxi(1,ceili(_inventory_indices().size()/float(Backpack.PAGE_SIZE)))
+
+func _choose_inventory_filter(index: int) -> void:
+	if inventory_move_from >= 0: return
+	inventory_filter = index
+	inventory_page = 0
+	_open_modal("inventory")
+
+func _change_inventory_page(direction: int) -> void:
+	inventory_page = posmod(inventory_page+direction,_inventory_page_count())
+	_open_modal("inventory")
+
 func _populate_inventory() -> void:
-	modal_title.text = "Mochila"
-	_add_note("La cosecha se acumula aquí. X / Espacio junto a la camioneta carga hasta 6 cajas, de 1 a 5 productos cada una. También puedes vender la cosecha suelta en la tienda.")
-	var keys: Array = inventory.keys(); keys.sort()
-	for item: Variant in keys:
-		var amount: int = int(inventory[item]); if amount <= 0: continue
-		var row := HBoxContainer.new(); row.custom_minimum_size = Vector2(0, 44); modal_body.add_child(row)
-		var item_id: String = String(item)
-		var is_seed: bool = item_id.ends_with("_seed")
-		var item_crop: Dictionary = CropDB.by_id(item_id.trim_suffix("_seed") if is_seed else item_id)
-		if not item_crop.is_empty(): _add_crop_icon(row, item_crop, "seed" if is_seed else "product")
-		var item_name: String = String(item_crop.name) + (" · semillas" if is_seed else "") if not item_crop.is_empty() else item_id.replace("_", " ")
-		var label := Label.new(); label.text = item_name; label.size_flags_horizontal = Control.SIZE_EXPAND_FILL; label.add_theme_font_size_override("font_size", 20); row.add_child(label)
-		var count := Label.new(); count.text = "× %d" % amount; count.custom_minimum_size = Vector2(72, 40); count.add_theme_font_size_override("font_size", 20); count.add_theme_color_override("font_color", Color("f6d277")); row.add_child(count)
-		if is_seed and not item_crop.is_empty() and String(item_crop.season) == SEASONS[season_index]:
-			var choose := Button.new(); choose.text = "Elegir"; choose.custom_minimum_size = Vector2(110, 48); choose.pressed.connect(_select_seed.bind(String(item_crop.id))); row.add_child(choose)
-		if quality_stock.has(String(item)):
-			var quality_label := Label.new(); quality_label.text = _quality_summary(quality_stock[String(item)]); quality_label.custom_minimum_size = Vector2(260, 40); quality_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; quality_label.add_theme_font_size_override("font_size", 18); quality_label.add_theme_color_override("font_color", Color("d1dda5")); row.add_child(quality_label)
+	_sync_backpack()
+	var indices: Array[int] = _inventory_indices()
+	inventory_page = clampi(inventory_page,0,_inventory_page_count()-1)
+	modal_title.text = "Mochila · %d tipos de objeto" % (inventory_slots.size()-inventory_slots.count(""))
+	if inventory_move_from >= 0: modal_title.text = "Colocar: " + _inventory_name(inventory_slots[inventory_move_from])
+	var categories: Array[String] = ["Todo", "Semillas", "Cosecha", "Materiales"]
+	for index: int in range(categories.size()):
+		var tab := Button.new(); tab.text = ("✓ " if inventory_filter == index else "") + categories[index]; tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL; tab.custom_minimum_size.y = 48; tab.set_meta("menu_id", "filter:%d" % index); tab.set_meta("menu_active", index == inventory_filter); tab.disabled = inventory_move_from >= 0; tab.pressed.connect(_choose_inventory_filter.bind(index)); modal_tabs.add_child(tab)
+	var previous := Button.new(); previous.text = "‹ Página anterior"; previous.custom_minimum_size = Vector2(210,40); previous.set_meta("menu_id","inventory_previous"); previous.pressed.connect(_change_inventory_page.bind(-1)); previous.disabled = _inventory_page_count() == 1; modal_pager.add_child(previous)
+	var page := Label.new(); page.text = "Página %d / %d · %d huecos" % [inventory_page+1,_inventory_page_count(),inventory_slots.size()]; page.size_flags_horizontal = Control.SIZE_EXPAND_FILL; page.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; modal_pager.add_child(page)
+	var next := Button.new(); next.text = "Página siguiente ›"; next.custom_minimum_size = Vector2(210,40); next.set_meta("menu_id","inventory_next"); next.pressed.connect(_change_inventory_page.bind(1)); next.disabled = _inventory_page_count() == 1; modal_pager.add_child(next)
+	var grid := GridContainer.new(); grid.columns = Backpack.COLUMNS; grid.add_theme_constant_override("h_separation",8); grid.add_theme_constant_override("v_separation",8); grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL; modal_body.add_child(grid)
+	var start: int = inventory_page*Backpack.PAGE_SIZE
+	var slots: Array[int] = indices.slice(start,start+Backpack.PAGE_SIZE)
+	for slot_index: int in slots: _make_inventory_slot(grid,slot_index,slot_index == inventory_preferred_slot or (inventory_preferred_slot < 0 and slot_index == slots[0]))
+	for padding: int in range(Backpack.PAGE_SIZE-slots.size()):
+		var empty := Control.new(); empty.custom_minimum_size = Vector2(144,84); empty.mouse_filter = Control.MOUSE_FILTER_IGNORE; grid.add_child(empty)
+	_menu_action("Deshacer orden" if not inventory_undo_layout.is_empty() else "Ordenar todo A–Z", _sort_or_undo_inventory, inventory_move_from >= 0,"sort_inventory")
+	_menu_action("Fabricar",_open_modal.bind("crafting"),false,"crafting")
+	_menu_action("Cultivos", _open_modal.bind("field_status"), false,"field_status")
+	_menu_action("Habilidades", _open_modal.bind("skills"), false,"skills")
+
+func _make_inventory_slot(grid: GridContainer, index: int, preferred: bool) -> void:
+	var item_id: String = inventory_slots[index]
+	var button := BackpackCell.new()
+	button.slot_index = index
+	button.item_id = item_id
+	button.item_name = _inventory_name(item_id) if not item_id.is_empty() else "Hueco libre"
+	button.amount = int(inventory.get(item_id,0))
+	button.drag_owner_id = get_instance_id()
+	button.drag_enabled = inventory_move_from < 0
+	button.drop_validator = _can_move_inventory_item
+	button.custom_minimum_size = Vector2(144,84)
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.set_meta("menu_id","slot:%d" % index)
+	button.set_meta("slot_index",index)
+	button.set_meta("menu_default",preferred)
+	button.tooltip_text = "%s%s\nA / Intro: ver o colocar · X / F: mover · arrastra con el ratón" % [button.item_name," ×%d" % button.amount if button.amount > 0 else ""]
+	button.pressed.connect(_inventory_slot_pressed.bind(index))
+	button.item_dropped.connect(_move_inventory_item)
+	if index == inventory_move_from: button.add_theme_stylebox_override("normal",_panel_style(Color("6a6337"),1.0,10))
+	grid.add_child(button)
+	var margin := MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); margin.mouse_filter = Control.MOUSE_FILTER_IGNORE; margin.add_theme_constant_override("margin_left",8); margin.add_theme_constant_override("margin_right",8); margin.add_theme_constant_override("margin_top",5); margin.add_theme_constant_override("margin_bottom",5); button.add_child(margin)
+	var column := VBoxContainer.new(); column.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_theme_constant_override("separation",2); margin.add_child(column)
+	var top := HBoxContainer.new(); top.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(top)
+	if not item_id.is_empty():
+		var crop: Dictionary = CropDB.by_id(item_id.trim_suffix("_seed") if item_id.ends_with("_seed") else item_id)
+		if not crop.is_empty():
+			var icon := TextureRect.new(); icon.texture = _crop_icon(crop,"seed" if item_id.ends_with("_seed") else "product"); icon.custom_minimum_size = Vector2(40,40); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; icon.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(icon)
+		elif Items.ICONS.has(item_id):
+			var icon := TextureRect.new(); icon.texture = Items.ICONS[item_id]; icon.custom_minimum_size = Vector2(40,40); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; icon.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(icon)
+		else:
+			var symbol := Label.new(); symbol.text = button.item_name.left(1); symbol.custom_minimum_size = Vector2(40,40); symbol.add_theme_font_size_override("font_size",30); symbol.add_theme_color_override("font_color",Color("e1c58b")); symbol.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(symbol)
+	var spacer := Control.new(); spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL; spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(spacer)
+	var quantity := Label.new(); quantity.text = "×%d" % button.amount if button.amount > 0 else ""; quantity.add_theme_font_size_override("font_size",19); quantity.add_theme_color_override("font_color",Color("ffe59a")); quantity.mouse_filter = Control.MOUSE_FILTER_IGNORE; top.add_child(quantity)
+	var name := Label.new(); name.text = button.item_name; name.clip_text = true; name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS; name.add_theme_font_size_override("font_size",17); name.add_theme_color_override("font_color",Color("e9e5cd") if not item_id.is_empty() else Color("829584")); name.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(name)
+
+func _inventory_slot_pressed(index: int) -> void:
+	if inventory_move_from >= 0:
+		_move_inventory_item(inventory_move_from,index,inventory_slots[inventory_move_from]); return
+	if index >= 0 and index < inventory_slots.size() and not inventory_slots[index].is_empty(): _open_inventory_item(inventory_slots[index])
+
+func _begin_inventory_move() -> void:
+	var focused: Control = get_viewport().gui_get_focus_owner()
+	if focused == null or not focused.has_meta("slot_index"): return
+	var index: int = int(focused.get_meta("slot_index"))
+	if inventory_move_from >= 0: _cancel_inventory_move(); return
+	if inventory_slots[index].is_empty(): return
+	inventory_move_from = index
+	_open_modal("inventory")
+
+func _cancel_inventory_move() -> void:
+	inventory_move_from = -1
+	_open_modal("inventory")
+
+func _can_move_inventory_item(source: int, destination: int, item_id: String) -> bool:
+	return modal == "inventory" and source >= 0 and destination >= 0 and source < inventory_slots.size() and destination < inventory_slots.size() and not item_id.is_empty() and inventory_slots[source] == item_id and int(inventory.get(item_id,0)) > 0 and _inventory_matches(inventory_slots[destination])
+
+func _move_inventory_item(source: int, destination: int, item_id: String) -> void:
+	if not _can_move_inventory_item(source,destination,item_id): return
+	if not Backpack.swap(inventory_slots,source,destination): return
+	inventory_move_from = -1
+	inventory_undo_layout.clear()
+	inventory_preferred_slot = destination
+	for control: Control in menu_nav.controls:
+		if int(control.get_meta("slot_index",-1)) == destination: control.grab_focus(); break
+	_sync_backpack()
+	_open_modal("inventory")
+	inventory_preferred_slot = -1
+
+func _sort_or_undo_inventory() -> void:
+	if inventory_move_from >= 0: return
+	_sync_backpack()
+	if not inventory_undo_layout.is_empty():
+		inventory_slots = Backpack.synchronize(inventory_undo_layout,inventory)
+		inventory_undo_layout.clear()
+	else:
+		inventory_undo_layout = inventory_slots.duplicate()
+		var items: Array = inventory.keys()
+		items = items.filter(func(item: Variant) -> bool: return int(inventory[item]) > 0)
+		items.sort_custom(func(a: Variant,b: Variant) -> bool: return _inventory_name(String(a)).naturalnocasecmp_to(_inventory_name(String(b))) < 0)
+		inventory_slots.clear()
+		for item: Variant in items: inventory_slots.append(String(item))
+		_sync_backpack()
+	inventory_page = 0
+	inventory_preferred_slot = 0
+	_open_modal("inventory",true,false)
+	inventory_preferred_slot = -1
+
+func _open_inventory_item(item_id: String) -> void:
+	inventory_item_id = item_id
+	_open_modal("item")
+
+func _populate_inventory_item() -> void:
+	var item_id: String = inventory_item_id
+	var amount: int = int(inventory.get(item_id,0))
+	var is_seed: bool = item_id.ends_with("_seed")
+	var crop: Dictionary = CropDB.by_id(item_id.trim_suffix("_seed") if is_seed else item_id)
+	modal_title.text = _inventory_name(item_id)
+	_add_note("Cantidad en la mochila: %d" % amount)
+	if not crop.is_empty():
+		var row := HBoxContainer.new(); modal_body.add_child(row)
+		_add_crop_icon(row, crop, "seed" if is_seed else "product")
+		if is_seed:
+			_add_note("Estación: %s. %s." % [String(crop.season),_crop_schedule(crop)])
+			_menu_button("Elegir para sembrar", _select_seed.bind(String(crop.id)), amount <= 0 or String(crop.season) != SEASONS[season_index], "equip_seed")
+			if String(crop.season) != SEASONS[season_index]: _add_note("Guarda estas semillas hasta %s." % String(crop.season).to_lower())
+		else:
+			_add_note("Venta normal: %d monedas por unidad. Las calidades superiores aumentan su valor." % int(crop.sell))
+			_add_note("Valor total de esta pila: %d monedas." % _produce_sale_value(item_id))
+			if quality_stock.has(item_id): _add_note(_quality_summary(quality_stock[item_id]))
+			_add_note("Lleva tu mochila al mercadillo para vender la cosecha.")
+			_menu_button("Vender esta pila",_sell_crop.bind(item_id),not _at_market() or amount <= 0,"sell_item")
+	elif not Items.by_id(item_id).is_empty(): _populate_material_detail(item_id,amount)
+	else: _add_note("Objeto guardado en la mochila.")
+	_menu_button("Volver a la mochila", _back_from_modal, false, "back_inventory")
+
+func _populate_field_status() -> void:
+	modal_title.text = "Estado de los cultivos"
+	var total: int = 0
 	for key: Variant in plots.keys():
-		var plot: Dictionary = plots[key]; if String(plot.get("crop_id", "")).is_empty(): continue
-		var crop: Dictionary = CropDB.by_id(String(plot.crop_id)); if crop.is_empty(): continue
-		_add_note("Parcela %s: %s · día %d/%d · %s" % [String(key), crop.name, int(plot.growth), int(crop.days), "marchita" if plot.wilted else ("regada" if plot.watered else "necesita agua")])
-	_add_note("Habilidades · Cultivo %d · Tala %d · Minería %d" % [int(xp.Agricultura / 100) + 1, int(xp.Tala / 100) + 1, int(xp.Minería / 100) + 1])
+		var plot: Dictionary = plots[key]
+		var crop: Dictionary = CropDB.by_id(String(plot.get("crop_id", "")))
+		if crop.is_empty(): continue
+		total += 1
+		_add_note("Parcela %s · %s · día %d/%d · %s" % [String(key), crop.name, int(plot.growth), int(crop.days), "marchita" if plot.get("wilted",false) else ("regada" if plot.get("watered",false) else "necesita agua")])
+	if total == 0: _add_note("Aún no tienes cultivos plantados.")
+
+func _populate_skills() -> void:
+	modal_title.text = "Tus habilidades"
+	for skill: String in xp:
+		_add_note("%s · nivel %d · %d / 100 de experiencia" % [skill,int(xp[skill]/100)+1,int(xp[skill])%100])
 
 func _populate_land() -> void:
 	modal_title.text = "La parcela del arroyo"
@@ -1697,6 +1805,11 @@ func _populate_pause() -> void:
 	_menu_button("Dormir y guardar", func() -> void: _close_modal(); _sleep(), location != "farm" or truck_driving)
 	_menu_button("Ajustes de juego y cámara", _show_settings)
 	_menu_button("Ver todos los controles", _show_controls)
+	_menu_button("Partida · guardar, cargar y salir", _open_modal.bind("session"))
+
+func _populate_session() -> void:
+	confirmation_back = "session"
+	modal_title.text = "Tu partida"
 	_menu_button("Guardar partida", _save_now)
 	_menu_button("Cargar partida…", _open_modal.bind("confirm_load"))
 	_menu_button("Nueva partida…", _open_modal.bind("confirm_new"))
@@ -1732,12 +1845,13 @@ func _populate_controls() -> void:
 	modal_title.text = "Controles · Steam Deck"
 	_add_note("Stick izquierdo: mover. Stick derecho: apuntar; al volver a caminar, apuntas hacia donde avanzas.")
 	_add_note("A / E: acción contextual. Despeja, prepara, siembra, riega y cosecha según la casilla. Junto a objetos: interactúa.")
-	_add_note("X / Espacio: herramienta seleccionada. Junto a la camioneta: carga rápida. Al conducir: aparca y baja.")
+	_add_note("X / Espacio: herramienta seleccionada. Al conducir: aparca y baja.")
 	_add_note("L1/R1 · R/Q: cambiar herramienta. Mantén X para repetir. R2 / Mayús: mantener y soltar para cargar azada o regadera de nivel 2 (3×3).")
-	_add_note("L2 / F: recoger o soltar una caja sin llenarla. Y / I: mochila. Cruceta ↑ / Z: elegir semillas. ←/→ / V/C: cambiar variedad. Cruceta ↓ / T: viajar.")
-	_add_note("B / Esc: volver o pausar. Con una caja: soltar. Menú / Start: pausa. En menús: cruceta o stick para navegar, A / Intro elige, B vuelve.")
-	_add_note("Cosecha sin volver a las cajas: se acumula en la mochila. X junto a la camioneta empaqueta y carga; A en el mercado vende la carga.")
-	_add_note("Ratón: clic para herramienta, rueda para zoom, botón derecho para mover cajas. También puedes ajustar la cámara en Pausa → Ajustes.")
+	_add_note("Y / I: mochila. Dentro, X / F mueve una pila, A / Intro la coloca y B / Esc cancela.  Cruceta ↑ / Z: elegir semillas. ←/→ / V/C: cambiar variedad. Cruceta ↓ / T: viajar.")
+	_add_note("B / Esc: volver o pausar. Menú / Start: pausa. En menús: cruceta o stick para navegar, A / Intro elige, B vuelve.")
+	_add_note("Mochila → Fabricar: convierte materiales en objetos. Equipa abono o vallas en sus detalles; A / E los usa y X vuelve a herramientas. Los materiales se venden por separado en el mercado.")
+	_add_note("Todo se guarda en la mochila: cosecha, fruta, semillas y materiales. En el mercadillo puedes vender directamente su contenido.")
+	_add_note("En la mochila puedes arrastrar una pila a otro hueco para moverla o intercambiarla. L2/R2 cambia de página. Y / O ordena y permite deshacer el orden.")
 
 func _populate_confirmation(title: String, description: String, confirm_action: Callable) -> void:
 	modal_title.text = title
@@ -1762,14 +1876,14 @@ func _buy_seed(crop_id: String) -> void:
 	var crop: Dictionary = CropDB.by_id(crop_id); if crop.is_empty(): return
 	var transaction: Dictionary = Economy.buy(coins, int(crop.seed), 1)
 	if not transaction.ok: _show_toast("Te faltan monedas."); return
-	coins = int(transaction.balance); var key := crop_id + "_seed"; inventory[key] = int(inventory.get(key, 0)) + int(crop.get("seed_pack", 5)); selected_seed_id = crop_id
+	coins = int(transaction.balance); var key := crop_id + "_seed"; _add_item(key,int(crop.get("seed_pack",5))); selected_seed_id = crop_id
 	_show_toast("Semillas de %s ×5" % crop.name); _open_modal("shop"); _refresh_hud()
 
 func _sell_crop(crop_id: String) -> void:
 	var crop: Dictionary = CropDB.by_id(crop_id)
-	var amount: int = _loose_produce(crop_id)
-	if crop.is_empty() or amount <= 0: _show_toast("No tienes cosecha suelta de esa variedad."); return
-	var earning: int = _take_box_stock_value(crop_id, amount, int(crop.sell))
+	var amount: int = _produce_count(crop_id)
+	if crop.is_empty() or amount <= 0: _show_toast("No tienes cosecha de esa variedad."); return
+	var earning: int = _take_produce_value(crop_id, amount, int(crop.sell))
 	coins += earning
 	xp.Comercio += amount * 3
 	_show_toast("Vendiste %s ×%d · +%d monedas" % [crop.name, amount, earning])
@@ -1780,9 +1894,14 @@ func _upgrade_tool() -> void:
 	var name: String = tool_names[selected_tool]
 	if not tool_levels.has(name):
 		_show_toast("Elige una herramienta; las semillas no se mejoran."); return
+	if not _has_advanced_upgrade_materials(selected_tool):
+		_show_toast("Desde nivel 3 necesitas además 2 tablones, 1 cuerda y 1 lingote de hierro."); return
 	var transaction: Dictionary = Economy.upgrade(int(tool_levels[name]), coins, int(inventory.get("wood", 0)), int(inventory.get("stone", 0)))
 	if not transaction.ok: _show_toast("Mejora: 80 monedas, 3 maderas y 2 piedras; herramienta bajo nivel 6."); return
+	if int(tool_levels[name]) >= 2:
+		for item: String in ["plank","rope","iron_bar"]: inventory[item] = int(inventory[item])-(2 if item == "plank" else 1)
 	coins = int(transaction.balance); inventory.wood = int(transaction.wood); inventory.stone = int(transaction.stone); tool_levels[name] = int(transaction.level)
+	_sync_backpack()
 	if name == "Regadera": max_water += 4; water = max_water
 	_show_toast("¡%s mejorada al nivel %d!" % [name, tool_levels[name]]); _open_modal("workshop" if modal == "workshop" else "shop"); _refresh_hud()
 
@@ -1830,6 +1949,7 @@ func _start_new_game() -> void:
 	location = "farm"
 	truck_location = "farm"
 	_close_modal()
+	menu_nav.memory.clear()
 	player_pos = Vector2(704,560)
 	facing = Vector2.RIGHT
 	walk_phase = 0.0
@@ -1854,18 +1974,19 @@ func _start_new_game() -> void:
 	rain_today = false
 	owned_parcels = 1
 	xp = {"Agricultura":0, "Tala":0, "Minería":0, "Recolección":0, "Comercio":0}
-	carried_crop_id = ""
-	carried_crop_count = 0
-	carried_quality = "normal"
-	truck_pos = Vector2(1152, 624)
+	placed_items.clear()
+	selected_item_id = ""
+	crafting_page = 0
+	inventory_slots.clear()
+	inventory_value_adjustments.clear()
+	inventory_move_from = -1
+	inventory_page = 0
+	inventory_filter = 0
+	inventory_undo_layout.clear()
+	_sync_backpack()
+	truck_pos = Vector2(1152,624)
 	truck_facing = Vector2.LEFT
 	truck_driving = false
-	truck_cargo.clear()
-	produce_box_tiles = [Vector2i(29,17), Vector2i(29,18), Vector2i(29,19)]
-	moving_box_index = -1
-	mouse_dragging_box = false
-	produce_boxes.clear()
-	for _index: int in range(produce_box_tiles.size()): produce_boxes.append({"crop_id":"", "count":0})
 	sleeping = false
 	sleep_transition_time = 0.0
 	sleep_day_advanced = false
@@ -1880,12 +2001,20 @@ func _pack_state() -> Dictionary:
 	var prop_data: Array[Dictionary] = []
 	for prop: Dictionary in props:
 		var item := prop.duplicate(true); item.tile = [prop.tile.x, prop.tile.y]; prop_data.append(item)
-	var box_tiles_data: Array = []
-	for tile: Vector2i in produce_box_tiles: box_tiles_data.append([tile.x, tile.y])
+	_sync_backpack()
 	var saved_truck_pos: Vector2 = player_pos if truck_driving else truck_pos
-	return {"location":location,"truck_location":truck_location,"player":[player_pos.x,player_pos.y],"coins":coins,"energy":energy,"water":water,"max_water":max_water,"day":day,"season":season_index,"minute":minute,"weather":weather,"parcels":owned_parcels,"inventory":inventory,"quality_stock":quality_stock,"plots":plots,"props":prop_data,"levels":tool_levels,"xp":xp,"selected_seed":selected_seed_id,"zoom":camera_zoom,"carried_crop_id":carried_crop_id,"carried_crop_count":carried_crop_count,"carried_quality":carried_quality,"produce_boxes":produce_boxes,"produce_box_tiles":box_tiles_data,"truck_pos":[saved_truck_pos.x,saved_truck_pos.y],"truck_facing":[truck_facing.x,truck_facing.y],"truck_cargo":truck_cargo,"truck_driving":truck_driving,"assisted_actions":assisted_actions,"repeat_actions":repeat_actions,"relaxed_clock":relaxed_clock,"haptics":haptics,"selected_tool":selected_tool}.duplicate(true)
+	return {"location":location,"truck_location":truck_location,"player":[player_pos.x,player_pos.y],"coins":coins,"energy":energy,"water":water,"max_water":max_water,"day":day,"season":season_index,"minute":minute,"weather":weather,"parcels":owned_parcels,"inventory":inventory,"quality_stock":quality_stock,"placed_items":placed_items,"selected_item":selected_item_id,"inventory_schema":Backpack.SCHEMA,"inventory_slots":inventory_slots,"inventory_value_adjustments":inventory_value_adjustments,"plots":plots,"props":prop_data,"levels":tool_levels,"xp":xp,"selected_seed":selected_seed_id,"zoom":camera_zoom,"truck_pos":[saved_truck_pos.x,saved_truck_pos.y],"truck_facing":[truck_facing.x,truck_facing.y],"truck_driving":truck_driving,"assisted_actions":assisted_actions,"repeat_actions":repeat_actions,"relaxed_clock":relaxed_clock,"haptics":haptics,"selected_tool":selected_tool}.duplicate(true)
 
 func _load_state(data: Dictionary) -> void:
+	data = Backpack.migrate(data,_crop_unit_price)
+	placed_items = data.get("placed_items",{}).duplicate(true)
+	selected_item_id = String(data.get("selected_item",""))
+	if not Items.by_id(selected_item_id).has("use") or int(data.get("inventory",{}).get(selected_item_id,0)) <= 0: selected_item_id = ""
+	inventory_slots.assign(data.get("inventory_slots",[]))
+	inventory_value_adjustments = data.get("inventory_value_adjustments",{}).duplicate(true)
+	inventory_move_from = -1
+	inventory_page = 0
+	inventory_undo_layout.clear()
 	assisted_actions = bool(data.get("assisted_actions", true))
 	repeat_actions = bool(data.get("repeat_actions", true))
 	relaxed_clock = bool(data.get("relaxed_clock", true))
@@ -1907,32 +2036,13 @@ func _load_state(data: Dictionary) -> void:
 	rain_today = weather in ["Lluvia", "Tormenta"]
 	inventory = data.get("inventory", inventory); quality_stock = data.get("quality_stock", {}); plots = data.get("plots", {}); tool_levels = data.get("levels", tool_levels); xp = data.get("xp", xp)
 	selected_seed_id = String(data.get("selected_seed", selected_seed_id)); camera_zoom = clampf(float(data.get("zoom", camera_zoom)), 0.85, 2.2)
-	carried_crop_id = String(data.get("carried_crop_id", "")); carried_crop_count = int(data.get("carried_crop_count", 0)); carried_quality = String(data.get("carried_quality", "normal"))
-	_migrate_hand_produce()
 	var saved_truck_pos: Array = data.get("truck_pos", [1152, 624])
 	if saved_truck_pos.size() >= 2: truck_pos = Vector2(float(saved_truck_pos[0]), float(saved_truck_pos[1]))
 	if is_equal_approx(truck_pos.x, 1056.0) and is_equal_approx(truck_pos.y, 592.0): truck_pos = Vector2(1152, 624)
 	var saved_truck_facing: Array = data.get("truck_facing", [-1, 0])
 	if saved_truck_facing.size() >= 2: truck_facing = Vector2(float(saved_truck_facing[0]), float(saved_truck_facing[1]))
-	truck_cargo.clear()
-	for saved_cargo: Dictionary in data.get("truck_cargo", []): truck_cargo.append(saved_cargo.duplicate(true))
-	truck_driving = bool(data.get("truck_driving", false)) and truck_location == location
-	produce_box_tiles = [Vector2i(29,17), Vector2i(29,18), Vector2i(29,19)]
-	var saved_box_tiles: Array = data.get("produce_box_tiles", [])
-	var loaded_box_tiles: Array[Vector2i] = []
-	for saved_tile: Array in saved_box_tiles:
-		if saved_tile.size() >= 2: loaded_box_tiles.append(Vector2i(int(saved_tile[0]), int(saved_tile[1])))
-	var had_old_default_boxes: bool = loaded_box_tiles.size() >= 3 and loaded_box_tiles[0] == Vector2i(25,29) and loaded_box_tiles[1] == Vector2i(28,29) and loaded_box_tiles[2] == Vector2i(31,29)
-	if not had_old_default_boxes and not loaded_box_tiles.is_empty(): produce_box_tiles = loaded_box_tiles
-	moving_box_index = -1
-	mouse_dragging_box = false
-	produce_boxes.clear()
-	var saved_boxes: Array = data.get("produce_boxes", [])
-	for saved_box: Dictionary in saved_boxes: produce_boxes.append(saved_box.duplicate(true))
-	while produce_box_tiles.size() < 3: produce_box_tiles.append(Vector2i(25 + produce_box_tiles.size(), 17))
-	while produce_boxes.size() < produce_box_tiles.size(): produce_boxes.append({"crop_id":"", "count":0})
+	truck_driving = bool(data.get("truck_driving",false)) and truck_location == location
 	props.clear()
-	_repair_box_layout()
 	for source: Dictionary in data.get("props", []):
 		var prop := source.duplicate(true); var t: Array = prop.get("tile", [0,0]); prop.tile = Vector2i(int(t[0]), int(t[1]))
 		Fruit.initialize(prop, fruit_rng)
@@ -1964,6 +2074,9 @@ func _draw() -> void:
 	_draw_buildings()
 	if not truck_driving and truck_location == location: _draw_truck(truck_pos)
 	_draw_crops()
+	for key: String in placed_items:
+		var parts: PackedStringArray = key.split(",")
+		if parts.size() == 2: draw_texture_rect(Items.ICONS["fence"],Rect2(Vector2(int(parts[0])*TILE-4,int(parts[1])*TILE-12),Vector2(40,44)),false)
 	_draw_player()
 	for prop: Dictionary in drawables:
 		if float(prop.tile.y * TILE + 27) > player_depth: _draw_prop(prop)
@@ -2039,12 +2152,7 @@ func _draw_farmland() -> void:
 			var inside: bool = x >= 18 and x <= 27 and y >= 15 and y <= 25
 			if inside:
 				if not plot.is_empty():
-					var soil: String = String(plot.get("soil", "tilled"))
-					var crop_id: String = String(plot.get("crop_id", ""))
-					var texture_index: int = 1 if soil == "cleared" else 2
-					if not crop_id.is_empty() and int(plot.get("growth",0)) == 0: texture_index = 3
-					var tint: Color = Color("929aa2") if soil == "wet" else Color.WHITE
-					_draw_terrain_tile(p, texture_index + 1, tint)
+					_draw_plot_soil(p, plot)
 				elif posmod(x*7+y*13, 9) == 0:
 					_draw_terrain_tile(p, 1)
 				elif posmod(x*13+y*9, 17) == 0:
@@ -2055,6 +2163,11 @@ func _draw_farmland() -> void:
 					_draw_terrain_tile(p, 1, Color("e3efcf"))
 				if (x == 17 or x == 28 or y == 14 or y == 26) and posmod(x+y,3) == 0:
 					draw_circle(p+Vector2(16,13),2.2,Color("f4d890"))
+	# Apply the same moisture colors to border plots and the purchased parcel.
+	for key: String in plots:
+		var tile := _key_tile(key)
+		if tile.x >= 18 and tile.x <= 27 and tile.y >= 15 and tile.y <= 25: continue
+		if _can_use_land(tile): _draw_plot_soil(Vector2(tile * TILE), plots[key])
 	# Valla rústica con puerta de entrada al sur.
 	for x: int in range(17,29):
 		if x >= 20 and x <= 22: continue
@@ -2066,6 +2179,20 @@ func _draw_farmland() -> void:
 		for x: int in range(29,40): _draw_fence(Vector2(x*TILE+16,14*TILE+12),true)
 		for x: int in range(29,40): _draw_fence(Vector2(x*TILE+16,27*TILE+12),true)
 		for y: int in range(15,27): _draw_fence(Vector2(40*TILE-18,y*TILE+16),false)
+
+func _draw_plot_soil(p: Vector2, plot: Dictionary) -> void:
+	if String(plot.get("soil", "tilled")) == "cleared":
+		_draw_terrain_tile(p, 2)
+		return
+	var planted: bool = not String(plot.get("crop_id", "")).is_empty()
+	var material: int = 4 if planted and int(plot.get("growth", 0)) == 0 else 3
+	# Today's watering flag is authoritative, including rain and empty furrows.
+	# A saved "wet" soil name alone must not keep an unwatered tile looking wet.
+	var watered: bool = bool(plot.get("watered", false))
+	_draw_terrain_tile(p, material, Color("566a80") if watered else Color(1.2, 1.12, 0.94))
+	if not watered:
+		draw_rect(Rect2(p, Vector2(TILE,TILE)), Color("e7b875", 0.22), true)
+	_draw_crop_moisture(p, watered)
 
 func _draw_fence(p: Vector2, horizontal: bool) -> void:
 	var texture: Texture2D = FARM_OBJECTS["fence_horizontal" if horizontal else "fence_vertical"]
@@ -2090,25 +2217,6 @@ func _draw_buildings() -> void:
 		var sign := Vector2(29*TILE+3,20*TILE)
 		draw_texture_rect(FARM_OBJECTS["wooden_sign"], Rect2(sign+Vector2(-4,-2),Vector2(40,48)), false)
 		draw_string(ThemeDB.fallback_font,sign+Vector2(4,25),"450",HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color("fff0c6"))
-	_draw_produce_boxes()
-
-func _draw_produce_boxes() -> void:
-	draw_rect(Rect2(Vector2(28*TILE-8, 17*TILE-19), Vector2(120,15)), Color("293c32",0.9), true)
-	draw_string(ThemeDB.fallback_font, Vector2(28*TILE-3, 17*TILE-8), "CAJAS DE COSECHA · 5", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color("f3e5be"))
-	for index: int in range(produce_box_tiles.size()):
-		var tile: Vector2i = produce_box_tiles[index]
-		var box: Dictionary = produce_boxes[index] if index < produce_boxes.size() else {"crop_id":"", "count":0}
-		var p := Vector2(tile * TILE)
-		if index == moving_box_index and not mouse_dragging_box: continue
-		draw_texture_rect(PRODUCE_CRATE_TEXTURE, _box_bounds(tile), false, Color.WHITE)
-		var count: int = int(box.get("count", 0))
-		if count > 0:
-			var fruit_color := _fruit_color(String(box.get("crop_id", "turnip")))
-			for fruit_index: int in range(count):
-				draw_circle(p + Vector2(11 + fruit_index * 4, 7), 2.1, fruit_color)
-				draw_line(p + Vector2(11 + fruit_index * 4, 5), p + Vector2(12 + fruit_index * 4, 3), Color("9cb85e"), 1)
-		var count_color: Color = Color("f4e4bd") if count < 5 else Color("c8e17c")
-		draw_string(ThemeDB.fallback_font, p + Vector2(6, 27), "%d/5" % count, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, count_color)
 
 func _draw_prop(prop: Dictionary) -> void:
 	var tile: Vector2i = prop.tile
@@ -2117,7 +2225,8 @@ func _draw_prop(prop: Dictionary) -> void:
 	var species: String = Fruit.species(prop)
 	if not species.is_empty():
 		var ripe: bool = int(prop.get("fruit_count", 0)) > 0
-		var sprite: Texture2D = FRUIT_TEXTURES[species][1 if ripe else 0]
+		var crop: Dictionary = CropDB.by_id(String(Fruit.SPECIES[species].product))
+		var sprite: Texture2D = CropVisual.texture(crop, "harvest_ready" if ripe else "growing_3")
 		var size := TREE_DRAW_SIZE if prop.kind == "tree" else GROUND_PROP_DRAW_SIZE
 		draw_texture_rect(sprite, Rect2(p + Vector2(16 - size.x * 0.5, 32 - size.y), size), false)
 		return
@@ -2143,7 +2252,7 @@ func _draw_stump(p: Vector2) -> void:
 	_draw_ellipse(p+Vector2(16,11),Vector2(5,3.5),Color("806045"))
 
 func _draw_rock(p: Vector2, variant: int) -> void:
-	_draw_ground_prop(p, posmod(variant,3))
+	draw_texture_rect(Items.ICONS[Items.rock_material(variant)],Rect2(p+Vector2(-8,-16),GROUND_PROP_DRAW_SIZE),false)
 
 func _draw_weed(p: Vector2, variant: int) -> void:
 	_draw_ground_prop(p, 6 + posmod(variant,3))
@@ -2166,35 +2275,29 @@ func _draw_crops() -> void:
 		var p := Vector2(crop_x*TILE, crop_y*TILE)
 		var plot: Dictionary = plots[key]
 		if String(plot.get("crop_id", "")).is_empty():
-			if plot.soil == "fertile":
+			if bool(plot.get("fertilized",false)) or plot.soil == "fertile":
 				for j: int in range(4): draw_circle(p+Vector2(7+j*6,8+(j%2)*13),1.3,Color("e4cf80"))
 			continue
-		if plot.wilted: _draw_wilted(p); continue
 		var crop: Dictionary = CropDB.by_id(String(plot.crop_id)); if crop.is_empty(): continue
-		var growth: int = int(plot.growth); var days: int = int(crop.days)
 		var watered: bool = bool(plot.get("watered", false))
-		var stage: int = 0 if growth <= 0 else (1 if growth < days*0.34 else (2 if growth < days*0.7 else (3 if growth < days else 4)))
-		_draw_crop_moisture(p, watered)
-		var plant: Texture2D = _crop_icon(crop, "plant")
-		if plant != null and stage > 0:
-			var size: float = [12.0,22.0,30.0,38.0,46.0][stage]
-			var tint := Color.WHITE if watered else Color("b6a47a")
-			if stage < 4: tint = tint * Color("b4cf9b")
-			draw_texture_rect(plant, Rect2(p + Vector2(16-size*0.5,32-size), Vector2(size,size)), false, tint)
-		else:
-			_draw_crop_sprite(p, String(crop.id), stage, int(crop.get("repeat",0)) > 0, watered)
-		_draw_crop_water_badge(p, watered)
+		var state: String = CropVisual.field_state(plot, crop, clampf((minute - 360.0) / 1080.0, 0.0, 0.99))
+		var plant: Texture2D = CropVisual.texture(crop, state)
+		if plant != null:
+			# Fixed canvas and ground anchor: stage size belongs to the artwork.
+			draw_texture_rect(plant, Rect2(p + Vector2(-7,-14), Vector2(46,46)), false, Color.WHITE)
+		if not bool(plot.get("wilted", false)): _draw_crop_water_badge(p, watered)
 
 func _draw_crop_moisture(p: Vector2, watered: bool) -> void:
-	# Contraste del suelo además del estado de las hojas: humedad azul, seco agrietado.
+	# Broad light/dark soil contrast carries the signal; these marks reinforce it.
 	if watered:
-		draw_rect(Rect2(p + Vector2(3, 27), Vector2(26, 3)), Color("55a9ad", 0.8), true)
-		draw_circle(p + Vector2(8, 25), 2.0, Color("a5e2dd", 0.9))
-		draw_circle(p + Vector2(25, 24), 1.6, Color("a5e2dd", 0.85))
+		draw_rect(Rect2(p + Vector2(2, 27), Vector2(28, 3)), Color("447e91", 0.9), true)
+		draw_line(p + Vector2(3, 5), p + Vector2(12, 5), Color("6497a3", 0.8), 1.0)
+		draw_line(p + Vector2(23, 21), p + Vector2(29, 21), Color("6497a3", 0.8), 1.0)
 	else:
-		draw_line(p + Vector2(5, 28), p + Vector2(11, 26), Color("6e4934", 0.95), 1.5)
-		draw_line(p + Vector2(11, 26), p + Vector2(14, 29), Color("6e4934", 0.95), 1.5)
-		draw_line(p + Vector2(24, 27), p + Vector2(28, 25), Color("6e4934", 0.95), 1.5)
+		draw_line(p + Vector2(3, 26), p + Vector2(10, 23), Color("6c4229"), 1.5)
+		draw_line(p + Vector2(10, 23), p + Vector2(16, 28), Color("6c4229"), 1.5)
+		draw_line(p + Vector2(10, 23), p + Vector2(12, 19), Color("6c4229"), 1.5)
+		draw_line(p + Vector2(23, 6), p + Vector2(28, 10), Color("6c4229"), 1.5)
 
 func _draw_crop_water_badge(p: Vector2, watered: bool) -> void:
 	var badge := p + Vector2(27, 5)
@@ -2205,85 +2308,6 @@ func _draw_crop_water_badge(p: Vector2, watered: bool) -> void:
 		draw_circle(badge, 5.0, Color("83533a", 0.98))
 		draw_line(badge + Vector2(-2,1), badge + Vector2(0,-2), Color("f0c879"), 1.5)
 		draw_line(badge + Vector2(0,-2), badge + Vector2(2,1), Color("f0c879"), 1.5)
-
-func _draw_crop_sprite(p: Vector2, crop_id: String, stage: int, repeat: bool, watered: bool) -> void:
-	var center := p+Vector2(16,20)
-	var stem_height: float = [4.0,7.0,11.0,15.0,16.0][stage]
-	if stage == 0:
-		_draw_ellipse(center+Vector2(0,2),Vector2(6,3),Color("ab7d54"))
-		var sprout: Color = Color("72b957") if watered else Color("9b8650")
-		draw_line(center+Vector2(0,2),center+Vector2(0,-3 if watered else -1),sprout,2)
-		if watered:
-			draw_colored_polygon(PackedVector2Array([center+Vector2(0,-2),center+Vector2(-4,-5),center+Vector2(-1,-6)]),Color("8dcc62"))
-		else:
-			draw_circle(center+Vector2(0,0),1.2,Color("c3a967"))
-		return
-	var stem_color: Color = Color("497b4b") if watered else Color("88794b")
-	draw_line(center+Vector2(0,6),center+Vector2(0,6-stem_height),stem_color,2)
-	var leaves: int = 2 if stage < 3 else 4
-	for i: int in range(leaves):
-		var side: float = -1.0 if i % 2 == 0 else 1.0
-		var y: float = 5.0 - float(i)*3.2 + (0.0 if watered else 2.0)
-		var tip_y: float = y - (4.0 if watered else 1.0)
-		var reach: float = 9.0 if watered else 7.0
-		var leaf := PackedVector2Array([center+Vector2(0,y),center+Vector2(side*reach,y+tip_y-y),center+Vector2(side*(reach+2.0),y+2.0),center+Vector2(side*2,y+3.0)])
-		var leaf_color: Color = (Color("75a854") if i % 2 == 0 else Color("94b65e")) if watered else (Color("a18a52") if i % 2 == 0 else Color("b4a064"))
-		draw_colored_polygon(leaf,leaf_color)
-	if stage >= 2:
-		var crown_color := Color("6d9a4c") if watered else Color("a08b53")
-		draw_circle(center+Vector2(-5,-4 if watered else -1),3,crown_color); draw_circle(center+Vector2(5,-1 if watered else 2),3,crown_color)
-	if stage >= 4:
-		var fruit_color: Color = _fruit_color(crop_id)
-		if crop_id == "carrot":
-			draw_colored_polygon(PackedVector2Array([center+Vector2(-2,-14),center+Vector2(5,-5),center+Vector2(1,5),center+Vector2(-3,-5)]),Color("e9904d"))
-			draw_line(center+Vector2(0,-13),center+Vector2(-4,-19),Color("72a457"),2); draw_line(center+Vector2(0,-13),center+Vector2(5,-18),Color("8bad53"),2)
-		elif crop_id == "turnip":
-			_draw_ellipse(center+Vector2(0,-3),Vector2(7,8),Color("eee2c0")); draw_colored_polygon(PackedVector2Array([center+Vector2(-5,-7),center+Vector2(1,-8),center+Vector2(6,-4),center+Vector2(3,-1),center+Vector2(-5,-2)]),Color("a77a9b"))
-		elif crop_id == "potato":
-			_draw_ellipse(center+Vector2(-2,-3),Vector2(7,5),Color("c29b68")); draw_circle(center+Vector2(-4,-4),1.2,Color("7e6449")); draw_circle(center+Vector2(0,-1),1.0,Color("7e6449")); draw_circle(center+Vector2(2,-6),0.8,Color("7e6449"))
-		elif crop_id == "wheat":
-			for i: int in range(3):
-				var stalk_x: float = float(i-1)*5.0
-				draw_line(center+Vector2(stalk_x,6),center+Vector2(stalk_x-1,-13),Color("8caa4c"),2)
-				for grain: int in range(3): _draw_ellipse(center+Vector2(stalk_x+(1 if grain%2==0 else -2),-12+grain*3),Vector2(2.2,1.3),Color("e2c66d"))
-		elif crop_id == "garlic":
-			_draw_ellipse(center+Vector2(-3,-2),Vector2(5,6),Color("eee2c3")); _draw_ellipse(center+Vector2(3,-2),Vector2(5,6),Color("f7edda")); draw_line(center+Vector2(0,-8),center+Vector2(1,-12),Color("b5a27d"),2)
-		elif crop_id == "eggplant":
-			_draw_ellipse(center+Vector2(0,-5),Vector2(6,10),Color("845482")); draw_colored_polygon(PackedVector2Array([center+Vector2(-4,-12),center+Vector2(0,-15),center+Vector2(4,-12),center+Vector2(1,-9)]),Color("6f984d"))
-		elif crop_id == "strawberry":
-			for berry: int in range(3):
-				var bp := center+Vector2(float(berry-1)*7,-6.0+float(berry%2)*3.0)
-				draw_circle(bp,4.3,Color("dd5d53")); draw_circle(bp+Vector2(-1,-1),0.9,Color("f2d887")); draw_circle(bp+Vector2(2,1),0.8,Color("f2d887"))
-		elif crop_id == "corn":
-			draw_rect(Rect2(center+Vector2(-3,-12),Vector2(7,13)),Color("e5c54f"),true); draw_line(center+Vector2(0,-9),center+Vector2(0,-1),Color("f3dc83"),2)
-		elif crop_id == "pumpkin" or crop_id == "melon":
-			_draw_ellipse(center+Vector2(0,-2),Vector2(10,7),fruit_color); draw_line(center+Vector2(0,-9),center+Vector2(1,-12),Color("476f42"),2)
-		else:
-			draw_circle(center+Vector2(-6,-7),4.5,fruit_color); draw_circle(center+Vector2(5,-7),4.5,fruit_color); draw_circle(center+Vector2(0,-12),4,fruit_color)
-		if repeat: draw_circle(center+Vector2(11,-5),3.5,fruit_color.darkened(0.1))
-
-func _fruit_color(id: String) -> Color:
-	match id:
-		"apple": return Color("df4a38")
-		"pear": return Color("d8c74e")
-		"wild_berries", "raspberry": return Color("ce4262")
-		"strawberry": return Color("db6254")
-		"tomato": return Color("df6549")
-		"carrot": return Color("e9954e")
-		"potato": return Color("bd9863")
-		"lettuce", "spinach", "garlic": return Color("8fae59")
-		"pepper": return Color("dc7d49")
-		"eggplant": return Color("875a87")
-		"blueberry": return Color("686db2")
-		"melon": return Color("8ca95d")
-		"wheat": return Color("e2c66d")
-		"pumpkin": return Color("e99b4e")
-		_: return Color("d47652")
-
-func _draw_wilted(p: Vector2) -> void:
-	draw_line(p+Vector2(16,24),p+Vector2(15,13),Color("76604b"),2)
-	draw_colored_polygon(PackedVector2Array([p+Vector2(15,18),p+Vector2(7,20),p+Vector2(9,23)]),Color("90794d"))
-	draw_colored_polygon(PackedVector2Array([p+Vector2(15,17),p+Vector2(24,19),p+Vector2(22,22)]),Color("a18a55"))
 
 func _draw_player() -> void:
 	if truck_driving:
@@ -2297,16 +2321,12 @@ func _draw_player() -> void:
 		var destination := Rect2(player_pos+Vector2(-16,-40),Vector2(32,48))
 		var action_texture: Texture2D = PLAYER_ACTIONS_LEFT if facing.x < -0.25 else PLAYER_ACTIONS
 		draw_texture_rect_region(action_texture,destination,source)
-		_draw_carried_fruit()
-		_draw_carried_box()
 		return
 	var direction_row: int = 0 if facing.y > 0.42 else (3 if facing.y < -0.42 else (1 if facing.x < 0.0 else 2))
 	var frame: int = posmod(int(walk_phase * 0.55), 4) if player_animation == "walk" else (posmod(int(action_time * 8.0), 4) if action_time > 0.0 else 0)
 	var source := Rect2i(frame * 32, direction_row * 48, 32, 48)
 	var destination := Rect2(player_pos + Vector2(-16,-40), Vector2(32,48))
 	draw_texture_rect_region(FARMER_TEXTURE, destination, source)
-	_draw_carried_fruit()
-	_draw_carried_box()
 
 func draw_ellipse_shadow(center: Vector2) -> void:
 	var points := PackedVector2Array()
@@ -2314,39 +2334,6 @@ func draw_ellipse_shadow(center: Vector2) -> void:
 		var angle := TAU * float(i) / 16.0
 		points.append(center + Vector2(cos(angle) * 10.0, sin(angle) * 3.0 + 3.0))
 	draw_colored_polygon(points, Color(0.12, 0.18, 0.12, 0.24))
-
-func _draw_carried_fruit() -> void:
-	if carried_crop_count <= 0: return
-	var hand_offset := Vector2(13,-16)
-	if facing.x < -0.35: hand_offset = Vector2(-13,-16)
-	elif facing.y > 0.35: hand_offset = Vector2(9,0)
-	elif facing.y < -0.35: hand_offset = Vector2(9,-25)
-	var center := player_pos + hand_offset
-	var produce: Texture2D = _crop_icon(CropDB.by_id(carried_crop_id), "product")
-	if produce != null:
-		draw_texture_rect(produce, Rect2(center + Vector2(-10,-13),Vector2(20,20)),false)
-	else:
-		var fruit_color := _fruit_color(carried_crop_id)
-		for i: int in range(mini(carried_crop_count, 2)):
-			var shift := Vector2(float(i) * 5.0, float(i) * -2.0)
-			draw_rect(Rect2(center + shift + Vector2(-4,-4), Vector2(9,8)), fruit_color.darkened(0.28), true)
-			draw_rect(Rect2(center + shift + Vector2(-3,-5), Vector2(7,7)), fruit_color, true)
-			draw_rect(Rect2(center + shift + Vector2(-1,-6), Vector2(3,2)), Color("f5d28a", 0.9), true)
-			draw_colored_polygon(PackedVector2Array([center+shift+Vector2(-1,-5),center+shift+Vector2(1,-9),center+shift+Vector2(4,-7)]), Color("8eb45a"))
-	if carried_crop_count > 1:
-		draw_circle(center + Vector2(7,-9), 6, Color("293c32"))
-		draw_string(ThemeDB.fallback_font, center + Vector2(4,-6), str(carried_crop_count), HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color.WHITE)
-
-func _draw_carried_box() -> void:
-	if moving_box_index < 0 or mouse_dragging_box: return
-	var hand_offset := Vector2(12,-31)
-	if facing.x < -0.35: hand_offset = Vector2(-12,-31)
-	var rect := Rect2(player_pos + hand_offset + Vector2(-14,-9), Vector2(28,21))
-	draw_texture_rect(PRODUCE_CRATE_TEXTURE, rect, false, Color.WHITE)
-	var count: int = int(produce_boxes[moving_box_index].get("count", 0))
-	if count > 0:
-		var color := _fruit_color(String(produce_boxes[moving_box_index].get("crop_id", "turnip")))
-		for i: int in range(count): draw_circle(rect.position + Vector2(9 + i * 2.4, 7), 1.3, color)
 
 func _draw_truck(position: Vector2) -> void:
 	var direction := "down"
@@ -2357,24 +2344,6 @@ func _draw_truck(position: Vector2) -> void:
 	var truck_size := Vector2(116, 62) if direction in ["left", "right"] else Vector2(78, 98)
 	var rect := Rect2(position - truck_size * 0.5, truck_size)
 	draw_texture_rect(FARM_TRUCK_TEXTURES[direction], rect, false, Color.WHITE)
-	for index: int in range(truck_cargo.size()):
-		var row := index / 3
-		var col := index % 3
-		var crate_offset := Vector2(-19 + col * 13, -43 + row * 12)
-		match direction:
-			"up": crate_offset = Vector2(19 - col * 13, 23 + row * 12)
-			"left": crate_offset = Vector2(18 + col * 13, -12 + row * 13)
-			"right": crate_offset = Vector2(-44 + col * 13, -12 + row * 13)
-		var crate_pos := position + crate_offset
-		draw_texture_rect(PRODUCE_CRATE_TEXTURE, Rect2(crate_pos, Vector2(12, 11)), false, Color.WHITE)
-		var produce_color := _fruit_color(String(truck_cargo[index].get("crop_id", "turnip")))
-		draw_circle(crate_pos + Vector2(6, 5), 2.0, produce_color)
-	if truck_cargo.size() > 0:
-		var cargo_badge_offset := Vector2(28, -38)
-		if direction == "left": cargo_badge_offset = Vector2(48, -22)
-		elif direction == "right": cargo_badge_offset = Vector2(-48, -22)
-		draw_circle(position + cargo_badge_offset, 9, Color("293c32", 0.94))
-		draw_string(ThemeDB.fallback_font, position + cargo_badge_offset + Vector2(-3, 3), str(truck_cargo.size()), HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("f6e3b7"))
 
 func _draw_interaction_marker() -> void:
 	var context := _primary_target()
@@ -2451,13 +2420,27 @@ func _draw_snow(viewport: Vector2) -> void:
 		var x: float = rng.randf_range(0.0,viewport.x); var y: float = rng.randf_range(0.0,viewport.y)
 		draw_circle(Vector2(x,y),rng.randf_range(1.0,2.1),Color("eef4e8",0.72))
 
-func _menu_button(text: String, action: Callable, disabled: bool = false) -> void:
+func _menu_button(text: String, action: Callable, disabled: bool = false, key: String = "") -> void:
 	var button := Button.new()
 	button.text = text
 	button.custom_minimum_size = Vector2(0, 52)
 	button.disabled = disabled
+	var identity: String = key if not key.is_empty() else text
+	if key.is_empty() and modal == "settings": identity = text.get_slice(":",0).get_slice(" ·",0)
+	elif key.is_empty() and modal == "workshop": identity = text.get_slice(" ·",0)
+	button.set_meta("menu_id", "action:" + identity)
 	button.pressed.connect(action)
 	modal_body.add_child(button)
+
+func _menu_action(text: String, action: Callable, disabled: bool, key: String) -> void:
+	var button := Button.new()
+	button.text = text
+	button.disabled = disabled
+	button.custom_minimum_size.y = 52
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.set_meta("menu_id", key)
+	button.pressed.connect(action)
+	modal_actions.add_child(button)
 
 func _populate_title() -> void:
 	modal_title.text = "✿ FARM LIFE"
@@ -2477,16 +2460,15 @@ func _title_new_game() -> void:
 	else: _open_modal("confirm_new")
 
 func _return_to_title() -> void:
-	confirmation_back = "pause"
+	confirmation_back = "session" if modal == "session" else "pause"
 	_populate_title_confirmation()
 
 func _populate_title_confirmation() -> void:
 	_open_modal("confirm_title")
-	_populate_confirmation("¿Volver al inicio?", "Los cambios sin guardar se perderán al cargar otra partida. Puedes cancelar y guardar desde la pausa.", func() -> void:
-		at_title = true
-		_open_modal("title"))
-	var first: Control = _first_focusable(modal_body)
-	if first != null and is_inside_tree(): first.grab_focus()
+
+func _confirm_return_to_title() -> void:
+	at_title = true
+	_open_modal("title")
 
 func _cancel_confirmation() -> void:
 	if confirmation_back == "": _close_modal()
@@ -2498,14 +2480,13 @@ func _cancel_confirmation() -> void:
 func _populate_travel() -> void:
 	modal_title.text = "Los caminos del valle"
 	_add_note("Estás en %s. Camioneta aparcada en %s." % [Places.NAMES[location], Places.NAMES[truck_location]])
-	_add_note("A pie: 30 minutos y 5 de energía. En coche: 10 minutos. La carga viaja contigo en la camioneta.")
-	if moving_box_index >= 0: _add_note("Deja la caja en el suelo antes de viajar.")
-	var can_drive: bool = truck_location == location and (truck_driving or player_pos.distance_to(truck_pos) < 100.0) and carried_crop_count == 0
-	if not can_drive: _add_note("Para ir en coche, acércate a tu camioneta con las manos libres.")
+	_add_note("A pie: 30 minutos y 5 de energía. En coche: 10 minutos. Toda tu mochila viaja contigo.")
+	var can_drive: bool = truck_location == location and (truck_driving or player_pos.distance_to(truck_pos) < 100.0)
+	if not can_drive: _add_note("Para ir en coche, acércate a tu camioneta.")
 	for destination: String in ["farm", "river", "town"]:
 		if destination == location: continue
-		_menu_button("%s · Ir andando" % Places.NAMES[destination], _travel_to.bind(destination, false), moving_box_index >= 0 or energy < 5.0)
-		_menu_button("%s · Ir en coche" % Places.NAMES[destination], _travel_to.bind(destination, true), moving_box_index >= 0 or not can_drive)
+		_menu_button("%s · Ir andando" % Places.NAMES[destination], _travel_to.bind(destination, false), energy < 5.0)
+		_menu_button("%s · Ir en coche" % Places.NAMES[destination], _travel_to.bind(destination, true), not can_drive)
 	_menu_button("Seguir aquí", _close_modal)
 
 func _try_road_exit(move: Vector2) -> bool:
@@ -2517,18 +2498,15 @@ func _try_road_exit(move: Vector2) -> bool:
 	var destination := Places.road_destination(location, direction)
 	if destination.is_empty(): return false
 	road_exit_cooldown = 1.0
-	if moving_box_index >= 0:
-		_show_toast("Deja la caja antes de salir de la zona."); return false
 	var previous := location
 	_travel_to(destination, truck_driving, direction)
 	if location == previous:
 		if not truck_driving and energy < 5.0: _show_toast("Descansa un poco antes de seguir andando.")
-		elif truck_driving and carried_crop_count > 0: _show_toast("Guarda la cosecha antes de viajar en coche.")
 	return location != previous
 
 func _travel_to(destination: String, by_car: bool, road_direction: int = 0) -> void:
-	if not Places.NAMES.has(destination) or destination == location or moving_box_index >= 0: return
-	if by_car and (truck_location != location or (not truck_driving and player_pos.distance_to(truck_pos) >= 100.0) or carried_crop_count > 0): return
+	if not Places.NAMES.has(destination) or destination == location: return
+	if by_car and (truck_location != location or (not truck_driving and player_pos.distance_to(truck_pos) >= 100.0)): return
 	if not by_car and energy < 5.0: return
 	var duration: float = 10.0 if by_car else 30.0
 	if minute + duration >= 1440.0:

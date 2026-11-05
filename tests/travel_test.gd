@@ -46,10 +46,10 @@ func _run() -> void:
 	check(game.location == "river", "remote truck cannot be summoned")
 	game._travel_to("farm", false)
 	game.player_pos = game.truck_pos + Vector2(-75,0)
-	game.truck_cargo.append({"crop_id":"turnip", "count":5, "value":100})
+	game._add_produce("turnip",5,"normal")
 	game._travel_to("town", true)
 	check(game.location == "town" and game.truck_driving and game.truck_location == "town", "car moves player and truck to town")
-	check(game.truck_cargo.size() == 1, "car preserves cargo")
+	check(game.inventory.get("turnip",0) == 5, "car preserves the backpack")
 	game._open_modal("travel")
 	var back := InputEventJoypadButton.new()
 	back.button_index = JOY_BUTTON_B
@@ -71,7 +71,7 @@ func _run() -> void:
 	game.truck_pos = game.player_pos
 	var before: int = game.coins
 	game._interact()
-	check(game.truck_cargo.is_empty() and game.coins == before + 100, "village receives truck cargo")
+	check(game.inventory.get("turnip",0) == 0 and game.coins == before+210, "village sells the backpack harvest")
 	game._travel_to("river", false)
 	check(game.truck_location == "town" and not game.truck_driving, "leaving car on foot parks it in source area")
 	game.energy = 0
@@ -112,7 +112,7 @@ func _test_road_exits() -> void:
 		game.location = "farm"
 		game.truck_location = "farm"
 		game.truck_driving = driving
-		game.truck_cargo.assign([{"crop_id":"turnip","count":5,"value":100}])
+		game.inventory["turnip"] = 5
 		game.energy = 100.0
 		game.minute = 360.0
 		game.road_exit_cooldown = 0.0
@@ -123,7 +123,7 @@ func _test_road_exits() -> void:
 		Input.action_release("move_left")
 		check(game.location == "river" and game.modal == "", "left movement automatically enters river without interaction")
 		check(game.player_pos.x > 1400 and not game._blocked(game.player_pos), "river arrival is clear at right end")
-		check(game.truck_driving == driving and game.truck_cargo.size() == 1, "travel preserves vehicle and cargo")
+		check(game.truck_driving == driving and game.inventory.get("turnip",0) == 5, "travel preserves vehicle and backpack")
 		check(game.energy == (100.0 if driving else 95.0), "automatic travel uses existing energy cost")
 		check(game.minute == (370.0 if driving else 390.0), "automatic travel uses existing duration")
 		game.road_exit_cooldown = 0.0
@@ -146,9 +146,6 @@ func _test_road_exits() -> void:
 	check(not game._try_road_exit(Vector2.LEFT), "leaving map away from road cannot travel")
 	game.player_pos = Vector2(80,Places.ROAD_Y)
 	check(not game._try_road_exit(Vector2.ZERO), "standing near exit cannot trigger travel")
-	game.moving_box_index = 0
-	check(not game._try_road_exit(Vector2.LEFT), "carrying a crate prevents automatic travel")
-	game.moving_box_index = -1
 	game.road_exit_cooldown = 0.0
 	game.energy = 0.0
 	check(not game._try_road_exit(Vector2.LEFT), "automatic walking respects exhaustion")

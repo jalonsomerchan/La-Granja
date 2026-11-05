@@ -1,13 +1,5 @@
 extends RefCounted
 
-# Inventory includes produce in physical crates. Cargo has already been removed.
-static func loose_count(crop_id: String, inventory: Dictionary, boxes: Array) -> int:
-	var count: int = int(inventory.get(crop_id, 0))
-	for box: Dictionary in boxes:
-		if String(box.get("crop_id", "")) == crop_id:
-			count -= int(box.get("count", 0))
-	return maxi(0, count)
-
 static func work(plot: Dictionary, prop: Dictionary, can_farm: bool, has_seed: bool, ready: bool) -> Dictionary:
 	if not prop.is_empty():
 		match String(prop.kind):

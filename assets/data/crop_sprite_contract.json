@@ -1,0 +1,2419 @@
+{
+  "version": 1,
+  "cell_size": 64,
+  "states": [
+    "seed_bag",
+    "planted",
+    "growing_1",
+    "growing_2",
+    "growing_3",
+    "harvest_ready",
+    "inventory",
+    "rotten"
+  ],
+  "crops": {
+    "turnip": {
+      "name": "Nabo dulce",
+      "sheet": "res://assets/sprites/crops/lifecycle/turnip.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 0
+    },
+    "carrot": {
+      "name": "Zanahoria",
+      "sheet": "res://assets/sprites/crops/lifecycle/carrot.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 1
+    },
+    "potato": {
+      "name": "Patata",
+      "sheet": "res://assets/sprites/crops/lifecycle/potato.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 2
+    },
+    "lettuce": {
+      "name": "Lechuga",
+      "sheet": "res://assets/sprites/crops/lifecycle/lettuce.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 3
+    },
+    "strawberry": {
+      "name": "Fresa",
+      "sheet": "res://assets/sprites/crops/lifecycle/strawberry.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 4
+    },
+    "rabano": {
+      "name": "Rábano",
+      "sheet": "res://assets/sprites/crops/lifecycle/rabano.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 5
+    },
+    "guisante": {
+      "name": "Guisante",
+      "sheet": "res://assets/sprites/crops/lifecycle/guisante.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 6
+    },
+    "haba": {
+      "name": "Haba",
+      "sheet": "res://assets/sprites/crops/lifecycle/haba.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_01.png",
+      "row": 7
+    },
+    "esparrago": {
+      "name": "Espárrago",
+      "sheet": "res://assets/sprites/crops/lifecycle/esparrago.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 0
+    },
+    "alcachofa": {
+      "name": "Alcachofa",
+      "sheet": "res://assets/sprites/crops/lifecycle/alcachofa.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 1
+    },
+    "cebolleta": {
+      "name": "Cebolleta",
+      "sheet": "res://assets/sprites/crops/lifecycle/cebolleta.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 2
+    },
+    "remolacha": {
+      "name": "Remolacha",
+      "sheet": "res://assets/sprites/crops/lifecycle/remolacha.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 3
+    },
+    "acelga": {
+      "name": "Acelga",
+      "sheet": "res://assets/sprites/crops/lifecycle/acelga.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 4
+    },
+    "rucula": {
+      "name": "Rúcula",
+      "sheet": "res://assets/sprites/crops/lifecycle/rucula.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 5
+    },
+    "berro": {
+      "name": "Berro",
+      "sheet": "res://assets/sprites/crops/lifecycle/berro.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 6
+    },
+    "albahaca": {
+      "name": "Albahaca",
+      "sheet": "res://assets/sprites/crops/lifecycle/albahaca.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_02.png",
+      "row": 7
+    },
+    "perejil": {
+      "name": "Perejil",
+      "sheet": "res://assets/sprites/crops/lifecycle/perejil.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 0
+    },
+    "cilantro": {
+      "name": "Cilantro",
+      "sheet": "res://assets/sprites/crops/lifecycle/cilantro.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 1
+    },
+    "cebollino": {
+      "name": "Cebollino",
+      "sheet": "res://assets/sprites/crops/lifecycle/cebollino.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 2
+    },
+    "menta": {
+      "name": "Menta",
+      "sheet": "res://assets/sprites/crops/lifecycle/menta.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 3
+    },
+    "manzanilla": {
+      "name": "Manzanilla",
+      "sheet": "res://assets/sprites/crops/lifecycle/manzanilla.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 4
+    },
+    "lavanda": {
+      "name": "Lavanda",
+      "sheet": "res://assets/sprites/crops/lifecycle/lavanda.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 5
+    },
+    "lino": {
+      "name": "Lino",
+      "sheet": "res://assets/sprites/crops/lifecycle/lino.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 6
+    },
+    "coliflor": {
+      "name": "Coliflor",
+      "sheet": "res://assets/sprites/crops/lifecycle/coliflor.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_03.png",
+      "row": 7
+    },
+    "brocoli": {
+      "name": "Brócoli",
+      "sheet": "res://assets/sprites/crops/lifecycle/brocoli.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 0
+    },
+    "repollo": {
+      "name": "Repollo",
+      "sheet": "res://assets/sprites/crops/lifecycle/repollo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 1
+    },
+    "apio": {
+      "name": "Apio",
+      "sheet": "res://assets/sprites/crops/lifecycle/apio.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 2
+    },
+    "hinojo": {
+      "name": "Hinojo",
+      "sheet": "res://assets/sprites/crops/lifecycle/hinojo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 3
+    },
+    "mostaza": {
+      "name": "Mostaza",
+      "sheet": "res://assets/sprites/crops/lifecycle/mostaza.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 4
+    },
+    "borraja": {
+      "name": "Borraja",
+      "sheet": "res://assets/sprites/crops/lifecycle/borraja.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 5
+    },
+    "tomato": {
+      "name": "Tomate",
+      "sheet": "res://assets/sprites/crops/lifecycle/tomato.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 6
+    },
+    "corn": {
+      "name": "Maíz dulce",
+      "sheet": "res://assets/sprites/crops/lifecycle/corn.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_04.png",
+      "row": 7
+    },
+    "pepper": {
+      "name": "Pimiento",
+      "sheet": "res://assets/sprites/crops/lifecycle/pepper.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 0
+    },
+    "melon": {
+      "name": "Melón",
+      "sheet": "res://assets/sprites/crops/lifecycle/melon.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 1
+    },
+    "wheat": {
+      "name": "Trigo",
+      "sheet": "res://assets/sprites/crops/lifecycle/wheat.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 2
+    },
+    "blueberry": {
+      "name": "Arándano",
+      "sheet": "res://assets/sprites/crops/lifecycle/blueberry.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 3
+    },
+    "tomate_cherry": {
+      "name": "Tomate cherry",
+      "sheet": "res://assets/sprites/crops/lifecycle/tomate_cherry.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 4
+    },
+    "pimiento_rojo": {
+      "name": "Pimiento rojo",
+      "sheet": "res://assets/sprites/crops/lifecycle/pimiento_rojo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 5
+    },
+    "pimiento_amarillo": {
+      "name": "Pimiento amarillo",
+      "sheet": "res://assets/sprites/crops/lifecycle/pimiento_amarillo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 6
+    },
+    "calabacin": {
+      "name": "Calabacín",
+      "sheet": "res://assets/sprites/crops/lifecycle/calabacin.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_05.png",
+      "row": 7
+    },
+    "pepino": {
+      "name": "Pepino",
+      "sheet": "res://assets/sprites/crops/lifecycle/pepino.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 0
+    },
+    "sandia": {
+      "name": "Sandía",
+      "sheet": "res://assets/sprites/crops/lifecycle/sandia.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 1
+    },
+    "judia_verde": {
+      "name": "Judía verde",
+      "sheet": "res://assets/sprites/crops/lifecycle/judia_verde.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 2
+    },
+    "soja": {
+      "name": "Soja",
+      "sheet": "res://assets/sprites/crops/lifecycle/soja.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 3
+    },
+    "cacahuete": {
+      "name": "Cacahuete",
+      "sheet": "res://assets/sprites/crops/lifecycle/cacahuete.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 4
+    },
+    "arroz": {
+      "name": "Arroz",
+      "sheet": "res://assets/sprites/crops/lifecycle/arroz.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 5
+    },
+    "mijo": {
+      "name": "Mijo",
+      "sheet": "res://assets/sprites/crops/lifecycle/mijo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 6
+    },
+    "sesamo": {
+      "name": "Sésamo",
+      "sheet": "res://assets/sprites/crops/lifecycle/sesamo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_06.png",
+      "row": 7
+    },
+    "girasol": {
+      "name": "Girasol",
+      "sheet": "res://assets/sprites/crops/lifecycle/girasol.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 0
+    },
+    "albahaca_morada": {
+      "name": "Albahaca morada",
+      "sheet": "res://assets/sprites/crops/lifecycle/albahaca_morada.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 1
+    },
+    "oregano": {
+      "name": "Orégano",
+      "sheet": "res://assets/sprites/crops/lifecycle/oregano.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 2
+    },
+    "mejorana": {
+      "name": "Mejorana",
+      "sheet": "res://assets/sprites/crops/lifecycle/mejorana.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 3
+    },
+    "eneldo": {
+      "name": "Eneldo",
+      "sheet": "res://assets/sprites/crops/lifecycle/eneldo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 4
+    },
+    "frambuesa_de_verano": {
+      "name": "Frambuesa de verano",
+      "sheet": "res://assets/sprites/crops/lifecycle/frambuesa_de_verano.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 5
+    },
+    "mora": {
+      "name": "Mora",
+      "sheet": "res://assets/sprites/crops/lifecycle/mora.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 6
+    },
+    "physalis": {
+      "name": "Physalis",
+      "sheet": "res://assets/sprites/crops/lifecycle/physalis.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_07.png",
+      "row": 7
+    },
+    "grosella_roja": {
+      "name": "Grosella roja",
+      "sheet": "res://assets/sprites/crops/lifecycle/grosella_roja.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 0
+    },
+    "chile": {
+      "name": "Chile",
+      "sheet": "res://assets/sprites/crops/lifecycle/chile.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 1
+    },
+    "okra": {
+      "name": "Okra",
+      "sheet": "res://assets/sprites/crops/lifecycle/okra.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 2
+    },
+    "tomatillo": {
+      "name": "Tomatillo",
+      "sheet": "res://assets/sprites/crops/lifecycle/tomatillo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 3
+    },
+    "pumpkin": {
+      "name": "Calabaza",
+      "sheet": "res://assets/sprites/crops/lifecycle/pumpkin.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 4
+    },
+    "eggplant": {
+      "name": "Berenjena",
+      "sheet": "res://assets/sprites/crops/lifecycle/eggplant.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 5
+    },
+    "spinach": {
+      "name": "Espinaca",
+      "sheet": "res://assets/sprites/crops/lifecycle/spinach.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 6
+    },
+    "garlic": {
+      "name": "Ajo",
+      "sheet": "res://assets/sprites/crops/lifecycle/garlic.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_08.png",
+      "row": 7
+    },
+    "boniato": {
+      "name": "Boniato",
+      "sheet": "res://assets/sprites/crops/lifecycle/boniato.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 0
+    },
+    "cebolla": {
+      "name": "Cebolla",
+      "sheet": "res://assets/sprites/crops/lifecycle/cebolla.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 1
+    },
+    "puerro": {
+      "name": "Puerro",
+      "sheet": "res://assets/sprites/crops/lifecycle/puerro.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 2
+    },
+    "lombarda": {
+      "name": "Lombarda",
+      "sheet": "res://assets/sprites/crops/lifecycle/lombarda.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 3
+    },
+    "chirivia": {
+      "name": "Chirivía",
+      "sheet": "res://assets/sprites/crops/lifecycle/chirivia.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 4
+    },
+    "nabo_morado": {
+      "name": "Nabo morado",
+      "sheet": "res://assets/sprites/crops/lifecycle/nabo_morado.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 5
+    },
+    "escarola": {
+      "name": "Escarola",
+      "sheet": "res://assets/sprites/crops/lifecycle/escarola.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 6
+    },
+    "endibia": {
+      "name": "Endibia",
+      "sheet": "res://assets/sprites/crops/lifecycle/endibia.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_09.png",
+      "row": 7
+    },
+    "col_de_bruselas": {
+      "name": "Col de Bruselas",
+      "sheet": "res://assets/sprites/crops/lifecycle/col_de_bruselas.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 0
+    },
+    "col_rizada": {
+      "name": "Col rizada",
+      "sheet": "res://assets/sprites/crops/lifecycle/col_rizada.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 1
+    },
+    "colirrabano": {
+      "name": "Colirrábano",
+      "sheet": "res://assets/sprites/crops/lifecycle/colirrabano.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 2
+    },
+    "rabano_negro": {
+      "name": "Rábano negro",
+      "sheet": "res://assets/sprites/crops/lifecycle/rabano_negro.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 3
+    },
+    "zanahoria_morada": {
+      "name": "Zanahoria morada",
+      "sheet": "res://assets/sprites/crops/lifecycle/zanahoria_morada.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 4
+    },
+    "remolacha_dorada": {
+      "name": "Remolacha dorada",
+      "sheet": "res://assets/sprites/crops/lifecycle/remolacha_dorada.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 5
+    },
+    "calabaza_cacahuete": {
+      "name": "Calabaza cacahuete",
+      "sheet": "res://assets/sprites/crops/lifecycle/calabaza_cacahuete.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 6
+    },
+    "calabaza_espagueti": {
+      "name": "Calabaza espagueti",
+      "sheet": "res://assets/sprites/crops/lifecycle/calabaza_espagueti.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_10.png",
+      "row": 7
+    },
+    "garbanzo": {
+      "name": "Garbanzo",
+      "sheet": "res://assets/sprites/crops/lifecycle/garbanzo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 0
+    },
+    "lenteja": {
+      "name": "Lenteja",
+      "sheet": "res://assets/sprites/crops/lifecycle/lenteja.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 1
+    },
+    "cebada": {
+      "name": "Cebada",
+      "sheet": "res://assets/sprites/crops/lifecycle/cebada.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 2
+    },
+    "avena": {
+      "name": "Avena",
+      "sheet": "res://assets/sprites/crops/lifecycle/avena.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 3
+    },
+    "centeno": {
+      "name": "Centeno",
+      "sheet": "res://assets/sprites/crops/lifecycle/centeno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 4
+    },
+    "alforfon": {
+      "name": "Alforfón",
+      "sheet": "res://assets/sprites/crops/lifecycle/alforfon.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 5
+    },
+    "quinoa": {
+      "name": "Quinoa",
+      "sheet": "res://assets/sprites/crops/lifecycle/quinoa.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 6
+    },
+    "salvia": {
+      "name": "Salvia",
+      "sheet": "res://assets/sprites/crops/lifecycle/salvia.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_11.png",
+      "row": 7
+    },
+    "romero": {
+      "name": "Romero",
+      "sheet": "res://assets/sprites/crops/lifecycle/romero.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 0
+    },
+    "tomillo": {
+      "name": "Tomillo",
+      "sheet": "res://assets/sprites/crops/lifecycle/tomillo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 1
+    },
+    "canonigos": {
+      "name": "Canónigos",
+      "sheet": "res://assets/sprites/crops/lifecycle/canonigos.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 2
+    },
+    "espinaca_de_invierno": {
+      "name": "Espinaca de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/espinaca_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 3
+    },
+    "acelga_de_invierno": {
+      "name": "Acelga de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/acelga_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 4
+    },
+    "col_rizada_de_invierno": {
+      "name": "Col rizada de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/col_rizada_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 5
+    },
+    "puerro_de_invierno": {
+      "name": "Puerro de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/puerro_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 6
+    },
+    "brocoli_de_invierno": {
+      "name": "Brócoli de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/brocoli_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_12.png",
+      "row": 7
+    },
+    "coliflor_de_invierno": {
+      "name": "Coliflor de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/coliflor_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 0
+    },
+    "repollo_de_invierno": {
+      "name": "Repollo de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/repollo_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 1
+    },
+    "lombarda_de_invierno": {
+      "name": "Lombarda de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/lombarda_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 2
+    },
+    "col_de_milan": {
+      "name": "Col de Milán",
+      "sheet": "res://assets/sprites/crops/lifecycle/col_de_milan.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 3
+    },
+    "col_de_bruselas_de_invierno": {
+      "name": "Col de Bruselas de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/col_de_bruselas_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 4
+    },
+    "colirrabano_de_invierno": {
+      "name": "Colirrábano de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/colirrabano_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 5
+    },
+    "nabo_de_invierno": {
+      "name": "Nabo de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/nabo_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 6
+    },
+    "colinabo": {
+      "name": "Colinabo",
+      "sheet": "res://assets/sprites/crops/lifecycle/colinabo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_13.png",
+      "row": 7
+    },
+    "rabano_daikon": {
+      "name": "Rábano daikon",
+      "sheet": "res://assets/sprites/crops/lifecycle/rabano_daikon.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 0
+    },
+    "rabano_de_invierno": {
+      "name": "Rábano de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/rabano_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 1
+    },
+    "zanahoria_de_invierno": {
+      "name": "Zanahoria de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/zanahoria_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 2
+    },
+    "chirivia_de_invierno": {
+      "name": "Chirivía de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/chirivia_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 3
+    },
+    "salsifi": {
+      "name": "Salsifí",
+      "sheet": "res://assets/sprites/crops/lifecycle/salsifi.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 4
+    },
+    "escorzonera": {
+      "name": "Escorzonera",
+      "sheet": "res://assets/sprites/crops/lifecycle/escorzonera.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 5
+    },
+    "tupinambo": {
+      "name": "Tupinambo",
+      "sheet": "res://assets/sprites/crops/lifecycle/tupinambo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 6
+    },
+    "ajo_tierno": {
+      "name": "Ajo tierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/ajo_tierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_14.png",
+      "row": 7
+    },
+    "cebolla_de_invierno": {
+      "name": "Cebolla de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/cebolla_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 0
+    },
+    "escarola_de_invierno": {
+      "name": "Escarola de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/escarola_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 1
+    },
+    "endibia_de_invierno": {
+      "name": "Endibia de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/endibia_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 2
+    },
+    "achicoria": {
+      "name": "Achicoria",
+      "sheet": "res://assets/sprites/crops/lifecycle/achicoria.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 3
+    },
+    "rucula_silvestre": {
+      "name": "Rúcula silvestre",
+      "sheet": "res://assets/sprites/crops/lifecycle/rucula_silvestre.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 4
+    },
+    "berro_de_invierno": {
+      "name": "Berro de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/berro_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 5
+    },
+    "perejil_de_invierno": {
+      "name": "Perejil de invierno",
+      "sheet": "res://assets/sprites/crops/lifecycle/perejil_de_invierno.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 6
+    },
+    "perifollo": {
+      "name": "Perifollo",
+      "sheet": "res://assets/sprites/crops/lifecycle/perifollo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_15.png",
+      "row": 7
+    },
+    "apple": {
+      "name": "Manzana",
+      "sheet": "res://assets/sprites/crops/lifecycle/apple.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_16.png",
+      "row": 0
+    },
+    "pear": {
+      "name": "Pera",
+      "sheet": "res://assets/sprites/crops/lifecycle/pear.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_16.png",
+      "row": 1
+    },
+    "wild_berries": {
+      "name": "Bayas silvestres",
+      "sheet": "res://assets/sprites/crops/lifecycle/wild_berries.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_16.png",
+      "row": 2
+    },
+    "raspberry": {
+      "name": "Frambuesa",
+      "sheet": "res://assets/sprites/crops/lifecycle/raspberry.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_16.png",
+      "row": 3
+    },
+    "cerezo": {
+      "name": "Cerezo",
+      "sheet": "res://assets/sprites/crops/lifecycle/cerezo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 0
+    },
+    "melocotonero": {
+      "name": "Melocotonero",
+      "sheet": "res://assets/sprites/crops/lifecycle/melocotonero.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 1
+    },
+    "ciruelo": {
+      "name": "Ciruelo",
+      "sheet": "res://assets/sprites/crops/lifecycle/ciruelo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 2
+    },
+    "albaricoquero": {
+      "name": "Albaricoquero",
+      "sheet": "res://assets/sprites/crops/lifecycle/albaricoquero.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 3
+    },
+    "naranjo": {
+      "name": "Naranjo",
+      "sheet": "res://assets/sprites/crops/lifecycle/naranjo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 4
+    },
+    "limonero": {
+      "name": "Limonero",
+      "sheet": "res://assets/sprites/crops/lifecycle/limonero.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 5
+    },
+    "mandarino": {
+      "name": "Mandarino",
+      "sheet": "res://assets/sprites/crops/lifecycle/mandarino.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 6
+    },
+    "olivo": {
+      "name": "Olivo",
+      "sheet": "res://assets/sprites/crops/lifecycle/olivo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_17.png",
+      "row": 7
+    },
+    "higuera": {
+      "name": "Higuera",
+      "sheet": "res://assets/sprites/crops/lifecycle/higuera.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 0
+    },
+    "granado": {
+      "name": "Granado",
+      "sheet": "res://assets/sprites/crops/lifecycle/granado.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 1
+    },
+    "nogal": {
+      "name": "Nogal",
+      "sheet": "res://assets/sprites/crops/lifecycle/nogal.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 2
+    },
+    "almendro": {
+      "name": "Almendro",
+      "sheet": "res://assets/sprites/crops/lifecycle/almendro.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 3
+    },
+    "avellano": {
+      "name": "Avellano",
+      "sheet": "res://assets/sprites/crops/lifecycle/avellano.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 4
+    },
+    "aguacatero": {
+      "name": "Aguacatero",
+      "sheet": "res://assets/sprites/crops/lifecycle/aguacatero.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 5
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "sheet": "res://assets/sprites/crops/lifecycle/kiwi.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 6
+    },
+    "caqui": {
+      "name": "Caqui",
+      "sheet": "res://assets/sprites/crops/lifecycle/caqui.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_18.png",
+      "row": 7
+    },
+    "membrillo": {
+      "name": "Membrillo",
+      "sheet": "res://assets/sprites/crops/lifecycle/membrillo.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_19.png",
+      "row": 0
+    },
+    "mango": {
+      "name": "Mango",
+      "sheet": "res://assets/sprites/crops/lifecycle/mango.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_19.png",
+      "row": 1
+    },
+    "pina": {
+      "name": "Piña",
+      "sheet": "res://assets/sprites/crops/lifecycle/pina.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_19.png",
+      "row": 2
+    },
+    "trebol": {
+      "name": "Trébol",
+      "sheet": "res://assets/sprites/crops/lifecycle/trebol.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_19.png",
+      "row": 3
+    },
+    "colza": {
+      "name": "Colza",
+      "sheet": "res://assets/sprites/crops/lifecycle/colza.png",
+      "frames": {
+        "seed_bag": 0,
+        "planted": 1,
+        "growing_1": 2,
+        "growing_2": 3,
+        "growing_3": 4,
+        "harvest_ready": 5,
+        "inventory": 6,
+        "rotten": 7
+      },
+      "source": "pack_19.png",
+      "row": 4
+    }
+  },
+  "legacy_aliases": {
+    "catalog_000": "tomate_cherry",
+    "catalog_001": "cebolla",
+    "catalog_002": "puerro",
+    "catalog_003": "pimiento_rojo",
+    "catalog_004": "pimiento_amarillo",
+    "catalog_005": "calabacin",
+    "catalog_006": "pepino",
+    "catalog_007": "sandia",
+    "catalog_008": "brocoli",
+    "catalog_009": "coliflor",
+    "catalog_010": "repollo",
+    "catalog_011": "lombarda",
+    "catalog_012": "acelga",
+    "catalog_013": "remolacha",
+    "catalog_014": "rabano",
+    "catalog_015": "apio",
+    "catalog_016": "esparrago",
+    "catalog_017": "alcachofa",
+    "catalog_018": "judia_verde",
+    "catalog_019": "guisante",
+    "catalog_020": "haba",
+    "catalog_021": "boniato",
+    "catalog_022": "raspberry",
+    "catalog_023": "mora",
+    "catalog_024": "physalis",
+    "catalog_025": "grosella_roja",
+    "catalog_026": "cebada",
+    "catalog_027": "avena",
+    "catalog_028": "arroz",
+    "catalog_029": "centeno",
+    "catalog_030": "garbanzo",
+    "catalog_031": "lenteja",
+    "catalog_032": "soja",
+    "catalog_033": "cacahuete",
+    "catalog_034": "albahaca",
+    "catalog_035": "perejil",
+    "catalog_036": "cilantro",
+    "catalog_037": "menta",
+    "catalog_038": "romero",
+    "catalog_039": "tomillo",
+    "catalog_040": "oregano",
+    "catalog_041": "lavanda",
+    "catalog_042": "girasol",
+    "catalog_043": "manzanilla",
+    "catalog_044": "lino",
+    "catalog_045": "apple",
+    "catalog_046": "pear",
+    "catalog_047": "cerezo",
+    "catalog_048": "melocotonero",
+    "catalog_049": "ciruelo",
+    "catalog_050": "albaricoquero",
+    "catalog_051": "naranjo",
+    "catalog_052": "limonero",
+    "catalog_053": "mandarino",
+    "catalog_054": "olivo",
+    "catalog_055": "higuera",
+    "catalog_056": "granado",
+    "catalog_057": "nogal",
+    "catalog_058": "almendro",
+    "catalog_059": "avellano",
+    "catalog_060": "aguacatero",
+    "catalog_061": "kiwi",
+    "catalog_062": "caqui",
+    "catalog_063": "membrillo",
+    "catalog_064": "mango",
+    "catalog_065": "pina",
+    "catalog_066": "col_rizada",
+    "catalog_067": "col_de_bruselas",
+    "catalog_068": "chirivia",
+    "catalog_069": "escarola",
+    "catalog_070": "rucula",
+    "catalog_071": "nabo_morado",
+    "catalog_072": "ajo_tierno",
+    "catalog_073": "endibia",
+    "catalog_074": "quinoa",
+    "catalog_075": "trebol",
+    "catalog_076": "colza",
+    "catalog_077": "mijo",
+    "catalog_078": "alforfon",
+    "catalog_079": "sesamo",
+    "catalog_080": "borraja"
+  }
+}

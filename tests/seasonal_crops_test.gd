@@ -57,7 +57,6 @@ func run() -> void:
 		game.set("season_index", ["Primavera", "Verano", "Otoño", "Invierno"].find(crop.season))
 		game.set("player_pos", Vector2(592,624))
 		game.set("energy", 100.0)
-		game.set("carried_crop_count", 0)
 		var plots: Dictionary = game.get("plots")
 		plots["18,18"] = {"soil":"tilled","crop_id":"","growth":0,"watered":false,"dry_days":0,"wilted":false}
 		game.call("_use_tool_at", Vector2i(18,18))
@@ -65,8 +64,7 @@ func run() -> void:
 		check(game.get("inventory")[crop.id + "_seed"] == before + 4, "Planting consumes one seed")
 		plots["18,18"].growth = crop.days
 		game.call("_harvest", Vector2i(18,18))
-		check(game.get("inventory").get(crop.id, 0) == 2 and game.get("carried_crop_count") == 0, "Game harvests " + crop.id)
-	game.set("carried_crop_count", 0)
+		check(game.get("inventory").get(crop.id, 0) == 2, "Game harvests " + crop.id)
 	game.set("selected_seed_id", "turnip")
 	var visited: Dictionary = {}
 	for season: int in range(4):

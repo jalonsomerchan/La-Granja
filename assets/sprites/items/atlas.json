@@ -1,0 +1,19 @@
+{
+  "cell_size": 64,
+  "source": "sources/materials-raw.png",
+  "prompt": "sources/prompt-used.txt",
+  "items": {
+    "wood": "res://assets/sprites/items/wood.png",
+    "stone": "res://assets/sprites/items/stone.png",
+    "fiber": "res://assets/sprites/items/fiber.png",
+    "clay": "res://assets/sprites/items/clay.png",
+    "coal": "res://assets/sprites/items/coal.png",
+    "iron_ore": "res://assets/sprites/items/iron_ore.png",
+    "plank": "res://assets/sprites/items/plank.png",
+    "rope": "res://assets/sprites/items/rope.png",
+    "brick": "res://assets/sprites/items/brick.png",
+    "iron_bar": "res://assets/sprites/items/iron_bar.png",
+    "fertilizer": "res://assets/sprites/items/fertilizer.png",
+    "fence": "res://assets/sprites/items/fence.png"
+  }
+}

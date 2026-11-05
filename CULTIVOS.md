@@ -2,6 +2,10 @@
 
 120 cultivos jugables. Los precios se expresan en monedas del juego; la semilla se vende en bolsas de 5. Rendimiento: 2 productos por cosecha. Los días cuentan jornadas regadas (la lluvia también riega). Tras 3 días secos la planta se marchita; al cambiar de estación se marchitan las variedades de la anterior. Calendario de juego de 28 días por estación, no una guía agrícola real.
 
+## Contrato visual obligatorio
+
+Cada variedad requiere ocho sprites distintos: bolsa de semillas, plantada, crecimiento 1, crecimiento 2, crecimiento 3, lista para recoger, producto de mochila y planta podrida. Registro: `assets/data/crop_sprite_contract.json`. Atlas y catálogo visual: `assets/sprites/crops/lifecycle/`. Esta condición también se aplica a nuevas frutas y cultivos; ejecutar `python3 tools/validate_crop_sprites.py` antes de incorporarlos.
+
 ## Primavera
 
 | Producto | Bolsa ×5 | Venta/unidad | Primera cosecha | Rebrote |

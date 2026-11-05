@@ -18,14 +18,14 @@ func _run() -> void:
 	game.at_title = false
 	game._close_modal()
 	game.props.clear()
-	# Real crate layout and unowned land must not capture the well interaction.
+	# Scenery and unowned land must not capture the well interaction.
 	for offset: Vector2 in [Vector2(0,40),Vector2(45,0),Vector2(0,-55),Vector2(-45,0)]:
 		game.player_pos = Vector2(1008,592) + offset
 		game.mouse_aim_active = true
 		game.mouse_target_tile = Vector2i(31,18)
 		game.water = 0
 		game._interact()
-		check(game.water == game.max_water and game.modal == "", "Well accessible from every side despite crates and land")
+		check(game.water == game.max_water and game.modal == "", "Well accessible from every side near unowned land")
 		check(game.action_label.text.contains("Llenar regadera"), "Hint describes the action actually executed")
 	game.player_pos = Vector2(1050,605)
 	game.selected_tool = 1
@@ -66,51 +66,18 @@ func _run() -> void:
 	game._harvest(Vector2i(18,18))
 	check(game.inventory.get("turnip", 0) == 0, "Distant crops cannot be harvested")
 	game.player_pos = Vector2(592,624)
-	game.moving_box_index = 0
 	game._harvest(Vector2i(18,18))
-	check(game.inventory.get("turnip", 0) == 0, "Cannot harvest while carrying a crate")
-	game.moving_box_index = -1
+	check(game.inventory.get("turnip",0) == 2, "Harvest enters the backpack immediately")
+	game._sync_backpack()
+	check(game.inventory_slots.has("turnip"), "Harvest has a backpack slot")
 	game.plots.clear()
-	game.produce_box_tiles.assign([Vector2i(18,18),Vector2i(20,18)])
-	game.produce_boxes.assign([{"crop_id":"","count":0},{"crop_id":"","count":0}])
-	game.player_pos = Vector2(655,624)
-	game.mouse_aim_active = false
-	game.facing = Vector2.UP
-	check(game._interaction_target().index == 1, "Nearest crate wins rather than first in array")
-	game._interact()
-	check(game.moving_box_index == 1, "Chosen crate is picked up")
-	# A distant mouse cursor must not teleport the carried crate.
-	var carried_tile: Vector2i = game.produce_box_tiles[1]
-	game.mouse_aim_active = true
-	game.mouse_target_tile = Vector2i(24,24)
-	game._update_movement(0.0)
-	check(game.produce_box_tiles[1] == carried_tile, "Carried crate cannot follow a distant cursor")
-	game.mouse_aim_active = false
-	game.truck_location = "town"
-	check(game._interaction_target().action == "drop_box", "Truck in another area cannot receive crate")
-	game._interact()
-	check(game.moving_box_index == -1, "Carried crate drops before other interactions")
-	game.truck_location = "farm"
-	game.truck_pos = Vector2(720,600)
-	game.produce_boxes[1] = {"crop_id":"turnip","count":5}
-	game.moving_box_index = 1
-	game._interact()
-	check(game.moving_box_index == -1 and game.truck_cargo.size() == 1, "Full carried crate loads and frees hands")
-	# Nearby empty crates remain movable instead of repeatedly failing to load.
-	game.player_pos = Vector2(655,624)
-	game.facing = Vector2.UP
-	game._interact()
-	check(game.moving_box_index == 1, "Incomplete crate near truck can be picked up")
-	game.facing = Vector2.DOWN
-	game._interact()
-	check(game.moving_box_index == -1, "Incomplete crate can be dropped near truck")
 	# Charged tools still reach their 3x3 footprint.
-	game.produce_box_tiles.clear()
-	game.produce_boxes.clear()
 	game.player_pos = Vector2(656,656)
 	game.facing = Vector2.DOWN
 	game.selected_tool = 0
 	game.tool_levels.Azada = 2
+	game.mouse_aim_active = false
+	game.action_cooldown = 0.0
 	game.tool_charge = 1.0
 	game.energy = 100.0
 	for y: int in range(20,23):
@@ -121,7 +88,7 @@ func _run() -> void:
 		for x: int in range(19,22):
 			check(game.plots["%d,%d" % [x,y]].soil == "tilled", "Charged hoe reaches full 3x3")
 	game.selected_tool = 1
-	# Destination water sources accept the tool as well as E/X.
+	# Destination water sources accept the tool as well as A/E.
 	for area: String in ["town","river"]:
 		game.action_cooldown = 0.0
 		game.location = area

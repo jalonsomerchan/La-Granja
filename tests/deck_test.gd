@@ -50,6 +50,7 @@ func _reset_work() -> void:
 	game.season_index = 0
 
 func _run() -> void:
+	root.size = Vector2i(1280,800)
 	game = Scene.instantiate()
 	root.add_child(game)
 	game.set_process(false)
@@ -82,7 +83,7 @@ func _run() -> void:
 	check(game.inventory.get("turnip", 0) == 0 and game.plots["18,18"].crop_id == "turnip", "Explicit tool never harvests by accident")
 	game.action_cooldown = 0.0
 	game._input(_pad(JOY_BUTTON_A))
-	check(game.inventory.get("turnip", 0) == 2 and game.carried_crop_count == 0, "A harvests into backpack")
+	check(game.inventory.get("turnip", 0) == 2, "A harvests into backpack")
 	game.plots["18,18"] = {"crop_id":"carrot", "growth":99,"soil":"tilled","watered":true,"wilted":false}
 	game.action_cooldown = 0.0
 	game._input(_pad(JOY_BUTTON_A))
@@ -133,41 +134,18 @@ func _run() -> void:
 	trigger.axis_value = 0.05
 	game._input(trigger)
 	check(not game.last_input_was_gamepad, "Stick drift does not steal keyboard hints")
-	# Cargo uses all known produce IDs, including wild fruit absent from seed catalog.
-	game.player_pos = game.truck_pos + Vector2(-80,0)
+	# Direct sale includes wild fruits and keeps all quality bonuses.
 	game.inventory = {"apple":10}
 	game.quality_stock = {"apple":{"normal":6,"excelente":4}}
-	for index: int in range(game.produce_boxes.size()): game.produce_boxes[index] = {"crop_id":"","count":0}
-	game.produce_boxes[0] = {"crop_id":"apple","count":3}
-	game.produce_box_tiles[0] = Vector2i(34,19)
-	game.truck_cargo.clear()
-	game._quick_load_truck()
-	check(game.truck_cargo.size() == 3 and game.inventory.apple == 0, "Quick loading combines a partial crate with loose produce exactly once")
-	check(game._cargo_value() == 471, "Loading preserves the full quality-adjusted crop value")
-	game._quick_load_truck()
-	check(game.truck_cargo.size() == 3, "Repeated load cannot duplicate stock")
 	var coins: int = game.coins
-	game._sell_truck_cargo()
-	check(game.coins == coins + 471 and game.truck_cargo.is_empty(), "Selling consumes cargo and pays its value")
-	game.inventory = {"apple":40}
-	game.quality_stock = {"apple":{"normal":40}}
-	game._quick_load_truck()
-	check(game.truck_cargo.size() == 6 and game.inventory.apple == 10, "Truck capacity leaves excess produce safe in backpack")
-	# Direct sale keeps physical crates reserved.
-	game.truck_cargo.clear()
-	game.produce_boxes[0] = {"crop_id":"apple","count":3}
 	game._sell_all_produce()
-	check(game.inventory.apple == 3 and game.produce_boxes[0].count == 3, "Shop sale cannot also sell reserved crate contents")
-	game._close_modal()
-	# Legacy fruit in hands migrates once, preserving quality.
+	check(game.coins == coins+471 and game.inventory.apple == 0, "Backpack sale preserves quality value and consumes the produce")
+	game._sell_all_produce()
+	check(game.coins == coins+471, "Repeated sale cannot duplicate income")
 	var state: Dictionary = Saves.decode_game(Saves.encode_game(game._pack_state()))
-	state.carried_crop_id = "pear"
-	state.carried_crop_count = 3
-	state.carried_quality = "buena"
 	state.assisted_actions = false
 	state.relaxed_clock = false
 	game._load_state(state)
-	check(game.inventory.pear == 3 and game.quality_stock.pear.buena == 3 and game.carried_crop_count == 0, "Old hand cargo migrates into backpack once")
 	check(not game.assisted_actions and not game.relaxed_clock, "Playability preferences survive save/load")
 	# Every seasonal shop page is reachable; purchase preserves focus.
 	game.coins = 100000
@@ -229,10 +207,8 @@ func _run() -> void:
 	var previous_stock: int = int(snapshot.inventory.get("apple", 0))
 	game.inventory.apple = 999
 	check(int(snapshot.inventory.get("apple", 0)) == previous_stock, "Save snapshots do not share mutable inventory with live play")
-	snapshot.produce_boxes = [{"crop_id":"","count":0}]
-	snapshot.produce_box_tiles = [[29,17]]
 	game._load_state(snapshot)
-	check(game.produce_boxes.size() == game.produce_box_tiles.size(), "Short legacy crate layouts restore matching box data")
+	check(game.inventory_slots.size() >= 24, "Backpack layout survives save/load")
 	game._interaction_target()
 	game.free()
 	await process_frame

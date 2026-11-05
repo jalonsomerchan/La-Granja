@@ -34,9 +34,22 @@ for si,(slug,names) in enumerate(seasons):
   if name in original: cid,days,seed,sell,repeat=original[name]
   category='Aromática' if name.split()[0] in herbs else ('Cereal y legumbre' if name in grains else ('Fruta' if name in fruits else 'Hortaliza'))
   catalog.append(dict(id=cid,name=name,category=category,season=['Primavera','Verano','Otoño','Invierno'][si],seasons=[['Primavera','Verano','Otoño','Invierno'][si]],seed=seed,seed_pack=5,sell=sell,days=days,repeat=repeat,regrow_days=repeat,water_per_day=1,stages=5,yield_amount=2,harvest_mode='repeat' if repeat else 'single',soil='tilled',experience=days+4,rarity='común',sprite_season=slug,sprite_index=i,product_sprite=f'res://assets/sprites/crops/seasonal/{slug}_produce.png',plant_sprite=f'res://assets/sprites/crops/seasonal/{slug}_plants.png',seed_sprite=f'res://assets/sprites/crops/seasonal/{slug}_seeds.png'))
-for c in catalog: c['yield']=c.pop('yield_amount')
+# The atlas contract is mandatory; rebuilding the economy must not restore old art.
+contract_path = root/'assets/data/crop_sprite_contract.json'
+if not contract_path.exists(): raise ValueError('Missing mandatory eight-state sprite contract')
+contract = json.loads(contract_path.read_text())
+required = ['seed_bag','planted','growing_1','growing_2','growing_3','harvest_ready','inventory','rotten']
+for c in catalog:
+ c['yield']=c.pop('yield_amount')
+ art = contract['crops'].get(c['id'], {})
+ if set(art.get('frames', {})) != set(required) or len(set(art['frames'].values())) != 8:
+  raise ValueError(f"{c['id']}: needs all eight distinct sprite states before entering the catalog")
+ if not (root/art.get('sheet','').removeprefix('res://')).is_file():
+  raise ValueError(f"{c['id']}: missing eight-state atlas")
+ c.update(visual_id=c['id'], sprite_sheet=art['sheet'], sprite_states=art['frames'], product_sprite=art['sheet'], plant_sprite=art['sheet'], seed_sprite=art['sheet'])
 (root/'assets/data/crops.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
 lines=['# Cultivos por estación','', '120 cultivos jugables. Los precios se expresan en monedas del juego; la semilla se vende en bolsas de 5. Rendimiento: 2 productos por cosecha. Los días cuentan jornadas regadas (la lluvia también riega). Tras 3 días secos la planta se marchita; al cambiar de estación se marchitan las variedades de la anterior. Calendario de juego de 28 días por estación, no una guía agrícola real.','']
+lines += ['## Contrato visual obligatorio', '', 'Cada variedad requiere ocho sprites distintos: bolsa de semillas, plantada, crecimiento 1, crecimiento 2, crecimiento 3, lista para recoger, producto de mochila y planta podrida. Registro: `assets/data/crop_sprite_contract.json`. Atlas y catálogo visual: `assets/sprites/crops/lifecycle/`. Esta condición también se aplica a nuevas frutas y cultivos; ejecutar `python3 tools/validate_crop_sprites.py` antes de incorporarlos.', '']
 for slug,names in seasons:
  group=[c for c in catalog if c['sprite_season']==slug]
  lines+=['## '+group[0]['season'],'','| Producto | Bolsa ×5 | Venta/unidad | Primera cosecha | Rebrote |','|---|---:|---:|---:|---:|']
