@@ -1,0 +1,13 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "rows": [
+    "short_grass",
+    "tall_grass",
+    "cleared_soil",
+    "tilled_2_and_sown_2"
+  ],
+  "columns": 4
+}

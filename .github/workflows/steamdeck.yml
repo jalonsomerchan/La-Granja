@@ -1,0 +1,194 @@
+
+name: Publicar Steam Deck
+
+on:
+  push:
+    tags:
+      - "v*"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Compilar y publicar juego
+    runs-on: ubuntu-latest
+
+    env:
+      GODOT_VERSION: "4.7.2"
+      GAME_EXECUTABLE: "MiJuego.x86_64"
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Instalar Godot
+        run: |
+          set -e
+
+          wget -q \
+            "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+
+          unzip -q \
+            "Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+
+          sudo install \
+            "Godot_v${GODOT_VERSION}-stable_linux.x86_64" \
+            /usr/local/bin/godot
+
+          wget -q \
+            "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+
+          mkdir -p \
+            "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+
+          unzip -q \
+            "Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
+            -d /tmp/godot-templates
+
+          cp /tmp/godot-templates/templates/* \
+            "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
+
+          godot --version
+
+      - name: Detectar preset Linux
+        id: preset
+        shell: bash
+        run: |
+          set -e
+
+          PRESET=$(python3 - <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          path = Path("export_presets.cfg")
+
+          if not path.is_file():
+              sys.exit("ERROR: No existe export_presets.cfg")
+
+          content = path.read_text(encoding="utf-8")
+
+          # Separar las secciones de presets principales
+          sections = re.split(
+              r'(?m)^\[(preset\.\d+)\]\s*$',
+              content
+          )
+
+          candidates = []
+
+          for i in range(1, len(sections), 2):
+              section = sections[i + 1]
+
+              platform = re.search(
+                  r'(?m)^platform="([^"]+)"',
+                  section
+              )
+
+              name = re.search(
+                  r'(?m)^name="([^"]+)"',
+                  section
+              )
+
+              if platform and name:
+                  if platform.group(1) == "Linux":
+                      candidates.append(name.group(1))
+
+          if not candidates:
+              sys.exit(
+                  "ERROR: No se encontró ningún preset Linux"
+              )
+
+          # Priorizar el preset de Steam Deck
+          selected = next(
+              (
+                  name for name in candidates
+                  if "steam deck" in name.lower()
+              ),
+              candidates[0]
+          )
+
+          print(selected)
+          PY
+          )
+
+          echo "Preset detectado: $PRESET"
+          echo "name=$PRESET" >> "$GITHUB_OUTPUT"
+
+      - name: Importar recursos del proyecto
+        run: |
+          set -e
+
+          godot --headless --path . --import
+
+      - name: Exportar juego para Steam Deck
+        env:
+          EXPORT_PRESET: ${{ steps.preset.outputs.name }}
+        run: |
+          set -e
+
+          mkdir -p build
+
+          echo "Exportando preset: $EXPORT_PRESET"
+
+          godot --headless \
+            --path . \
+            --export-release "$EXPORT_PRESET" \
+            "build/$GAME_EXECUTABLE"
+
+          test -s "build/$GAME_EXECUTABLE"
+
+          chmod +x "build/$GAME_EXECUTABLE"
+
+          echo "Exportación completada:"
+          ls -lah build/
+
+      - name: Empaquetar juego
+        run: |
+          set -e
+
+          cd build
+
+          zip -q -r ../steamdeck.zip .
+
+          cd ..
+
+          sha256sum steamdeck.zip > steamdeck.zip.sha256
+
+          echo "Archivos generados:"
+          ls -lah steamdeck.zip steamdeck.zip.sha256
+
+          echo "Verificando integridad:"
+          sha256sum -c steamdeck.zip.sha256
+
+      - name: Determinar versión
+        id: version
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "tag=dev-${RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publicar en GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -e
+
+          gh release create "$RELEASE_TAG" \
+            steamdeck.zip \
+            steamdeck.zip.sha256 \
+            --target "$GITHUB_SHA" \
+            --title "$RELEASE_TAG" \
+            --generate-notes \
+            --latest
+
+          echo "Release publicada: $RELEASE_TAG"

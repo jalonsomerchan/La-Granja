@@ -1,0 +1,53 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "rows": {
+    "meadow": {
+      "row": 0,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "grass_high": {
+      "row": 1,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "cleared": {
+      "row": 2,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "tilled": {
+      "row": 3,
+      "columns": [
+        0,
+        1
+      ]
+    },
+    "sown": {
+      "row": 3,
+      "columns": [
+        2,
+        3
+      ]
+    }
+  }
+}

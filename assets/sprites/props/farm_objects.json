@@ -1,0 +1,74 @@
+{
+  "fence_horizontal": {
+    "row": 0,
+    "column": 0,
+    "size": [
+      64,
+      32
+    ]
+  },
+  "fence_vertical": {
+    "row": 0,
+    "column": 1,
+    "size": [
+      32,
+      64
+    ]
+  },
+  "produce_crate": {
+    "row": 0,
+    "column": 2,
+    "size": [
+      48,
+      40
+    ]
+  },
+  "barrel": {
+    "row": 1,
+    "column": 0,
+    "size": [
+      40,
+      48
+    ]
+  },
+  "grain_sacks": {
+    "row": 1,
+    "column": 1,
+    "size": [
+      48,
+      40
+    ]
+  },
+  "wooden_sign": {
+    "row": 1,
+    "column": 2,
+    "size": [
+      40,
+      48
+    ]
+  },
+  "well": {
+    "row": 2,
+    "column": 0,
+    "size": [
+      64,
+      64
+    ]
+  },
+  "market_stand": {
+    "row": 2,
+    "column": 1,
+    "size": [
+      96,
+      96
+    ]
+  },
+  "bench": {
+    "row": 2,
+    "column": 2,
+    "size": [
+      64,
+      40
+    ]
+  }
+}

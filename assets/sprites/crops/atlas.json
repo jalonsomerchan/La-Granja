@@ -1,0 +1,114 @@
+{
+  "turnip": {
+    "index": 0,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "carrot": {
+    "index": 1,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "potato": {
+    "index": 2,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "lettuce": {
+    "index": 3,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "strawberry": {
+    "index": 4,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "tomato": {
+    "index": 5,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "corn": {
+    "index": 6,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "pepper": {
+    "index": 7,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "pumpkin": {
+    "index": 8,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "eggplant": {
+    "index": 9,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "spinach": {
+    "index": 10,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "garlic": {
+    "index": 11,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "melon": {
+    "index": 12,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "wheat": {
+    "index": 13,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "blueberry": {
+    "index": 14,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "herbs": {
+    "index": 15,
+    "cell": [
+      64,
+      64
+    ]
+  }
+}

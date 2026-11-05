@@ -1,0 +1,13 @@
+{
+  "cell": [
+    32,
+    32
+  ],
+  "columns": 4,
+  "rows": [
+    "concrete",
+    "asphalt",
+    "cobblestone",
+    "gravel"
+  ]
+}

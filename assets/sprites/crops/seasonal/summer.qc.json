@@ -1,0 +1,902 @@
+[
+  {
+    "id": "tomato",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "corn",
+    "kind": "produce",
+    "bounds": [
+      11,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "pepper",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "melon",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "wheat",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "blueberry",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tomate_cherry",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_rojo",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_amarillo",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "calabacin",
+    "kind": "produce",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pepino",
+    "kind": "produce",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "sandia",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "judia_verde",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "soja",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cacahuete",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "arroz",
+    "kind": "produce",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mijo",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "sesamo",
+    "kind": "produce",
+    "bounds": [
+      5,
+      16,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "girasol",
+    "kind": "produce",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "albahaca_morada",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "oregano",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "mejorana",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "eneldo",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "frambuesa_de_verano",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mora",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "physalis",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "grosella_roja",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chile",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "okra",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "tomatillo",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "tomato",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "corn",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pepper",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "melon",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "wheat",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "blueberry",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tomate_cherry",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_rojo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_amarillo",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "calabacin",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pepino",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "sandia",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "judia_verde",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "soja",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cacahuete",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "arroz",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mijo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "sesamo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "girasol",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "albahaca_morada",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "oregano",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mejorana",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "eneldo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "frambuesa_de_verano",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mora",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "physalis",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "grosella_roja",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chile",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "okra",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tomatillo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tomato",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "corn",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "pepper",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "melon",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "wheat",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "blueberry",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "tomate_cherry",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_rojo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "pimiento_amarillo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "calabacin",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "pepino",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "sandia",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "judia_verde",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "soja",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "cacahuete",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "arroz",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "mijo",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "sesamo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "girasol",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "albahaca_morada",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "oregano",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "mejorana",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "eneldo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "frambuesa_de_verano",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "mora",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "physalis",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "grosella_roja",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "chile",
+    "kind": "seeds",
+    "bounds": [
+      12,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "okra",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "tomatillo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  }
+]

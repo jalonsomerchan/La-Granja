@@ -1,0 +1,16 @@
+{
+  "oak": {
+    "file": "trees/oak.png",
+    "cell": [
+      80,
+      96
+    ]
+  },
+  "apple": {
+    "file": "trees/apple.png",
+    "cell": [
+      80,
+      96
+    ]
+  }
+}

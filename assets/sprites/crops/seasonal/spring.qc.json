@@ -1,0 +1,902 @@
+[
+  {
+    "id": "turnip",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "carrot",
+    "kind": "produce",
+    "bounds": [
+      16,
+      6,
+      47,
+      59
+    ]
+  },
+  {
+    "id": "potato",
+    "kind": "produce",
+    "bounds": [
+      5,
+      18,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lettuce",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "strawberry",
+    "kind": "produce",
+    "bounds": [
+      5,
+      18,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "guisante",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "haba",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "esparrago",
+    "kind": "produce",
+    "bounds": [
+      14,
+      6,
+      49,
+      59
+    ]
+  },
+  {
+    "id": "alcachofa",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "cebolleta",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "remolacha",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "acelga",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rucula",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "berro",
+    "kind": "produce",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "albahaca",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perejil",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cilantro",
+    "kind": "produce",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebollino",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "menta",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "manzanilla",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lavanda",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "lino",
+    "kind": "produce",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "coliflor",
+    "kind": "produce",
+    "bounds": [
+      5,
+      17,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "brocoli",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "repollo",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "apio",
+    "kind": "produce",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "hinojo",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "mostaza",
+    "kind": "produce",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "borraja",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "turnip",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "carrot",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "potato",
+    "kind": "plants",
+    "bounds": [
+      5,
+      17,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lettuce",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "strawberry",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "guisante",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "haba",
+    "kind": "plants",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "esparrago",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "alcachofa",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebolleta",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "remolacha",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "acelga",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rucula",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "berro",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "albahaca",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perejil",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cilantro",
+    "kind": "plants",
+    "bounds": [
+      5,
+      18,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebollino",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "menta",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "manzanilla",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lavanda",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lino",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "coliflor",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "brocoli",
+    "kind": "plants",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "repollo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "apio",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "hinojo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "mostaza",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "borraja",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "turnip",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "carrot",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "potato",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "lettuce",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "strawberry",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "rabano",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "guisante",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "haba",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "esparrago",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "alcachofa",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "cebolleta",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "remolacha",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "acelga",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "rucula",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "berro",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "albahaca",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "perejil",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "cilantro",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "cebollino",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "menta",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "manzanilla",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "lavanda",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "lino",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "coliflor",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "brocoli",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "repollo",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "apio",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "hinojo",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "mostaza",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "borraja",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  }
+]

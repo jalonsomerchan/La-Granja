@@ -1,0 +1,77 @@
+{
+  "apple": {
+    "files": [
+      "apple_empty.png",
+      "apple_ripe.png"
+    ],
+    "cell": [
+      80,
+      96
+    ],
+    "source_band": [
+      26,
+      324
+    ],
+    "edge_touch": false
+  },
+  "pear": {
+    "files": [
+      "pear_empty.png",
+      "pear_ripe.png"
+    ],
+    "cell": [
+      80,
+      96
+    ],
+    "source_band": [
+      336,
+      702
+    ],
+    "edge_touch": false
+  },
+  "berry": {
+    "files": [
+      "berry_empty.png",
+      "berry_ripe.png"
+    ],
+    "cell": [
+      64,
+      64
+    ],
+    "source_band": [
+      732,
+      951
+    ],
+    "edge_touch": false
+  },
+  "blueberry": {
+    "files": [
+      "blueberry_empty.png",
+      "blueberry_ripe.png"
+    ],
+    "cell": [
+      64,
+      64
+    ],
+    "source_band": [
+      984,
+      1201
+    ],
+    "edge_touch": false
+  },
+  "raspberry": {
+    "files": [
+      "raspberry_empty.png",
+      "raspberry_ripe.png"
+    ],
+    "cell": [
+      64,
+      64
+    ],
+    "source_band": [
+      1250,
+      1486
+    ],
+    "edge_touch": false
+  }
+}

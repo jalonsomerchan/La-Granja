@@ -1,0 +1,902 @@
+[
+  {
+    "id": "canonigos",
+    "kind": "produce",
+    "bounds": [
+      5,
+      18,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "espinaca_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "acelga_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "puerro_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "brocoli_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "coliflor_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "repollo_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lombarda_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_de_milan",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "nabo_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "colinabo",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "rabano_daikon",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "rabano_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chirivia_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "salsifi",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "escorzonera",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tupinambo",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "ajo_tierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebolla_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "escarola_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "endibia_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "achicoria",
+    "kind": "produce",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rucula_silvestre",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "berro_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perejil_de_invierno",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perifollo",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "canonigos",
+    "kind": "plants",
+    "bounds": [
+      5,
+      18,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "espinaca_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      16,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "acelga_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "puerro_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "brocoli_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "coliflor_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "repollo_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      16,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lombarda_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_de_milan",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "nabo_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "colinabo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano_daikon",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chirivia_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "salsifi",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "escorzonera",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "tupinambo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "ajo_tierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      14,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebolla_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "escarola_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "endibia_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "achicoria",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rucula_silvestre",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "berro_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perejil_de_invierno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "perifollo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "canonigos",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "espinaca_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "acelga_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "puerro_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "brocoli_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "coliflor_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "repollo_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "lombarda_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "col_de_milan",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "nabo_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "colinabo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "rabano_daikon",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "rabano_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "chirivia_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "salsifi",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "escorzonera",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "tupinambo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "ajo_tierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "cebolla_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "escarola_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "endibia_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      52,
+      59
+    ]
+  },
+  {
+    "id": "achicoria",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "rucula_silvestre",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "berro_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "perejil_de_invierno",
+    "kind": "seeds",
+    "bounds": [
+      11,
+      6,
+      53,
+      59
+    ]
+  },
+  {
+    "id": "perifollo",
+    "kind": "seeds",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  }
+]

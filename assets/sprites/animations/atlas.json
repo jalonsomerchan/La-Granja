@@ -1,0 +1,56 @@
+{
+  "axe": {
+    "row": 0,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  },
+  "hoe": {
+    "row": 1,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  },
+  "water": {
+    "row": 2,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  },
+  "scythe": {
+    "row": 3,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  },
+  "pickaxe": {
+    "row": 4,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  },
+  "plant": {
+    "row": 5,
+    "frames": 4,
+    "fps": 12,
+    "cell": [
+      32,
+      48
+    ]
+  }
+}

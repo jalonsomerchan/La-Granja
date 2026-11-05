@@ -1,0 +1,4 @@
+Original pixel-art 4-direction farmer walk cycle for FARM LIFE. 4 columns × 4 rows with a transparent background. Same cozy farmhand throughout: teal-green cap, cream shirt, terracotta overalls, leather boots and warm face. Top-down three-quarter RPG view. Rows face down, left, right and up; four walk frames per row with alternating feet and arm swing. Crisp deliberate pixel clusters, warm limited palette, soft dark outlines. No background, grid, text or props.
+
+Source image: farmer_walk.png (1153 × 1364 RGBA)
+Runtime atlas: farmer_walk_32x48.png (4 × 4 cells, 32 × 48 each)

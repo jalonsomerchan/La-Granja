@@ -1,0 +1,65 @@
+{
+  "rock_cluster": {
+    "index": 0,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "boulder": {
+    "index": 1,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "stone_pair": {
+    "index": 2,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "berry_bush": {
+    "index": 3,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "flower_bush": {
+    "index": 4,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "fern_bush": {
+    "index": 5,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "tall_grass": {
+    "index": 6,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "daisies": {
+    "index": 7,
+    "cell": [
+      64,
+      64
+    ]
+  },
+  "thistle": {
+    "index": 8,
+    "cell": [
+      64,
+      64
+    ]
+  }
+}

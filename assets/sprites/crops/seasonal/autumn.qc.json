@@ -1,0 +1,902 @@
+[
+  {
+    "id": "pumpkin",
+    "kind": "produce",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "eggplant",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "spinach",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "garlic",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "boniato",
+    "kind": "produce",
+    "bounds": [
+      5,
+      20,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebolla",
+    "kind": "produce",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "puerro",
+    "kind": "produce",
+    "bounds": [
+      10,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "lombarda",
+    "kind": "produce",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chirivia",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "nabo_morado",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "escarola",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "endibia",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas",
+    "kind": "produce",
+    "bounds": [
+      5,
+      16,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada",
+    "kind": "produce",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano_negro",
+    "kind": "produce",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_morada",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "remolacha_dorada",
+    "kind": "produce",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_cacahuete",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_espagueti",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "garbanzo",
+    "kind": "produce",
+    "bounds": [
+      5,
+      20,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lenteja",
+    "kind": "produce",
+    "bounds": [
+      5,
+      17,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebada",
+    "kind": "produce",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "avena",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "centeno",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "alforfon",
+    "kind": "produce",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "quinoa",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "salvia",
+    "kind": "produce",
+    "bounds": [
+      6,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "romero",
+    "kind": "produce",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "tomillo",
+    "kind": "produce",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "pumpkin",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "eggplant",
+    "kind": "plants",
+    "bounds": [
+      7,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "spinach",
+    "kind": "plants",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "garlic",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "boniato",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebolla",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "puerro",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lombarda",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "chirivia",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "nabo_morado",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "escarola",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "endibia",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas",
+    "kind": "plants",
+    "bounds": [
+      5,
+      10,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada",
+    "kind": "plants",
+    "bounds": [
+      5,
+      13,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "rabano_negro",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_morada",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "remolacha_dorada",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_cacahuete",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_espagueti",
+    "kind": "plants",
+    "bounds": [
+      5,
+      15,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "garbanzo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      12,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "lenteja",
+    "kind": "plants",
+    "bounds": [
+      5,
+      7,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "cebada",
+    "kind": "plants",
+    "bounds": [
+      5,
+      11,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "avena",
+    "kind": "plants",
+    "bounds": [
+      5,
+      9,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "centeno",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "alforfon",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "quinoa",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "salvia",
+    "kind": "plants",
+    "bounds": [
+      5,
+      8,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "romero",
+    "kind": "plants",
+    "bounds": [
+      6,
+      6,
+      57,
+      59
+    ]
+  },
+  {
+    "id": "tomillo",
+    "kind": "plants",
+    "bounds": [
+      5,
+      6,
+      58,
+      59
+    ]
+  },
+  {
+    "id": "pumpkin",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "eggplant",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "spinach",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "garlic",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "boniato",
+    "kind": "seeds",
+    "bounds": [
+      7,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "cebolla",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "puerro",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "lombarda",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "chirivia",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "nabo_morado",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "escarola",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      56,
+      59
+    ]
+  },
+  {
+    "id": "endibia",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "col_de_bruselas",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "col_rizada",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "colirrabano",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "rabano_negro",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "zanahoria_morada",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "remolacha_dorada",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_cacahuete",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "calabaza_espagueti",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "garbanzo",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "lenteja",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "cebada",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "avena",
+    "kind": "seeds",
+    "bounds": [
+      8,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "centeno",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "alforfon",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "quinoa",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "salvia",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      55,
+      59
+    ]
+  },
+  {
+    "id": "romero",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  },
+  {
+    "id": "tomillo",
+    "kind": "seeds",
+    "bounds": [
+      9,
+      6,
+      54,
+      59
+    ]
+  }
+]

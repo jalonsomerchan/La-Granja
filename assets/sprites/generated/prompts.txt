@@ -1,0 +1,20 @@
+FARM LIFE original sprite generation prompts
+=============================================
+
+TREE_OAK
+One original mature broadleaf woodland tree sprite for the same cozy 16-bit farming RPG style as the reference character. Top-down three-quarter view, lush rounded layered canopy in forest greens with small warm yellow leaf highlights, visible sturdy brown trunk and roots, compact soft ground shadow. No fruit, no flowers, no visible ground tile. Single isolated tree, transparent background, center aligned to trunk foot, clean silhouette and dark soft pixel outline. Deliberate clusters and shading at a readable game-sprite scale, not painterly blur, no text or borders.
+
+TREE_APPLE
+One original reusable game sprite of a mature apple tree for a cozy 16-bit farm RPG. Match the visual language of the referenced farmer sprite: warm, richly shaded pixel clusters, soft dark brown outlines, muted teal-green and natural colors. Top-down three-quarter view. Full recognizable tree with leafy layered round crown, visible trunk, small warm red apples, compact soft shadow directly underneath. Transparent background. Single isolated tree only, centered, trunk base aligned bottom-center, no tile, no ground plate, no text, no second tree, no border. Crown readable at 64x80 pixel size when reduced.
+
+GROUND_PROPS
+Original 3 columns by 3 rows prop sprite atlas for a cozy pixel-art farming game, exactly nine isolated reusable ground props in equal cells on transparent background, no grid, borders or text. Match the FARM LIFE farmer's warm 16-bit pixel clusters, dark soft outlines, teal forest palette and warm lighting. Row-major: low cluster of three gray mossy stones; large faceted gray boulder; two smaller round stones; leafy berry shrub with red berries; round dense green shrub with golden flowers; broad low fern bush; tuft of tall wild grass; white and yellow daisies; wild weed with purple flower heads. Soft tiny shadow, centered, generous transparent margin, consistent three-quarter top-down perspective and scale.
+
+CROPS
+Original 4 columns by 4 rows pixel-art atlas of 16 mature farm crop sprites on transparent background. Match FARM LIFE's warm polished 16-bit pixel-art look: crisp pixel clusters, soft dark outlines, warm sunlight, clear silhouettes. Each cell contains one isolated whole crop with foliage and recognizable produce, three-quarter top-down garden view, centered, bottom anchored, consistent scale, generous transparent padding, no ground tile, lines, labels, text or overlapping shadows. Row-major: purple-white turnip; orange carrot; potato plant with visible brown potatoes; lettuce; strawberry plant with red berries; tomato vine; sweet-corn stalk; bell-pepper plant with red, green and yellow peppers; pumpkin vine; eggplant; spinach; garlic; striped melon; wheat; blueberry bush; aromatic herbs.
+
+TERRAIN_STATES
+2 columns × 2 rows pixel-art terrain tile atlas with four square states: tall wild grass over green-brown soil; cleared moist brown earth with a few cut stems; freshly hoed earth with three clear furrows; freshly hoed earth with tiny planted sprouts. Match FARM LIFE warm 16-bit palette. Top-down view, distinct seamless tile edges, no text, no grid or perspective distortion.
+
+PLAYER_TOOL_ACTIONS
+Exact 4 columns × 6 rows transparent pixel-art animation atlas of the same FARM LIFE farmer. Each cell is a consistent 32×48 effective sprite, top-down three-quarter view facing the work target. Rows in order, four frames each: axe chop (ready, lift, strike, recover); hoe (ready, raise, hit, recover); watering can (hold, tilt, pour drops, return); scythe (ready, wind-up, sweep, recover); pickaxe (ready, raise, strike chips, recover); sowing (crouch, reach, place seed, stand). Keep costume, face, frame scale and foot anchor consistent. No labels, grid, borders or background.
